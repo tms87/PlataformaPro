@@ -4,14 +4,18 @@ import Container from '@material-ui/core/Container';
 import { useStyles } from './login';
 import Activities from './activities/Activities';
 import Profile from './users/Profile';
+import Patients from './users/Patients';
 
-export default function Home(props) {
+export default function Body(props) {
   const classes = useStyles();
+
   return (
-  <body>
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      {props.page == "profile"?<Profile/>:<Activities/>}
-    </Container>
-  </body>);
+    <Container component="main" maxWidth="xl">
+      {<CssBaseline />}  
+      {(props.page == "profile" && <Profile/>)
+        || (props.page == "patients" && <Patients page={props.page} setPage={props.setPage}/>)
+        || (props.page == "activities" && <Activities/>)
+      }
+   </Container>
+  );
 }

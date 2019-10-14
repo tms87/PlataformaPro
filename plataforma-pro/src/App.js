@@ -9,8 +9,8 @@ export default function App() {
   return (
     <div className="App">
       <Header/>
-      <Body page={page} handleChange={setPage}/>
-      <Footer page={page} handleChange={setPage}/>
+      <Body page={page} setPage={setPage}/>
+      <Footer page={page} setPage={setPage}/>
     </div>
   )
 }
