@@ -15,8 +15,8 @@ body div{
 
 .cuerpo{
   display: grid;
-
-  padding: 10%;
+  width: 100%;
+  height: 80%;
   background-color: blue;
   grid-template: 1fr / 1fr;
   justify-items: center;

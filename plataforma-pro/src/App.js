@@ -32,9 +32,10 @@ class App extends Component {
     return (
       <div >
         <Router>
-          <Header click={this.drawerToggleClickHandler} />
-          {sideDrawer}
-          {backDrop}
+        {sideDrawer}
+        {backDrop}
+        <Header click={this.drawerToggleClickHandler} />
+
           <main className="cuerpo">
             <Switch>
                 <Route exact path="/actividad" component={Actividad} OnClick={this.drawerToggleClickHandler} />

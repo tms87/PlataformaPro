@@ -15,19 +15,19 @@ const SideDrawer = props => (
         </div>
         <ul>
             <li>
-                <a href="/" className="burger-botton-link" >
+                <a href="/" className="burger-botton-link" onClick={props.click} >
                     <PeopleIcon className="burger-botton-link-icon" />
                     <span className="burger-botton-link-text">Pacientes</span>
                 </a>
             </li>
             <li>
-                <Link to="/actividad" className="burger-botton-link">
+                <Link to="/actividad" className="burger-botton-link" onClick={props.click}>
                     <EventIcon className="burger-botton-link-icon" />
                     <span className="burger-botton-link-text">Actividades</span>
                 </Link>
             </li>
             <li>
-                <a href="/" className="burger-botton-link" >
+                <a href="/" className="burger-botton-link" onClick={props.click} >
                     <ShoppingCartIcon className="burger-botton-link-icon" />
                     <span className="burger-botton-link-text">Productos</span>
                 </a>
