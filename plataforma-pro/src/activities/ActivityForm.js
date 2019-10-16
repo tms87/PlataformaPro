@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(2),
         minWidth: 120,
-        /* flex-direction: row, */
     },
     selectEmpty: {
     marginTop: theme.spacing(2),
@@ -53,16 +52,13 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-  
-  export default function AddActivity(props) {
-    const [values, setValues] = React.useState({
-        type: '',
-    });
+  export default function ActivityForm(props) {
+    /* const [state, setState] = useState(props); */
     const classes = useStyles();
 
     const handleChange = event => {
-        setValues(oldValues => ({
-          ...oldValues,
+        props.setState(oldState => ({
+          ...oldState,
           [event.target.name]: event.target.value,
         }));
     };
@@ -73,10 +69,11 @@ const useStyles = makeStyles(theme => ({
                     <Grid item xs={12}>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                id="name"
-                                label="Nombre"
+                                id="title"
+                                label="Titulo"
                                 className={clsx(classes.textField, classes.dense)}
                                 margin="dense"
+                                defaultValue= {props.title}
                             />
                         </FormControl>
                     </Grid>
@@ -84,7 +81,7 @@ const useStyles = makeStyles(theme => ({
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="type">Tipo</InputLabel>
                         <Select
-                        value={values.type}
+                        value={props.type}
                         onChange={handleChange}
                         inputProps={{
                             name: 'type',
@@ -103,6 +100,7 @@ const useStyles = makeStyles(theme => ({
                             color="primary"
                             className={classes.button}
                             startIcon={<SaveIcon />}
+                            onClick={props.handleCancel}
                             > Aceptar
                         </Button>
                         <Button
@@ -110,7 +108,7 @@ const useStyles = makeStyles(theme => ({
                             color="secondary"
                             className={classes.button}
                             startIcon={<DeleteIcon />}
-                            onClick={props.handleClick}
+                            onClick={props.handleCancel}
                             > Cancelar
                         </Button>
                     </Grid>

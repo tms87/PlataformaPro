@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -16,6 +18,12 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Popper from '@material-ui/core/Popper';
+import Fade from '@material-ui/core/Fade';
+import Paper from '@material-ui/core/Paper';
+import ActivityForm from '../activities/ActivityForm';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -42,61 +50,106 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityCard(props) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [state, setState] = useState(props);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  //para el menu
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+    
+  //para el poper
+  const [anchorPoper, setAnchorPoper] = useState(null);
+  const handleEdit = event => {
+    setAnchorEl(null);
+    setAnchorPoper(anchorPoper ? null : event.currentTarget);
+  };
+  const open = Boolean(anchorPoper);
+  const id = open ? 'edit-popper' : undefined;
 
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            <AssignmentIcon/>
-          </Avatar>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Card className={classes.card}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              <AssignmentIcon/>
+            </Avatar>
+          }
+          action={
+            /* <IconButton aria-label="settings"> */
+              <div>
+              <MoreVertIcon aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick}/>
+              <Menu
+                id="activity-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem aria-describedby={id} variant="contained" onClick={handleEdit}>Editar</MenuItem>
+                <MenuItem onClick={handleClose}>Borrar</MenuItem>
+              </Menu>
+              </div>
+            /* </IconButton> */
+          }
+          title={state.title}
+          subheader="Octubre 14, 2019"
+        />
+        <Popper id={id} open={open} anchorEl={anchorPoper} transition placement="bottom">
+          {({ TransitionProps }) => (
+            <Fade {...TransitionProps} timeout={350}>
+              <Paper className={classes.root}>
+                <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
+                <ActivityForm handleCancel={handleEdit} title={state.title} content={state.content} type={state.type} setState={setState} />
+              </Paper>
+            </Fade>
+          )}
+        </Popper>
+        { props.media && (
+          <CardMedia
+            className={classes.media}
+            image="https://material-ui.com/static/images/cards/paella.jpg"
+            title="Paella"
+          />)
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={props.title}
-        subheader="Octubre 14, 2019"
-      />
-      {/* <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      /> */}
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {props.content}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{props.extendedContent}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.content}
+          </Typography>
         </CardContent>
-      </Collapse>
-    </Card>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>{props.extendedContent}</Typography>
+          </CardContent>
+        </Collapse>
+      </Card>
+    </Container>
   );
 }

@@ -9,11 +9,10 @@ import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
-import AddActivity from './AddActivity';
+import ActivityForm from './ActivityForm';
 
 //const url = 'http://b50eae7d.ngrok.io/api/actividades/profesional/3/cliente/20';
 const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
-//const url = 'https://swapi.co/api/planets/4/';;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,10 +42,10 @@ export default function Activities(props) {
 
   async function fetchApi() {
     try {
-    setLoading(true);
-    const res = await fetch(url);
-    res.json()
-      .then(json => setData(json))
+      setLoading(true);
+      const res = await fetch(url);
+      res.json()
+        .then(json => setData(json))
     } catch (e){
       setErrors(e);
     } finally {
@@ -67,31 +66,37 @@ export default function Activities(props) {
     <CssBaseline />
     <h1>Actividades<BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /></h1>
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper className={classes.root}>
-              <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
-              <AddActivity handleClick={handleClick}/>
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
+      {({ TransitionProps }) => (
+        <Fade {...TransitionProps} timeout={350}>
+          <Paper className={classes.root}>
+            <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
+            <ActivityForm handleCancel={handleClick}/>
+          </Paper>
+        </Fade>
+      )}
+    </Popper>
     <ActivityCard 
       title='Registro Alimenticio'
       content={JSON.stringify((loading)?"loading...":data.activities[0].contenido)}
+      type='2'
       extendedContent='Detalle de las comidas'
+      media= {true}
       />
     <br/>
     <ActivityCard 
       title='Solicitud de Estudios'
       content='contenido breve'
+      type='3'
       extendedContent='Detalle del estudio'
+      media= {false}
       />
     <br/>
     <ActivityCard 
       title='Plan Alimenticio'
       content='contenido breve'
+      type='2'
       extendedContent='Detalle de la dieta'
+      media= {true}
       />
     <br/>
     
