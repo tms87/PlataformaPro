@@ -12,9 +12,9 @@ export default function Body(props) {
   return (
     <Container component="main" maxWidth="xl">
       {<CssBaseline />}  
-      {(props.page == "profile" && <Profile/>)
+      {(props.page == "profile" && <Profile page={props.page} setPage={props.setPage}/>)
         || (props.page == "patients" && <Patients page={props.page} setPage={props.setPage}/>)
-        || (props.page == "activities" && <Activities/>)
+        || (props.page == "activities" && <Activities page={props.page} setPage={props.setPage}/>)
       }
    </Container>
   );

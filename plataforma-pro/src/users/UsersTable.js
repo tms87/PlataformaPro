@@ -6,21 +6,16 @@ export default function UsersTable(props) {
     columns: [
       { title: 'Nombre', field: 'name' },
       { title: 'Apellido', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Sanlıurfa' },
+      { title: 'Ultimo Turno', field: 'lastTurn', type: 'date' },
+      { title: 'Proximo Turno', field: 'nextTurn', type: 'date'
+        //lookup: { 34: 'İstanbul', 63: 'Sanlıurfa' },
       },
     ],
     data: [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-      {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
-      },
+      { name: 'Juan', surname: 'Perez', lastTurn: '10-10-2019' },
+      { name: 'Maria', surname: 'Gutierrez', nextTurn: '25-10-2019' },
+      { name: 'Ernesto', surname: 'Araujo', lastTurn: '03-10-2019' , nextTurn: '22-10-2019' },
+      { name: 'Micaela', surname: 'Rodriguez', lastTurn: '04-10-2019', nextTurn: '24-10-2019' },
     ],
   });
 
@@ -70,13 +65,13 @@ export default function UsersTable(props) {
           }
         },
       ]}
-      components={{
+      /* components={{
         Toolbar: props => (
             <div style={{ backgroundColor: '#e8eaf5' }}>
                 <MTableToolbar {...props} />
             </div>
         ),
-      }}
+      }} */
       /* localization={{
         header: {
           actions: 'Acciones',
