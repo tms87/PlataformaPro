@@ -12,6 +12,7 @@ export default function Patients(props) {
       {/*<CssBaseline />*/}
       <h1>Patients</h1>
       <UsersTable page={props.page} setPage={props.setPage}/>
+      <br/>
     </Container>
   );
 }

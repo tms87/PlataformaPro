@@ -24,6 +24,7 @@ export default function UsersTable(props) {
   return (
     <MaterialTable
       options={{
+        actionsColumnIndex: -1,
         search: true
       }}
       title="Pacientes"

@@ -26,8 +26,12 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from '../activities/ActivityForm';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(3, 2),
+    maxWidth: "600px"
+  },
   card: {
-    maxWidth: 345,
+    maxWidth: 600,
   },
   media: {
     height: 0,
@@ -68,14 +72,14 @@ export default function ActivityCard(props) {
   //para el poper
   const [anchorPoper, setAnchorPoper] = useState(null);
   const handleEdit = event => {
-    setAnchorEl(null);
     setAnchorPoper(anchorPoper ? null : event.currentTarget);
+    setAnchorEl(null);
   };
   const open = Boolean(anchorPoper);
   const id = open ? 'edit-popper' : undefined;
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container>
       <CssBaseline />
       <Card className={classes.card}>
         <CardHeader
@@ -95,16 +99,16 @@ export default function ActivityCard(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem aria-describedby={id} variant="contained" onClick={handleEdit}>Editar</MenuItem>
+                <MenuItem variant="contained" onClick={handleEdit}>Editar</MenuItem>
                 <MenuItem onClick={handleClose}>Borrar</MenuItem>
               </Menu>
               </div>
             /* </IconButton> */
           }
           title={state.title}
-          subheader="Octubre 14, 2019"
+          subheader={state.startDate}
         />
-        <Popper id={id} open={open} anchorEl={anchorPoper} transition placement="bottom">
+        <Popper id={id} open={open} anchorEl={anchorPoper} transition>
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
               <Paper className={classes.root}>
