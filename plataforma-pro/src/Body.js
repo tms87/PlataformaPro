@@ -20,10 +20,10 @@ export default function Body(props) {
   return (
     <Container component="main" maxWidth="xl" className={classes.root}>
       {<CssBaseline />}  
-      {(props.page == "profile" && <Profile page={props.page} setPage={props.setPage}/>)
-        || (props.page == "patients" && <Patients page={props.page} setPage={props.setPage}/>)
-        || (props.page == "activities" && <Activities page={props.page} setPage={props.setPage}/>)
-        || (props.page == "templates" && <Templates page={props.page} setPage={props.setPage}/>)
+      {(props.page === "profile" && <Profile page={props.page} setPage={props.setPage}/>)
+        || (props.page === "patients" && <Patients page={props.page} setPage={props.setPage}/>)
+        || (props.page === "activities" && <Activities page={props.page} setPage={props.setPage}/>)
+        || (props.page === "templates" && <Templates page={props.page} setPage={props.setPage}/>)
       }
    </Container>
   );

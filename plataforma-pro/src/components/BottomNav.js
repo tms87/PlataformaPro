@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import AppsRoundedIcon from '@material-ui/icons/AppsRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import AssignmentRoundedIcon from '@material-ui/icons/AssignmentRounded';
 import DynamicFeedRoundedIcon from '@material-ui/icons/DynamicFeedRounded';

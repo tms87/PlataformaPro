@@ -1,25 +1,28 @@
-import React, {ReactElement} from 'react';
-import MaterialTable, {MTableToolbar} from 'material-table';
+import React, {useEffect} from 'react';
+import MaterialTable from 'material-table';
+import UserInfo from './UsersInfo';
+import UsersController from './UsersController';
 
 export default function UsersTable(props) {
-  const [state, setState] = React.useState({
-    columns: [
-      { title: 'Nombre', field: 'name' },
-      { title: 'Apellido', field: 'surname' },
-      { title: 'Ultimo Turno', field: 'lastTurn', type: 'date' },
-      { title: 'Proximo Turno', field: 'nextTurn', type: 'date'
-        //lookup: { 34: 'İstanbul', 63: 'Sanlıurfa' },
-      },
-    ],
-    data: [
-      { name: 'Juan', surname: 'Perez', lastTurn: '10-10-2019' },
-      { name: 'Maria', surname: 'Gutierrez', nextTurn: '25-10-2019' },
-      { name: 'Ernesto', surname: 'Araujo', lastTurn: '03-10-2019' , nextTurn: '22-10-2019' },
-      { name: 'Micaela', surname: 'Rodriguez', lastTurn: '04-10-2019', nextTurn: '24-10-2019' },
-      { name: 'Carolina', surname: 'Saenz', lastTurn: '04-10-2019', nextTurn: '22-10-2019' },
-      { name: 'Javier', surname: 'Suarez', lastTurn: '03-10-2019', nextTurn: '21-10-2019' },
-    ],
-  });
+  const [state, setState] = React.useState(UserInfo);
+
+  useEffect( () => 
+  async function fetchData() {
+      const endpoint = 'http://localhost:8080/getUsers';
+      const options = {
+          method:'GET',
+          mode: "cors",
+          headers: {'Content-Type': 'application/json'},
+      };
+      try {
+          const res = await fetch(endpoint, options);
+          const resObject = await res.json();
+          setState(resObject);
+      } catch(error) {
+          console.error('Error: ', error);
+      }
+      fetchData();
+  }, [])
 
   return (
     <MaterialTable
@@ -38,6 +41,7 @@ export default function UsersTable(props) {
               const data = [...state.data];
               data.push(newData);
               setState({ ...state, data });
+              UsersController.insertUser(data);
             }, 600);
           }),
         onRowUpdate: (newData, oldData) =>
@@ -47,6 +51,7 @@ export default function UsersTable(props) {
               const data = [...state.data];
               data[data.indexOf(oldData)] = newData;
               setState({ ...state, data });
+              UsersController.updateUser(data);
             }, 600);
           }),
         onRowDelete: oldData =>
@@ -56,6 +61,7 @@ export default function UsersTable(props) {
               const data = [...state.data];
               data.splice(data.indexOf(oldData), 1);
               setState({ ...state, data });
+              UsersController.deleteUser(data);
             }, 600);
           }),
       }}

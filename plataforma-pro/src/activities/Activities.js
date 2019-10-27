@@ -18,7 +18,7 @@ const url = 'http://355f297c.ngrok.io/api/actividades/profesional/35/cliente/25'
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
-    maxWidth: "600px"
+    maxWidth: "600px",
   },
 }));
 
@@ -76,10 +76,11 @@ export default function Activities(props) {
       )}
     </Popper>
     {(loading)?"loading...":
-      <Grid container spacing={3}>
+      <Grid container spacing={3}
+        >
         {data.map((item,key) => 
           <Grid item xs={12}>
-            <ActivityCard 
+            <ActivityCard
               title= {(loading)?"loading...":toString(item.titulo)}
               content={(loading)?"loading...":toString(item.contenido)}
               type={(loading)?"loading...":toString(item.tipo_id)}
