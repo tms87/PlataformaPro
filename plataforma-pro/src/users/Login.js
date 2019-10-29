@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import ReactDOM from 'react-dom';
 import logo from '../minilogo.png'
 //import App from '../App';
-import UserController from './UserController';
+import UserController from './LoginController';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import { ThemeProvider } from '@material-ui/styles';

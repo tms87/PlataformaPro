@@ -8,7 +8,7 @@ export default function UsersTable(props) {
 
   useEffect( () => 
   async function fetchData() {
-      const endpoint = 'http://localhost:8080/getUsers';
+      const endpoint = 'http://141aa639.ngrok.io/api/profesionalclientes';
       const options = {
           method:'GET',
           mode: "cors",
@@ -39,8 +39,12 @@ export default function UsersTable(props) {
             setTimeout(() => {
               resolve();
               const data = [...state.data];
+              console.log('asda' + newData);
+              console.log('kkkk' + data);
               data.push(newData);
               setState({ ...state, data });
+              console.log('llllll' + state.columns.toString() + 'asdasd' + state.data);
+              console.log('ooooooo' + JSON.parse(state));
               UsersController.insertUser(data);
             }, 600);
           }),

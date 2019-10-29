@@ -1,4 +1,4 @@
-const url ="http://localhost:8080";
+const url ="http://141aa639.ngrok.io/api/profesionalclientes/";
 const urlInsertUser = "/insertUser";
 const urlUpdateUser = "/updateUser";
 const urlDeleteUser = "/deleteUser";
@@ -7,7 +7,7 @@ class UserController
 {
     async insertUser(data)
     {
-        const endpoint = `${url}${urlInsertUser}`;
+        const endpoint = `${url}`;
         const options = {
             method:'POST',
             mode: "cors",
@@ -25,7 +25,7 @@ class UserController
     };
 
     async updateUser(data) {
-        const endpoint = `${url}${urlUpdateUser}`;
+        const endpoint = `${url}${data.name}`;
         const options = {
             method:'POST',
             mode: "cors",
@@ -43,7 +43,8 @@ class UserController
     }
 
     async deleteUser(data) {
-        const endpoint = `${url}${urlDeleteUser}`;
+        console.log(data);
+        const endpoint = `${url}${data.name}`;
         const options = {
             method:'DELETE',
             mode: "cors",

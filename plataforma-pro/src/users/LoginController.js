@@ -2,9 +2,9 @@ import App from '../App';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const url ="http://localhost:8080";
+const url ="http://141aa639.ngrok.io/api";
 //const urlInsertUser="/insertUser";
-const urlGetUserLogin="/getUserLogin";
+const urlGetUserLogin="/profesionales/";
 
 class UserController
 {
@@ -21,7 +21,7 @@ class UserController
         })
     }*/
     async getUserLogin(data) {
-        const endpoint = `${url}${urlGetUserLogin}`;
+        const endpoint = `${url}${urlGetUserLogin}${data.email}`;
         const options = {
             method:'POST',
             mode: "cors",
@@ -33,6 +33,7 @@ class UserController
             const resObject = await res.json();
             console.log(resObject);
             ReactDOM.render(<App />, document.getElementById('root'));
+            alert('Bienvenido ' + resObject.nombre)
         } catch (error) {
             console.error('Error: ', error);
         }
