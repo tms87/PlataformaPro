@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 
-const url = 'http://355f297c.ngrok.io/api/actividades/profesional/35/cliente/25';
+const url = 'http://01ba43fa.ngrok.io/api/actividades/profesional/35/cliente/25';
 //const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
@@ -45,7 +45,7 @@ export default function Activities(props) {
       setLoading(false);
     }
   }
-  
+
   function toString(json){
     if (json != null){
       return JSON.stringify(json).replace(/"/g,'')
@@ -57,10 +57,51 @@ export default function Activities(props) {
   const handleClick = event => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
-  
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
 
+  const handleAccept = event => {
+    console.log(data.title)
+    const today = new Date();
+    const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const form = {
+        titulo: data.title,
+        contenido: data.content,
+        descripcion: data.description,
+        tipo_id: data.type,
+        cliente_id: "25",
+        profesional_id: "35",
+        fecha_inicio: startDate,
+    }
+    const template = {
+        titulo: data.title,
+        contenido: data.content,
+        descripcion: data.description,
+        tipo_id: data.type,
+        template: data.template
+    }
+    console.log(form)
+    fetch('http://01ba43fa.ngrok.io/api/actividades',{
+        method: 'POST',
+        headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+    })
+    fetch('https://lalalal.free.beeceptor.com/actividades',{
+        method: 'POST',
+        headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+    })
+    handleClick();
+}
  
   return (<Container>
     <CssBaseline />
@@ -70,7 +111,11 @@ export default function Activities(props) {
         <Fade {...TransitionProps} timeout={350}>
           <Paper className={classes.root}>
             <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
-            <ActivityForm handleCancel={handleClick}/>
+            <ActivityForm 
+              handleAccept={handleAccept}
+              handleCancel={handleClose}
+              isBoarding= {true}
+            />
           </Paper>
         </Fade>
       )}
@@ -80,10 +125,12 @@ export default function Activities(props) {
         {data.map((item,key) => 
           <Grid item xs={12}>
             <ActivityCard 
+              key={key}
+              activityId={(loading)?"":toString(item.id)}
               title= {(loading)?"loading...":toString(item.titulo)}
+              description={(loading)?"loading...":toString(item.descripcion)}
               content={(loading)?"loading...":toString(item.contenido)}
               type={(loading)?"loading...":toString(item.tipo_id)}
-              extendedContent={(loading)?"loading...":toString(item.descripcion)}
               startDate={(loading)?"loading...":toString(item.fecha_inicio)}
               /* media= {true} */
             />
@@ -91,6 +138,5 @@ export default function Activities(props) {
         )}
       </Grid>
     }
-    
   </Container>);
 }
