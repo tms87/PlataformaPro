@@ -62,15 +62,19 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
+  
   export default function ActivityForm(props) {
     const [state, setState] = useState(props);
     const classes = useStyles();
 
     const handleChange = event => {
+        const name = event.target.name;
+        const value = event.target.value;
         setState(oldState => ({
           ...oldState,
-          [event.target.name]: event.target.value,
+          [name]: value,
         }));
+        console.log(state.title +" "+event.target.name+" "+event.target.value)
     };
     return (
         <div className={classes.root}>
@@ -80,10 +84,12 @@ const useStyles = makeStyles(theme => ({
                         <FormControl className={classes.formControl}>
                             <TextField
                                 id="title"
+                                name="title"
                                 label="Titulo"
                                 className={clsx(classes.textField, classes.dense)}
                                 margin="normal"
-                                defaultValue= {state.title}
+                                value= {state.title}
+                                onChange={handleChange}
                             />
                         </FormControl>
                     </Grid>
@@ -91,10 +97,12 @@ const useStyles = makeStyles(theme => ({
                         <FormControl className={classes.formControl}>
                             <TextField
                                 id="description"
+                                name="description"
                                 label="Descripcion"
                                 className={clsx(classes.textField, classes.dense)}
                                 margin="dense"
-                                defaultValue= {state.title}
+                                value= {state.description}
+                                onChange={handleChange}
                             />
                         </FormControl>
                     </Grid>
@@ -118,8 +126,9 @@ const useStyles = makeStyles(theme => ({
                     <Grid item xs={12}>
                     <FormControl className={classes.formControl}>
                         <TextField
-                            id="extendedContent"
+                            id="content"
                             label="Detalle"
+                            name="content"
                             style={{ margin: 8, width:500 }}
                             placeholder="Ingrese aquí los detalles de la actividad"
                             fullWidth
@@ -127,27 +136,32 @@ const useStyles = makeStyles(theme => ({
                             rows="4"
                             margin="normal"
                             variant="outlined"
+                            value={state.content}
+                            onChange={handleChange}
                             InputLabelProps={{
                             shrink: true,
                             }}
                         />
                     </FormControl>
                     </Grid>
-                    <Grid>
-                    <FormControlLabel className={classes.formControl}
-                        value="template"
-                        control={<Checkbox color="primary" />}
-                        label="Usar como Plantilla"
-                        labelPlacement="Usar como Plantilla"
-                        />
-                    </Grid>
+                    { state.isBoarding && (
+                        <Grid>
+                            <FormControlLabel className={classes.formControl}
+                                value={state.template}
+                                control={<Checkbox color="primary" />}
+                                label="Usar como Plantilla"
+                                labelPlacement="end"
+                                onChange={handleChange}
+                                />
+                        </Grid>
+                    )}
                     <Grid item xs={12} className={classes.buttons}>
                         <Button
                             variant="contained"
                             color="primary"
                             className={classes.button}
                             startIcon={<SaveIcon />}
-                            onClick={state.handleCancel}
+                            onClick={state.handleAccept}
                             > Aceptar
                         </Button>
                         <Button

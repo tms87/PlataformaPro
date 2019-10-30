@@ -74,6 +74,31 @@ export default function ActivityCard(props) {
   const handleEdit = event => {
     setAnchorPoper(anchorPoper ? null : event.currentTarget);
     setAnchorEl(null);
+    const form = {
+      titulo: state.title,
+      contenido: state.content,
+      descripcion: state.description,
+      tipo_id: state.type,
+      cliente_id: "25",
+      profesional_id: "35",
+      fecha_inicio: state.startDate,
+    }
+    fetch('http://01ba43fa.ngrok.io/api/actividades/'+state.activityId,{
+        method: 'POST',
+        headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+    })
+    fetch('https://lalalal.free.beeceptor.com/actividades/'+state.activityId,{
+            method: 'POST',
+            headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form),
+        })
   };
   const open = Boolean(anchorPoper);
   const id = open ? 'edit-popper' : undefined;
@@ -113,12 +138,12 @@ export default function ActivityCard(props) {
             <Fade {...TransitionProps} timeout={350}>
               <Paper className={classes.root}>
                 <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
-                <ActivityForm handleCancel={handleEdit} title={state.title} content={state.content} type={state.type} setState={setState} />
+                <ActivityForm handleAccept={handleEdit} handleCancel={handleClose} title={state.title} content={state.content} type={state.type} description={state.description} isBoarding={false} setState={setState}/>
               </Paper>
             </Fade>
           )}
         </Popper>
-        { props.media && (
+        { state.media && (
           <CardMedia
             className={classes.media}
             image="https://material-ui.com/static/images/cards/paella.jpg"
@@ -127,7 +152,7 @@ export default function ActivityCard(props) {
         }
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.content}
+            {state.content}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -150,7 +175,7 @@ export default function ActivityCard(props) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>{props.extendedContent}</Typography>
+            <Typography paragraph>{state.extendedContent}</Typography>
           </CardContent>
         </Collapse>
       </Card>
