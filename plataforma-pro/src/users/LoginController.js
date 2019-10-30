@@ -2,7 +2,7 @@ import App from '../App';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const url ="http://141aa639.ngrok.io/api";
+const url ="http://318d4634.ngrok.io/api";
 //const urlInsertUser="/insertUser";
 const urlGetUserLogin="/profesionales/";
 

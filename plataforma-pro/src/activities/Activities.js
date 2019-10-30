@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 
-const url = 'http://01ba43fa.ngrok.io/api/actividades/profesional/35/cliente/25';
+const url = 'http://318d4634.ngrok.io/api/actividades/profesional/35/cliente/25';
 //const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
@@ -84,7 +84,7 @@ export default function Activities(props) {
         template: data.template
     }
     console.log(form)
-    fetch('http://01ba43fa.ngrok.io/api/actividades',{
+    fetch('http://318d4634.ngrok.io/api/actividades',{
         method: 'POST',
         headers: {
         Accept: 'application/json',

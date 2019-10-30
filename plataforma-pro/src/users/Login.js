@@ -26,6 +26,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
 import fondo from './fondoLogin.png';
+import SignUp from './SignUp';
 
 const theme = createMuiTheme({
   palette: {
@@ -104,9 +105,9 @@ function Copyright() {
     ReactDOM.render(<App />, document.getElementById('root'));
 };*/
 
-/*const showSignUp = () => {
+const showSignUp = () => {
     ReactDOM.render(<SignUp />, document.getElementById('root'));
-};*/
+};
 
 
 const useStyles = makeStyles(theme => ({
@@ -260,7 +261,7 @@ const handleClose = (event, reason) => {
                         </MaterialLink>
                     </Grid>
                     <Grid item>
-                        <MaterialLink href="#" variant="body2">
+                        <MaterialLink href="#" variant="body2" onClick={showSignUp}>
                             {"Registrarse"}
                         </MaterialLink>
                     </Grid>

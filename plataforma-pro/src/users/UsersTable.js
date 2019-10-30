@@ -55,6 +55,8 @@ export default function UsersTable(props) {
               resolve();
               const data = [...state.data];
               data[data.indexOf(oldData)] = newData;
+              console.log(oldData);
+              console.log(newData);
               setState({ ...state, data });
               UsersController.updateUser(oldData, newData);
             }, 600);
