@@ -1,7 +1,4 @@
 const url ="http://141aa639.ngrok.io/api/profesionalclientes/";
-const urlInsertUser = "/insertUser";
-const urlUpdateUser = "/updateUser";
-const urlDeleteUser = "/deleteUser";
 
 class UserController
 {
@@ -24,13 +21,13 @@ class UserController
         }
     };
 
-    async updateUser(data) {
-        const endpoint = `${url}${data.name}`;
+    async updateUser(oldData, newData) {
+        const endpoint = `${url}${oldData.name}`;
         const options = {
             method:'POST',
             mode: "cors",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
+            body: JSON.stringify(newData)
         };
         try {
             const res = await fetch(endpoint, options);

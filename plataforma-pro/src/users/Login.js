@@ -25,6 +25,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from '@material-ui/icons/Close';
 import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
+import fondo from './fondoLogin.png';
 
 const theme = createMuiTheme({
   palette: {
@@ -111,7 +112,7 @@ function Copyright() {
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundColor: theme.palette.common.white,
+      backgroundImage: `url(${fondo})`,
     },
   },
   paper: {

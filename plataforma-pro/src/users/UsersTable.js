@@ -6,23 +6,27 @@ import UsersController from './UsersController';
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
 
-  useEffect( () => 
-  async function fetchData() {
-      const endpoint = 'http://141aa639.ngrok.io/api/profesionalclientes';
-      const options = {
-          method:'GET',
-          mode: "cors",
-          headers: {'Content-Type': 'application/json'},
-      };
-      try {
-          const res = await fetch(endpoint, options);
-          const resObject = await res.json();
-          setState(resObject);
-      } catch(error) {
-          console.error('Error: ', error);
-      }
+  useEffect( () => {
       fetchData();
-  }, [])
+  } ,[])
+
+  async function fetchData() {
+    const endpoint = 'http://141aa639.ngrok.io/api/profesionalclientes';
+    const options = {
+        method:'GET',
+        mode: "cors",
+        headers: {'Content-Type': 'application/json'},
+    };
+    try {
+        const res = await fetch(endpoint, options);
+        const resObject = await res.json();
+        const data = [...state.data];
+        data.push(resObject);
+        setState({ ...state, data });
+    } catch(error) {
+        console.error('Error: ', error);
+    }
+  }
 
   return (
     <MaterialTable
@@ -39,13 +43,10 @@ export default function UsersTable(props) {
             setTimeout(() => {
               resolve();
               const data = [...state.data];
-              console.log('asda' + newData);
-              console.log('kkkk' + data);
+              console.log(JSON.stringify(newData));
               data.push(newData);
               setState({ ...state, data });
-              console.log('llllll' + state.columns.toString() + 'asdasd' + state.data);
-              console.log('ooooooo' + JSON.parse(state));
-              UsersController.insertUser(data);
+              UsersController.insertUser(newData);
             }, 600);
           }),
         onRowUpdate: (newData, oldData) =>
@@ -55,7 +56,7 @@ export default function UsersTable(props) {
               const data = [...state.data];
               data[data.indexOf(oldData)] = newData;
               setState({ ...state, data });
-              UsersController.updateUser(data);
+              UsersController.updateUser(oldData, newData);
             }, 600);
           }),
         onRowDelete: oldData =>
@@ -65,7 +66,7 @@ export default function UsersTable(props) {
               const data = [...state.data];
               data.splice(data.indexOf(oldData), 1);
               setState({ ...state, data });
-              UsersController.deleteUser(data);
+              UsersController.deleteUser(oldData);
             }, 600);
           }),
       }}
