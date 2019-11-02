@@ -1,4 +1,4 @@
-const url ="http://318d4634.ngrok.io/api/profesionalclientes/";
+const url ="http://beec83ba.ngrok.io/api/profesionalclientes/";
 
 class UserController
 {

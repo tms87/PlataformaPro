@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 
-const url = 'http://318d4634.ngrok.io/api/actividades/profesional/35/cliente/25';
+const url = 'http://beec83ba.ngrok.io/api/actividades/profesional/35/cliente/25';
 //const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
@@ -27,18 +27,19 @@ export default function Activities(props) {
   const [data, setData] = useState([]);
   const [hasError, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [refresh,setRefresh] = useState(false);
   useEffect(() => {
       fetchApi();
-  },[]);
+      console.log("data"+data[0])
+      setRefresh(false);
+  },[refresh]);
 
   async function fetchApi() {
     try {
       setLoading(true);
       const res = await fetch(url);
-      res.json()
-        .then(json => {setData(json);console.log("data"+data)});
-    
+      await res.json()
+      .then(json => {setData(json);});
     } catch (e){
       setErrors(e);
     } finally {
@@ -63,45 +64,11 @@ export default function Activities(props) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
 
-  const handleAccept = event => {
-    console.log(data.title)
-    const today = new Date();
-    const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    const form = {
-        titulo: data.title,
-        contenido: data.content,
-        descripcion: data.description,
-        tipo_id: data.type,
-        cliente_id: "25",
-        profesional_id: "35",
-        fecha_inicio: startDate,
-    }
-    const template = {
-        titulo: data.title,
-        contenido: data.content,
-        descripcion: data.description,
-        tipo_id: data.type,
-        template: data.template
-    }
-    console.log(form)
-    fetch('http://318d4634.ngrok.io/api/actividades',{
-        method: 'POST',
-        headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-    })
-    fetch('https://lalalal.free.beeceptor.com/actividades',{
-        method: 'POST',
-        headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-    })
-    handleClick();
-}
+  const handleUpdate = () => {
+    setAnchorEl(null);
+    /* setData([]); */
+    setTimeout(()=>setRefresh(true),1000);
+  }
  
   return (<Container>
     <CssBaseline />
@@ -112,9 +79,10 @@ export default function Activities(props) {
           <Paper className={classes.root}>
             <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
             <ActivityForm 
-              handleAccept={handleAccept}
+              handleAccept={handleUpdate}
               handleCancel={handleClose}
               isBoarding= {true}
+              setState={setData}
             />
           </Paper>
         </Fade>
@@ -127,6 +95,7 @@ export default function Activities(props) {
           <Grid item xs={12}>
             <ActivityCard 
               key={key}
+              handleUpdate={handleUpdate}
               activityId={(loading)?"":toString(item.id)}
               title= {(loading)?"loading...":toString(item.titulo)}
               description={(loading)?"loading...":toString(item.descripcion)}

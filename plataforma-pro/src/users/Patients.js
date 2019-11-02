@@ -10,7 +10,7 @@ export default function Patients(props) {
   return (
     <Container component="main">
       {/*<CssBaseline />*/}
-      <h1>Patients</h1>
+      <h1>Pacientes</h1>
       <UsersTable page={props.page} setPage={props.setPage}/>
       <br/>
     </Container>

@@ -67,6 +67,48 @@ const useStyles = makeStyles(theme => ({
     const [state, setState] = useState(props);
     const classes = useStyles();
 
+    const handleAccept = () => {
+        console.log(state.title)
+        const today = new Date();
+        const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        const endpoint = (state.isBoarding)?"":state.activityId;
+        const form = {
+            titulo: state.title,
+            contenido: state.content,
+            descripcion: state.description,
+            tipo_id: state.type,
+            cliente_id: "25",
+            profesional_id: "35",
+            fecha_inicio: startDate,
+        }
+        const template = {
+            titulo: state.title,
+            contenido: state.content,
+            descripcion: state.description,
+            tipo_id: state.type,
+            template: state.template,
+            profesional_id: "35",
+        }
+        console.log(form)
+        console.log('http://beec83ba.ngrok.io/api/actividades/'+endpoint)
+        fetch('http://beec83ba.ngrok.io/api/actividades/'+endpoint,{
+            method: 'POST',
+            headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form),
+        })
+        fetch('https://lalalal.free.beeceptor.com/api/actividades/'+endpoint,{
+            method: 'POST',
+            headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form),
+        })
+        state.handleAccept();
+    }
     const handleChange = event => {
         const name = event.target.name;
         const value = event.target.value;
@@ -74,6 +116,7 @@ const useStyles = makeStyles(theme => ({
           ...oldState,
           [name]: value,
         }));
+        
         console.log(state.title +" "+event.target.name+" "+event.target.value)
     };
     return (
@@ -161,7 +204,7 @@ const useStyles = makeStyles(theme => ({
                             color="primary"
                             className={classes.button}
                             startIcon={<SaveIcon />}
-                            onClick={state.handleAccept}
+                            onClick={handleAccept}
                             > Aceptar
                         </Button>
                         <Button
