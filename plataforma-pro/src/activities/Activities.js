@@ -77,11 +77,12 @@ export default function Activities(props) {
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
           <Paper className={classes.root}>
-            <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
+            <Typography className={classes.typography}>Para crear una nueva actividad complete los datos o seleccione una plantilla</Typography>
             <ActivityForm 
               handleAccept={handleUpdate}
               handleCancel={handleClose}
               isBoarding= {true}
+              useTemplate= {false}
               setState={setData}
             />
           </Paper>

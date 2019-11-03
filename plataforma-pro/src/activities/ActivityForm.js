@@ -41,9 +41,16 @@ const useStyles = makeStyles(theme => ({
         width: 200,
     },
     formControl: {
-        margin: theme.spacing(2),
+        marginLeft: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        /* margin: theme.spacing(1), */
         minWidth: 300,
         maxWidth: 800,
+    },
+    template: {
+        minWidth: 100,
+        maxWidth: 300,
+        width: 200,
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -119,10 +126,50 @@ const useStyles = makeStyles(theme => ({
         
         console.log(state.title +" "+event.target.name+" "+event.target.value)
     };
+
+    const handleTemplate = event => {
+        
+    }
+    const handleCheck = name => event => {
+        setState({ ...state, [name]: event.target.checked });
+        console.log(event.target.checked);
+    };
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <form className={classes.container} noValidate autoComplete="off">
+                    { state.isBoarding && (
+                        <Grid className={classes.formControl}>
+                            <FormControlLabel className={classes.formControl}  
+                                control={
+                                    <Checkbox color="primary" 
+                                        checked={state.useTemplate}
+                                        disabled={(state.newTemplate === true)?true:false}
+                                        onChange={handleCheck("useTemplate")}
+                                        value={"useTemplate"}
+                                    />
+                                }
+                                label="Crear desde una Plantilla"
+                                labelPlacement="end"
+                            />
+                            <FormControl className={classes.template}>
+                                <InputLabel htmlFor="template" className={clsx(classes.textField, classes.dense)}>Template</InputLabel>
+                                <Select
+                                    value={state.template}
+                                    onChange={handleTemplate}
+                                    inputProps={{
+                                        name: 'template',
+                                        id: 'template',
+                                    }}
+                                    disabled={(state.useTemplate === false)?true:false}
+                                >
+                                    <MenuItem value={1}>Celiacos</MenuItem>
+                                    <MenuItem value={2}>Deportistas</MenuItem>
+                                    <MenuItem value={3}>Exceso de peso moderado</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    )}
                     <Grid item xs={12}>
                         <FormControl className={classes.formControl}>
                             <TextField
@@ -152,7 +199,7 @@ const useStyles = makeStyles(theme => ({
                     <Grid item xs={12}>
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="type" className={clsx(classes.textField, classes.dense)}>Tipo</InputLabel>
-                            <Select
+                            <Select className={clsx(classes.textField, classes.dense)}
                                 value={state.type}
                                 onChange={handleChange}
                                 inputProps={{
@@ -190,11 +237,16 @@ const useStyles = makeStyles(theme => ({
                     { state.isBoarding && (
                         <Grid>
                             <FormControlLabel className={classes.formControl}
-                                value={state.template}
-                                control={<Checkbox color="primary" />}
-                                label="Usar como Plantilla"
+                                control={
+                                    <Checkbox color="primary" 
+                                        checked={state.newTemplate}
+                                        disabled={(state.useTemplate === true)?true:false}
+                                        onChange={handleCheck("newTemplate")}
+                                        value={"newTemplate"}
+                                    />
+                                }
+                                label="Guardar como Plantilla"
                                 labelPlacement="end"
-                                onChange={handleChange}
                                 />
                         </Grid>
                     )}
