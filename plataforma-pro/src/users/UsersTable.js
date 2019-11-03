@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import UserInfo from './UsersInfo';
-import UsersController from './UsersController';
+import UsersController from './ProfesionalClientesController';
 
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);

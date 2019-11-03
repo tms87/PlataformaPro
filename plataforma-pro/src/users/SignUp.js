@@ -17,7 +17,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import ReactDOM from 'react-dom';
 import App from '../App';
 import Login from './Login';
-//import UserController from './Controller/UserController';
+import UsersController from './UsersController';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -87,8 +87,7 @@ export default function SignUp() {
   const [userData, setUserData] = React.useState({ nombre: '', apellido: '', email: '', password: '',edad:'', nutricionista: '' });
   
   const handleSave = () => {
-    //UserController.insertUser(userData);
-   // ReactDOM.render(<App />, document.getElementById('root'));
+   UsersController.insertUser(userData);
    ReactDOM.render(<App />, document.getElementById('root'));
   };
 
