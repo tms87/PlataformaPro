@@ -84,7 +84,7 @@ const url = 'http://141aa639.ngrok.io/api/clientes';
 export default function SignUp() {
   const classes = useStyles();
 
-  const [userData, setUserData] = React.useState({ nombre: '', apellido: '', email: '', password: '',edad:'', nutricionista: '' });
+  const [userData, setUserData] = React.useState({ nombre: '', apellido: '', dni:'', fecha_nacimiento: '', genero: '', comentarios: '', telefono: '', direccion: '', email: '', nutricionista: '' });
   
   const handleSave = () => {
    UsersController.insertUser(userData);
@@ -134,11 +134,11 @@ export default function SignUp() {
                     variant="outlined"
                     required
                     fullWidth
-                    id="edad"
-                    label="Edad"
-                    name="edad"
-                    value={userData.edad}
-                    onChange={(event) => setUserData({...userData, edad: event.target.value })}
+                    id="dni"
+                    label="DNI"
+                    name="dni"
+                    value={userData.dni}
+                    onChange={(event) => setUserData({...userData, dni: event.target.value })}
                 />
                 </Grid>
                 <Grid item xs={12}>
@@ -159,13 +159,11 @@ export default function SignUp() {
                     variant="outlined"
                     required
                     fullWidth
-                    name="password"
-                    label="Contraseña"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    value={userData.password}
-                    onChange={(event) => setUserData({...userData, password: event.target.value })}
+                    id="direccion"
+                    label="Direccion"
+                    name="direccion"
+                    value={userData.direccion}
+                    onChange={(event) => setUserData({...userData, direccion: event.target.value })}
                 />
                 </Grid>
                 <Grid item xs={12}>
@@ -173,11 +171,45 @@ export default function SignUp() {
                     variant="outlined"
                     required
                     fullWidth
-                    name="passwordAgain"
-                    label="Repetir Contraseña"
-                    type="password"
-                    id="passwordAgain"
-                    autoComplete="current-password"
+                    id="fechaNac"
+                    label="Fecha Nacimiento"
+                    name="fechaNac"
+                    value={userData.fecha_nacimiento}
+                    onChange={(event) => setUserData({...userData, fecha_nacimiento: event.target.value })}
+                />
+                </Grid>
+                <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="telefono"
+                    label="Telefono"
+                    id="telefono"
+                    value={userData.telefono}
+                    onChange={(event) => setUserData({...userData, telefono: event.target.value })}
+                />
+                </Grid>
+                <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="genero"
+                    label="Genero"
+                    id="genero"
+                    onChange={(event) => setUserData({...userData, genero: event.target.value })}
+                />
+                </Grid>
+                <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="comentarios"
+                    label="Comentarios"
+                    id="comentarios"
+                    onChange={(event) => setUserData({...userData, comentarios: event.target.value })}
                 />
                 <InputLabel style={{ marginTop: "25px" }}>¿Cuál es su nutricionista?</InputLabel>
                 <Select 
