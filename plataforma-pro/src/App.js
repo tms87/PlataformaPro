@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
 import './App.css';
 import Body from './Body';
-import Footer from './Footer';
-import Header from './Header';
+import Header from './Layout';
 
 export default function App() {
-  const [page, setPage] = useState("profile");
+  const [page, setPage] = useState("home");
   return (
     <div className="App">
-      <Header/>
+      <Header page={page} setPage={setPage}/>
       <Body page={page} setPage={setPage}/>
-      <Footer page={page} setPage={setPage}/>
     </div>
   )
 }

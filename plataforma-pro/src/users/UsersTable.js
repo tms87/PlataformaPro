@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import UserInfo from './UsersInfo';
 import UsersController from './ProfesionalClientesController';
+import { Container, Typography } from '@material-ui/core';
 
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
@@ -29,6 +30,7 @@ export default function UsersTable(props) {
   }
 
   return (
+    <Typography paragraph>
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
@@ -81,19 +83,8 @@ export default function UsersTable(props) {
           }
         },
       ]}
-      /* components={{
-        Toolbar: props => (
-            <div style={{ backgroundColor: '#e8eaf5' }}>
-                <MTableToolbar {...props} />
-            </div>
-        ),
-      }} */
-      /* localization={{
-        header: {
-          actions: 'Acciones',
-        }
-      }} */
     />
+  </Typography>
   );
 }
 

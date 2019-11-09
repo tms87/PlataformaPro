@@ -1,0 +1,12 @@
+.MuiBottomNavigationAction-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+.MuiBottomNavigationAction-label {
+    margin-left: 20px !important;
+}
+
+.MuiTouchRipple-root {
+    border-radius: 26px !important;
+}

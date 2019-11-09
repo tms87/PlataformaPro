@@ -6,6 +6,7 @@ import Templates from './activities/Templates';
 import Profile from './users/Profile';
 import Patients from './users/Patients';
 import { makeStyles } from '@material-ui/core/styles';
+import Home from './Home';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,8 +20,9 @@ export default function Body(props) {
 
   return (
     <Container component="main" maxWidth="xl" className={classes.root}>
-      {<CssBaseline />}  
-      {(props.page === "profile" && <Profile page={props.page} setPage={props.setPage}/>)
+      {<CssBaseline />}
+      {(props.page === "home" && <Home page={props.page} setPage={props.setPage}/>)
+        || (props.page === "profile" && <Profile page={props.page} setPage={props.setPage}/>)
         || (props.page === "patients" && <Patients page={props.page} setPage={props.setPage}/>)
         || (props.page === "activities" && <Activities page={props.page} setPage={props.setPage}/>)
         || (props.page === "templates" && <Templates page={props.page} setPage={props.setPage}/>)
