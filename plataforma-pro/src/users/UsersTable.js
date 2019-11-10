@@ -11,7 +11,7 @@ export default function UsersTable(props) {
   } ,[])
 
   async function fetchData() {
-    const endpoint = 'http://141aa639.ngrok.io/api/profesionalclientes';
+    const endpoint = 'http://b95ec43e.ngrok.io/api/profesionalclientes';
     const options = {
         method:'GET',
         mode: "cors",

@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
   
-  export default function ActivityForm(props) {
+  export default function TemplateForm(props) {
     const [state, setState] = useState(props);
     const classes = useStyles();
 
@@ -80,7 +80,6 @@ const useStyles = makeStyles(theme => ({
         }
         return "";
     }
-    
     const handleAccept = () => {
         console.log(state.title)
         const today = new Date();
@@ -91,9 +90,8 @@ const useStyles = makeStyles(theme => ({
             contenido: state.content,
             descripcion: state.description,
             tipo_id: state.type,
-            cliente_id: "25",
             profesional_id: "35",
-            template: state.newTemplate,
+            template: true,
             fecha_inicio: startDate,
         }
         fetch('http://b95ec43e.ngrok.io/api/actividades/'+endpoint,{
@@ -104,14 +102,6 @@ const useStyles = makeStyles(theme => ({
             },
             body: JSON.stringify(form),
         })
-        /* fetch('https://lalala.free.beeceptor.com/api/actividades/'+endpoint,{
-            method: 'POST',
-            headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(form),
-        }) */
         state.handleAccept();
     }
     const handleChange = event => {
@@ -121,8 +111,6 @@ const useStyles = makeStyles(theme => ({
           ...oldState,
           [name]: value,
         }));
-        
-        console.log(state.title +" "+event.target.name+" "+event.target.value)
     };
 
     const handleUseTemplate = event => {
@@ -137,12 +125,13 @@ const useStyles = makeStyles(theme => ({
           type: te[0].tipo_id,
           content: te[0].contenido,
         }));
-    }
+     }
     
     const handleCheck = name => event => {
         setState({ ...state, [name]: event.target.checked });
         console.log(event.target.checked);
     };
+
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
@@ -245,22 +234,6 @@ const useStyles = makeStyles(theme => ({
                         />
                     </FormControl>
                     </Grid>
-                    { state.isBoarding && (
-                        <Grid>
-                            <FormControlLabel className={classes.formControl}
-                                control={
-                                    <Checkbox color="primary" 
-                                        checked={state.newTemplate}
-                                        disabled={(state.useTemplate === true)?true:false}
-                                        onChange={handleCheck("newTemplate")}
-                                        value={"newTemplate"}
-                                    />
-                                }
-                                label="Guardar como Plantilla"
-                                labelPlacement="end"
-                                />
-                        </Grid>
-                    )}
                     <Grid item xs={12} className={classes.buttons}>
                         <Button
                             variant="contained"

@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 
-const url = 'http://beec83ba.ngrok.io/api/actividades/profesional/35/cliente/25';
+const url = 'http://b95ec43e.ngrok.io/api/actividades/profesional/35/cliente/25';
 //const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
@@ -25,12 +25,13 @@ const useStyles = makeStyles(theme => ({
 export default function Activities(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [hasError, setErrors] = useState(false);
+  const [templates, setTemplates] = useState(null);
+  const [error, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
   const [refresh,setRefresh] = useState(false);
   useEffect(() => {
       fetchApi();
-      console.log("data"+data[0])
+      getTemplates();
       setRefresh(false);
   },[refresh]);
 
@@ -40,6 +41,20 @@ export default function Activities(props) {
       const res = await fetch(url);
       await res.json()
       .then(json => {setData(json);});
+    } catch (e){
+      setErrors(e);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function getTemplates() {
+    try {
+      setLoading(true);
+      const urlT = 'http://b95ec43e.ngrok.io/api/actividades/profesional/35/templates';
+      const res = await fetch(urlT);
+      await res.json()
+      .then(json => {setTemplates(json);});
     } catch (e){
       setErrors(e);
     } finally {
@@ -84,6 +99,7 @@ export default function Activities(props) {
               isBoarding= {true}
               useTemplate= {false}
               setState={setData}
+              templates= {templates}
             />
           </Paper>
         </Fade>
