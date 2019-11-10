@@ -12,15 +12,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import EventNoteIcon from '@material-ui/icons/EventNote';
 import NoteIcon from '@material-ui/icons/Note';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Avatar from '@material-ui/core/Avatar';
-import ProfilePic from './lopez.png';
+import ProfilePic from './img/lopez.png';
 import HomeIcon from '@material-ui/icons/Home';
-import ImagenFondo from './fondo.jpg';
+import ImagenFondo from './img/fondo.jpg';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import MessageIcon from '@material-ui/icons/Message';
@@ -108,11 +107,6 @@ function Header(props) {
             <BottomNavigationAction label="Pacientes" value="patients" icon={<PeopleOutlineIcon />} onClick={() => setTitle("PACIENTES")}/>
           </BottomNavigation>
         </ListItem>
-        <ListItem key="Actividades">
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Actividades" value="activities" icon={<EventNoteIcon />} onClick={() => setTitle("ACTIVIDADES")}/>
-          </BottomNavigation>
-        </ListItem>
         <ListItem key="Plantillas">
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
             <BottomNavigationAction label="Plantillas" value="templates" icon={<NoteIcon />} onClick={() => setTitle("PLANTILLAS")}/>
@@ -133,7 +127,7 @@ function Header(props) {
             <BottomNavigationAction label="Perfil" value="profile" icon={<AccountBoxIcon />} onClick={() => setTitle("PERFIL")}/>
           </BottomNavigation>
         </ListItem>
-        <ListItem key="Logout" style={{ marginTop: "90%" }}>
+        <ListItem key="Logout" style={{ marginTop: "100%" }}>
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
             <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }}/>
           </BottomNavigation>
@@ -208,3 +202,9 @@ function Header(props) {
 }
 
 export default Header;
+
+/*        <ListItem key="Actividades">
+          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
+            <BottomNavigationAction label="Actividades" value="activities" icon={<EventNoteIcon />} onClick={() => setTitle("ACTIVIDADES")}/>
+          </BottomNavigation>
+        </ListItem> */

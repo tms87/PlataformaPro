@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ReactDOM from 'react-dom';
-import logo from '../minilogo.png'
+import logo from '../img/minilogo.png'
 //import App from '../App';
 import UserController from './LoginController';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -25,7 +25,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from '@material-ui/icons/Close';
 import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
-import fondo from './fondoLogin.png';
+import fondo from '../img/fondoLogin.png';
 import SignUp from './SignUp';
 
 const theme = createMuiTheme({

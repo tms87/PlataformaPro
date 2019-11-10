@@ -1,4 +1,5 @@
 const url ="http://beec83ba.ngrok.io/api/profesionales/";
+const urlClientes = "http://b95ec43e.ngrok.io/api/clientes/"
 
 class UsersController
 {
@@ -27,19 +28,18 @@ class UsersController
         }
     };
 
-    async getUser(username)
+    async getClientes()
     {
-        const endpoint = `${url}`;
+        const endpoint = `${urlClientes}`;
         const options = {
-            method:'POST',
+            method:'GET',
             mode: "cors",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(username)
+            headers: {'Content-Type': 'application/json', Accept: 'application/json'},
         };
         try {
             const res = await fetch(endpoint, options);
             const resObject = await res.json();
-            console.log(resObject);
+            return resObject;
         } catch(error) {
             console.error('Error: ', error);
         }

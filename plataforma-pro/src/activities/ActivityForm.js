@@ -88,14 +88,6 @@ const useStyles = makeStyles(theme => ({
             profesional_id: "35",
             fecha_inicio: startDate,
         }
-        const template = {
-            titulo: state.title,
-            contenido: state.content,
-            descripcion: state.description,
-            tipo_id: state.type,
-            template: state.template,
-            profesional_id: "35",
-        }
         console.log(form)
         console.log('http://beec83ba.ngrok.io/api/actividades/'+endpoint)
         fetch('http://beec83ba.ngrok.io/api/actividades/'+endpoint,{
