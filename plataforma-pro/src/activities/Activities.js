@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 
-const url = 'http://beec83ba.ngrok.io/api/actividades/profesional/35/cliente/25';
+const url = 'http://b95ec43e.ngrok.io/api/actividades/profesional/35/cliente/25';
 //const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
