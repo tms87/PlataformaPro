@@ -98,7 +98,7 @@ const useStyles = makeStyles(theme => ({
         }
         console.log(form)
         console.log('http://beec83ba.ngrok.io/api/actividades/'+endpoint)
-        fetch('http://beec83ba.ngrok.io/api/actividades/'+endpoint,{
+        fetch('http://b95ec43e.ngrok.io/api/actividades/'+endpoint,{
             method: 'POST',
             headers: {
             Accept: 'application/json',
@@ -106,7 +106,7 @@ const useStyles = makeStyles(theme => ({
             },
             body: JSON.stringify(form),
         })
-        fetch('https://lalalal.free.beeceptor.com/api/actividades/'+endpoint,{
+        fetch('http://b95ec43e.ngrok.io/api/actividades/'+endpoint,{
             method: 'POST',
             headers: {
             Accept: 'application/json',
