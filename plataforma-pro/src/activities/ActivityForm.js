@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
+import Url from '../url';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -79,6 +80,7 @@ const useStyles = makeStyles(theme => ({
         const today = new Date();
         const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         const endpoint = (state.isBoarding)?"":state.activityId;
+        console.log("Este es el end point" + endpoint)
         const form = {
             titulo: state.title,
             contenido: state.content,
@@ -97,16 +99,17 @@ const useStyles = makeStyles(theme => ({
             profesional_id: "35",
         }
         console.log(form)
-        console.log('http://beec83ba.ngrok.io/api/actividades/'+endpoint)
-        fetch('http://b95ec43e.ngrok.io/api/actividades/'+endpoint,{
+      /*   deje comentado porque el fecth se ejecuta estando dentro de console log y se crea dos veces la misma acti idad
+      console.log(Url +'actividades/'+endpoint)
+        fetch( Url + 'actividades/'+endpoint,{
             method: 'POST',
             headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             },
             body: JSON.stringify(form),
-        })
-        fetch('http://b95ec43e.ngrok.io/api/actividades/'+endpoint,{
+        })*/
+        fetch( Url +'actividades/'+endpoint,{
             method: 'POST',
             headers: {
             Accept: 'application/json',

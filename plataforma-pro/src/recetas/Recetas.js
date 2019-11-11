@@ -11,8 +11,9 @@ import Fade from './../../node_modules/@material-ui/core/Fade';
 import Paper from './../../node_modules/@material-ui/core/Paper';
 import RecetasForm from './RecetasForm';
 import Grid from './../../node_modules/@material-ui/core/Grid';
+import Url from '../url';
 
-const url = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';
+const url = Url + 'recetas/profesional/35';
 
 const useStyles = makeStyles(theme => ({
   root: {

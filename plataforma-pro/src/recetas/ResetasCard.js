@@ -26,6 +26,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ResetasForm from './RecetasForm';
+import Url from '../url';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -92,7 +93,7 @@ export default function ResetaCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch('http://b95ec43e.ngrok.io/api/recetas/'+state.resetaId,{
+    fetch(Url + 'recetas/'+state.resetaId,{
         method: 'DELETE',
         headers: {
         Accept: 'application/json',
@@ -130,7 +131,7 @@ export default function ResetaCard(props) {
               </div>
           }
          
-          title={state.title != "" ? state.title : "Sin titulo"}
+          title={state.title !== "" ? state.title : "Sin titulo"}
           subheader={state.startDate}
         />
          {console.log("Titule es " + state.title) }

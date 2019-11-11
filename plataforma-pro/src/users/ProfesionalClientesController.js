@@ -1,4 +1,6 @@
-const url ="http://beec83ba.ngrok.io/api/profesionalclientes/";
+import Url from '../url';
+
+const url = Url + "profesionalclientes/";
 
 class ProfesionalClienteController
 {

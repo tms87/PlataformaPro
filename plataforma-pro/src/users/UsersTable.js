@@ -3,6 +3,7 @@ import MaterialTable from 'material-table';
 import UserInfo from './UsersInfo';
 import UsersController from './ProfesionalClientesController';
 import { Container, Typography } from '@material-ui/core';
+import Url from '../url';
 
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
@@ -12,7 +13,7 @@ export default function UsersTable(props) {
   } ,[])
 
   async function fetchData() {
-    const endpoint = 'http://141aa639.ngrok.io/api/profesionalclientes';
+    const endpoint = Url + 'profesionalclientes';
     const options = {
         method:'GET',
         mode: "cors",

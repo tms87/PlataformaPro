@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
+import Url from '../url';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -65,34 +66,27 @@ const useStyles = makeStyles(theme => ({
   }));
 
   
-  export default function ActivityForm(props) {
+  export default function ResetaForm(props) {
     const [state, setState] = useState(props);
     const classes = useStyles();
 
     const handleAccept = () => {
-        console.log("Este es un titulo" + state.title)
         const today = new Date();
         const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         const endpoint = (state.isBoarding)?"":state.resetaId;
+        console.log("Este es el end point" + endpoint)
+       
         const form = {
             titulo: state.title,
-            contenido: state.content,
+            content: state.content,
             cliente_id: "25",
             profesional_id: "35",
             fecha_inicio: startDate,
         }
 
-
-        console.log("ACA" + 'http://b95ec43e.ngrok.io/api/recetas/'+endpoint)
-        fetch('http://b95ec43e.ngrok.io/api/recetas/'+endpoint,{
-            method: 'POST',
-            headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(form),
-        })
-        fetch('http://b95ec43e.ngrok.io/api/recetas/'+endpoint,{
+        console.log(form);
+      
+        fetch(Url + 'recetas/'+endpoint,{
             method: 'POST',
             headers: {
             Accept: 'application/json',
@@ -118,7 +112,7 @@ const useStyles = makeStyles(theme => ({
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <form className={classes.container} noValidate autoComplete="off">
-                    
+            { state.isBoarding && (    
                 <Grid item xs={12}>
                         <FormControl className={classes.formControl}>
                             <TextField
@@ -131,9 +125,9 @@ const useStyles = makeStyles(theme => ({
                                 onChange={handleChange}
                             />
                         </FormControl>
-                    </Grid>
+                    </Grid>) }
                   
-                   
+                  { state.isBoarding && (
                     <Grid item xs={12}>
                     <FormControl className={classes.formControl}>
                         <TextField
@@ -154,7 +148,7 @@ const useStyles = makeStyles(theme => ({
                             }}
                         />
                     </FormControl>
-                    </Grid>
+                    </Grid>)}
                    
                     <Grid item xs={12} className={classes.buttons}>
                         <Button
