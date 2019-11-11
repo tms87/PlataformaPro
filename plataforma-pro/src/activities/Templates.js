@@ -64,7 +64,7 @@ export default function Activities(props) {
  
   return (<Container>
     <CssBaseline />
-    <h1>Plantillas<BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /></h1>
+    <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
