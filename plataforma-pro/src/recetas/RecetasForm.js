@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
         console.log("Este es un titulo" + state.title)
         const today = new Date();
         const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        const endpoint = (state.isBoarding)?"":state.activityId;
+        const endpoint = (state.isBoarding)?"":state.resetaId;
         const form = {
             titulo: state.title,
             contenido: state.content,

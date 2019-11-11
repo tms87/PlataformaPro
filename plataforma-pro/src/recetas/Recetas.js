@@ -97,7 +97,7 @@ export default function Resetas(props) {
             <ResetasCard
               key={key}
               handleUpdate={handleUpdate}
-              activityId={(loading)?"":toString(item.id)}
+              resetaId={(loading)?"":toString(item.id)}
               title= {(loading)?"loading...":toString(item.titulo)}
               content={(loading)?"loading...":toString(item.contenido)}
               startDate={(loading)?"loading...":toString(item.fecha_inicio)}

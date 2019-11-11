@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
       backgroundImage: `url(${ImagenFondo})`,
+      height: "auto",
      },
   },
   drawer: {
@@ -60,6 +61,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
+   
   },
   avatar: {
     margin: 10,

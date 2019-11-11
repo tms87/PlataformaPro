@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     maxWidth: 600,
+    margin:"auto",
   },
   media: {
     height: 0,
@@ -91,7 +92,7 @@ export default function ResetaCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch('http://b95ec43e.ngrok.io/api/recetas/'+state.activityId,{
+    fetch('http://b95ec43e.ngrok.io/api/recetas/'+state.resetaId,{
         method: 'DELETE',
         headers: {
         Accept: 'application/json',
@@ -114,7 +115,6 @@ export default function ResetaCard(props) {
                 (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon/></Avatar>)
           }
           action={
-            /* <IconButton aria-label="settings"> */
               <div>
               <MoreVertIcon aria-describedby={id}  variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick}/>
               <Menu
@@ -142,7 +142,7 @@ export default function ResetaCard(props) {
                 <ResetasForm
                   handleAccept={handleEdit}
                   handleCancel={handleClose}
-                  activityId={state.activityId}
+                  resetaId={state.resetaId}
                   title={state.title} 
                   content={state.content}
                   type={state.type}
