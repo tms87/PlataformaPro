@@ -46,7 +46,7 @@ export default function UsersTable(props) {
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
-        search: true
+        search: false
       }}
       title="Pacientes"
       columns={state.columns}
