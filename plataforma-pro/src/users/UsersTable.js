@@ -3,7 +3,6 @@ import MaterialTable from 'material-table';
 import UserInfo from './UsersInfo';
 import ProfesionalClientesController from './ProfesionalClientesController';
 import UsersController from './UsersController';
-import { Typography } from '@material-ui/core';
 
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
@@ -32,11 +31,11 @@ export default function UsersTable(props) {
     try {
         const res = await fetch(endpoint, options);
         const resObject = await res.json();
-        const oldData = state;
-        let newPacientes = [];
-        newPacientes = resObject.map(d => ({ name: d.nombre, surname: d.apellido, dni: d.dni, id: d.id }));
-        oldData.data = newPacientes;
-        setState(oldData);
+        const patientsList = state;
+        let newPatients = [];
+        newPatients = resObject.map(d => ({ name: d.nombre, surname: d.apellido, dni: d.dni, id: d.id }));
+        patientsList.data = newPatients;
+        setState(patientsList);
         tableRef.current.onQueryChange();
     } catch(error) {
         console.error('Error: ', error);
@@ -44,7 +43,6 @@ export default function UsersTable(props) {
   }
 
   return (
-    <Typography paragraph>
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
@@ -78,11 +76,10 @@ export default function UsersTable(props) {
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              console.log(oldData);
               const data = [...state.data];
               data.splice(data.indexOf(oldData), 1);
-              setState({ ...state, data });
               ProfesionalClientesController.deleteUser(oldData.id);
+              setState({ ...state, data });
             }, 600);
           }),
       }}
@@ -103,7 +100,6 @@ export default function UsersTable(props) {
         }
       ]}
     />
-  </Typography>
   );
 }
 

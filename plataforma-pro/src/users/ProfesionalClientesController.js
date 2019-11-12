@@ -24,6 +24,7 @@ class ProfesionalClienteController
     };
 
     async deleteUser(userId) {
+        console.log("dsfdsfsd " + userId);
         const endpoint = `${urlDelete}${userId}`;
         const options = {
             method:'DELETE',
@@ -31,6 +32,8 @@ class ProfesionalClienteController
             headers: {'Content-Type': 'application/json'},
         };
         try {
+            const res = await fetch(endpoint, options);
+            console.log(res);
             alert("Se ha eliminado el usuario");
         } catch (error) {
             console.error('Error: ', error);
