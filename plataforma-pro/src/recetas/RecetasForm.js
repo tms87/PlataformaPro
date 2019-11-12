@@ -77,11 +77,11 @@ const useStyles = makeStyles(theme => ({
         console.log("Este es el end point" + endpoint)
        
         const form = {
-            titulo: state.title,
-            content: state.content,
-            cliente_id: "25",
+            tipo_id : "49",
             profesional_id: "35",
+            contenido: state.content,
             fecha_inicio: startDate,
+            titulo: state.title,
         }
 
         console.log(form);
