@@ -1,5 +1,6 @@
-const url ="http://beec83ba.ngrok.io/api/profesionales/";
-const urlClientes = "http://b95ec43e.ngrok.io/api/clientes/"
+import UrlNgrok from './../url';
+const url = UrlNgrok +"/profesionales/";
+const urlClientes = UrlNgrok + "/clientes/"
 
 class UsersController
 {

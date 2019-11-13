@@ -3,7 +3,7 @@ import MaterialTable from 'material-table';
 import UserInfo from './UsersInfo';
 import ProfesionalClientesController from './ProfesionalClientesController';
 import UsersController from './UsersController';
-
+import UrlNgrok from './../url';
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
   const [nroPaciente, setNroPaciente] = React.useState("");
@@ -22,7 +22,7 @@ export default function UsersTable(props) {
   } ,[])
 
   async function fetchData() {
-    const endpoint = 'http://b95ec43e.ngrok.io/api/profesionalclientes/clientes/35';
+    const endpoint = UrlNgrok + '/profesionalclientes/clientes/35';
     const options = {
         method:'GET',
         mode: "cors",
@@ -90,6 +90,14 @@ export default function UsersTable(props) {
           onClick: (event, rowData) => {
             props.setNroPaciente(rowData.id);
             props.setPage("activities")
+          }
+        },
+        {
+          icon: 'note',
+          tooltip: 'Notas',
+          onClick: (event, rowData) => {
+            props.setNroPaciente(rowData.id);
+            props.setPage("notas")
           }
         },
         {

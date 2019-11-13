@@ -11,10 +11,9 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import TemplateForm from './TemplateForm';
 import Grid from '@material-ui/core/Grid';
-import Url from '../url';
+import UrlNgrok from '../url';
 
-const url = 'http://b95ec43e.ngrok.io/api/actividades/profesional/35/templates';
-//const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
+const url = UrlNgrok + '/actividades/profesional/35/templates';
 
 const useStyles = makeStyles(theme => ({
   root: {

@@ -26,7 +26,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ResetasForm from './RecetasForm';
-import Url from '../url';
+import UrlNgrok from '../url';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,7 +93,7 @@ export default function ResetaCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch(Url + 'recetas/'+state.resetaId,{
+    fetch(UrlNgrok + 'recetas/'+state.resetaId,{
         method: 'DELETE',
         headers: {
         Accept: 'application/json',
@@ -139,7 +139,7 @@ export default function ResetaCard(props) {
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
               <Paper className={classes.root}>
-                <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
+                <Typography className={classes.typography}>Complete los datos para crear una nueva receta</Typography>
                 <ResetasForm
                   handleAccept={handleEdit}
                   handleCancel={handleClose}

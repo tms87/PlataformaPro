@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
-import Url from '../url';
+import UrlNgrok from '../url';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
             template: state.newTemplate,
             fecha_inicio: startDate,
         }
-        fetch('http://b95ec43e.ngrok.io/api/actividades',{
+        fetch(UrlNgrok + '/actividades',{
             method: 'POST',
             headers: {
             Accept: 'application/json',
@@ -107,14 +107,7 @@ const useStyles = makeStyles(theme => ({
             },
             body: JSON.stringify(form),
         })
-        /* fetch('https://lalala.free.beeceptor.com/api/actividades/'+endpoint,{
-            method: 'POST',
-            headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(form),
-        }) */
+     
         state.handleAccept();
     }
     const handleChange = event => {

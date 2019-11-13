@@ -26,7 +26,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ActivityForm from '../activities/ActivityForm';
-import Url from '../url';
+import UrlNgrok from '../url';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,7 +93,7 @@ export default function ActivityCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch('http://b95ec43e.ngrok.io/api/actividades/'+state.activityId,{
+    fetch( UrlNgrok + '/actividades/'+state.activityId,{
         method: 'DELETE',
         headers: {
         Accept: 'application/json',

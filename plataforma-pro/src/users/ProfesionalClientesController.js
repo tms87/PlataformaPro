@@ -1,5 +1,7 @@
-const url ="http://b95ec43e.ngrok.io/api/profesionalclientes/";
-const urlDelete = 'http://b95ec43e.ngrok.io/api/profesionalclientes/profesional/35/cliente/'
+import UrlNgrok from './../url';
+
+const url = UrlNgrok + "/profesionalclientes/";
+const urlDelete = UrlNgrok + '/profesionalclientes/profesional/35/cliente/'
 
 class ProfesionalClienteController
 {
