@@ -26,7 +26,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import TemplateForm from '../activities/TemplateForm';
-import UrlNgrok from './../url';
+import UrlInteligente from './../url';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -92,7 +92,7 @@ export default function ActivityCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch(UrlNgrok + '/actividades/'+state.activityId,{
+    fetch(UrlInteligente.obtenerUrl + '/actividades/'+state.activityId,{
         method: 'DELETE',
         headers: {
         Accept: 'application/json',

@@ -1,7 +1,7 @@
-import UrlNgrok from './../url';
+import UrlInteligente from './../url';
 
-const url = UrlNgrok + "/profesionalclientes/";
-const urlDelete = UrlNgrok + '/profesionalclientes/profesional/35/cliente/'
+const url = UrlInteligente.obtenerUrl('profesionales', "/profesionalclientes/");
+const urlDelete = UrlInteligente.obtenerUrl('profesional', '/profesionalclientes/profesional/35/cliente/'); 
 
 class ProfesionalClienteController
 {

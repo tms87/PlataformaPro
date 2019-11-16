@@ -23,7 +23,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Activities from '../activities/Activities';
 import fondo from './fondoLogin.png';
-import UrlNgrok from '../url';
+import UrlInteligenete from '../url';
 
 const theme = createMuiTheme({
   palette: {
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
   
   '@global': {
     body: {
-      backgroundImage: `UrlNgrok(${fondo})`,
+      backgroundImage: UrlInteligenete.obtenerUrl('fondo') +  `(${fondo})`,
      },
   },
 

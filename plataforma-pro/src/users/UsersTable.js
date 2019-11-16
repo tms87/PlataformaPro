@@ -3,7 +3,8 @@ import MaterialTable from 'material-table';
 import UserInfo from './UsersInfo';
 import ProfesionalClientesController from './ProfesionalClientesController';
 import UsersController from './UsersController';
-import UrlNgrok from './../url';
+import UrlInteligente from './../url';
+
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
   const [nroPaciente, setNroPaciente] = React.useState("");
@@ -22,7 +23,8 @@ export default function UsersTable(props) {
   } ,[])
 
   async function fetchData() {
-    const endpoint = UrlNgrok + '/profesionalclientes/clientes/35';
+    const endpoint = UrlInteligente.obtenerUrl('profesionales','/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
+    console.log(endpoint);
     const options = {
         method:'GET',
         mode: "cors",

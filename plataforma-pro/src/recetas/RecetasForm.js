@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
-import UrlNgrok from '../url';
+import UrlInteligente from '../url';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -86,7 +86,7 @@ const useStyles = makeStyles(theme => ({
 
         console.log(form);
       
-        fetch(UrlNgrok + 'recetas/'+endpoint,{
+        fetch(UrlInteligente.obtenerUrl('recetasForm' ,'/recetas/') +endpoint,{
             method: 'POST',
             headers: {
             Accept: 'application/json',

@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
-import UrlNgrok from '../url';
+import UrlInteligente from '../url';
 const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
@@ -94,7 +94,7 @@ const useStyles = makeStyles(theme => ({
             template: true,
             fecha_inicio: startDate,
         }
-        fetch(UrlNgrok + '/actividades/'+endpoint,{
+        fetch(UrlInteligente.obtenerUrl( 'templateForm','/actividades/')  +endpoint,{
             method: 'POST',
             headers: {
             Accept: 'application/json',

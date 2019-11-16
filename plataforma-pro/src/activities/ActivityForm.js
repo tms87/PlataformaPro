@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
-import UrlNgrok from '../url';
+import UrlInteligente from '../url';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
             template: state.newTemplate,
             fecha_inicio: startDate,
         }
-        fetch(UrlNgrok + '/actividades',{
+        fetch(UrlInteligente.obtenerUrl('actividaesForm',  '/actividades/') ,{
             method: 'POST',
             headers: {
             Accept: 'application/json',
@@ -159,21 +159,21 @@ const useStyles = makeStyles(theme => ({
                             />
                             <FormControl className={classes.template}>
                                 <InputLabel htmlFor="template" className={clsx(classes.textField, classes.dense)}>Plantilla</InputLabel>
-                                <Select
-                                    value={state.selectedTemplate}
-                                    onChange={handleUseTemplate}
-                                    inputProps={{
-                                        name: 'selectedTemplate',
-                                        id: 'selectedTemplate',
-                                    }}
-                                    disabled={(state.useTemplate === false)?true:false}
-                                >
-                                    {props.templates.map((item,key) => 
-                                            <MenuItem key={key} value={toString(item.id)}>
-                                                {toString(item.titulo)}
-                                            </MenuItem>
-                                    )}
-                                </Select>
+                                   <Select
+                                        value={state.selectedTemplate}
+                                        onChange={handleUseTemplate}
+                                        inputProps={{
+                                            name: 'selectedTemplate',
+                                            id: 'selectedTemplate',
+                                        }}
+                                        disabled={(state.useTemplate === false)?true:false}
+                                    >
+                                        {props.templates.map((item,key) => 
+                                                <MenuItem key={key} value={toString(item.id)}>
+                                                    {toString(item.titulo)}
+                                                </MenuItem>
+                                        )}
+                                    </Select> 
                             </FormControl>
                         </Grid>
                     )}

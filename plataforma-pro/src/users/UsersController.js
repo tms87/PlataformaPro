@@ -1,11 +1,13 @@
-import UrlNgrok from './../url';
-const url = UrlNgrok +"/profesionales/";
-const urlClientes = UrlNgrok + "/clientes/"
+import UrlInteligente from './../url';
+
+const url = UrlInteligente.obtenerUrl('pacientes', "/profesionales/");
+const urlClientes = UrlInteligente.obtenerUrl('pacientes', '') ; 
 
 class UsersController
 {
     async insertUser(userData)
     {
+        
         console.log(userData);
         const endpoint = `${url}`;
         const options = {
@@ -32,6 +34,7 @@ class UsersController
     async getClientes()
     {
         const endpoint = `${urlClientes}`;
+        console.log(urlClientes);
         const options = {
             method:'GET',
             mode: "cors",
@@ -40,6 +43,7 @@ class UsersController
         try {
             const res = await fetch(endpoint, options);
             const resObject = await res.json();
+            console.log(resObject);
             return resObject;
         } catch(error) {
             console.error('Error: ', error);

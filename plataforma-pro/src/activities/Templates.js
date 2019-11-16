@@ -11,9 +11,9 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import TemplateForm from './TemplateForm';
 import Grid from '@material-ui/core/Grid';
-import UrlNgrok from '../url';
+import UrlInteligente from '../url';
 
-const url = UrlNgrok + '/actividades/profesional/35/templates';
+const url = UrlInteligente.obtenerUrl( 'templates' ,'/actividades/profesional/35/templates') ;
 
 const useStyles = makeStyles(theme => ({
   root: {

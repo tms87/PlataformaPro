@@ -11,9 +11,9 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
-import UrlNgrok from 'url';
-const url = 'http://b95ec43e.ngrok.io/api/actividades/profesional/35/cliente/25';
-//const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
+import UrlInteligente from '../url';
+//const url = 'http://b95ec43e.ngrok.io/api';
+const url =  UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/`); // 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,8 +32,8 @@ export default function Activities(props) {
   const { nroPaciente } = props;
   console.log(nroPaciente);
 
-  const url = UrlNgrok + `/profesional/35/cliente/${nroPaciente}`;
-
+  const url = UrlInteligente.obtenerUrl('actividades' ,`/actividades/profesional/35/cliente/${nroPaciente}`) ; //
+  console.log(url);
   useEffect(() => {
       fetchApi();
       getTemplates();
@@ -56,13 +56,15 @@ export default function Activities(props) {
   async function getTemplates() {
     try {
       setLoading(true);
-      const urlT =  UrlNgrok + '/actividades/profesional/35/templates';
+      const urlT =  UrlInteligente.obtenerUrl('', '/actividades/profesional/35/templates');
       const res = await fetch(urlT);
       await res.json()
-      .then(json => {setTemplates(json);});
+      .then(json => {  setTemplates(json); });
     } catch (e){
       setErrors(e);
     } finally {
+      /* Agrego un array vacio al estado de los temples porque si no la funcion map del section, tira erro y no abre el pop */
+      setTemplates([]) 
       setLoading(false);
     }
   }
