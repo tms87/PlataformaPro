@@ -12,8 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 
-const url = 'http://beec83ba.ngrok.io/api/actividades/profesional/35/cliente/25';
-//const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
+//const url = 'http://beec83ba.ngrok.io/api/actividades/profesional/35/cliente/25';
+const url = 'http://www.mocky.io/v2/5dd1af893200006a0006fafc';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,7 +30,6 @@ export default function Activities(props) {
   const [refresh,setRefresh] = useState(false);
   useEffect(() => {
       fetchApi();
-      console.log("data"+data[0])
       setRefresh(false);
   },[refresh]);
 
