@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import UrlInteligente from '../url';
-
 const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
@@ -71,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
   
-  export default function ActivityForm(props) {
+  export default function TemplateForm(props) {
     const [state, setState] = useState(props);
     const classes = useStyles();
 
@@ -81,25 +80,21 @@ const useStyles = makeStyles(theme => ({
         }
         return "";
     }
-    
     const handleAccept = () => {
-        //console.log(state.title)
+        console.log(state.title)
         const today = new Date();
         const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         const endpoint = (state.isBoarding)?"":state.activityId;
-        //console.log("Este es el end point" + endpoint);
-        //console.log("INSERTAR " + state.description + state.type + state.content);
         const form = {
             titulo: state.title,
             contenido: state.content,
             descripcion: state.description,
             tipo_id: state.type,
-            cliente_id: props.nroPaciente,
             profesional_id: "35",
-            template: state.newTemplate,
+            template: true,
             fecha_inicio: startDate,
         }
-        fetch(UrlInteligente.obtenerUrl('actividaesForm',  '/actividades/') ,{
+        fetch(UrlInteligente.obtenerUrl( 'templateForm','/actividades/')  +endpoint,{
             method: 'POST',
             headers: {
             Accept: 'application/json',
@@ -107,7 +102,6 @@ const useStyles = makeStyles(theme => ({
             },
             body: JSON.stringify(form),
         })
-     
         state.handleAccept();
     }
     const handleChange = event => {
@@ -117,8 +111,6 @@ const useStyles = makeStyles(theme => ({
           ...oldState,
           [name]: value,
         }));
-        
-        //console.log(state.title +" "+event.target.name+" "+event.target.value)
     };
 
     const handleUseTemplate = event => {
@@ -133,12 +125,13 @@ const useStyles = makeStyles(theme => ({
           type: te[0].tipo_id,
           content: te[0].contenido,
         }));
-    }
+     }
     
     const handleCheck = name => event => {
         setState({ ...state, [name]: event.target.checked });
-        //console.log(event.target.checked);
+        console.log(event.target.checked);
     };
+
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
@@ -159,21 +152,21 @@ const useStyles = makeStyles(theme => ({
                             />
                             <FormControl className={classes.template}>
                                 <InputLabel htmlFor="template" className={clsx(classes.textField, classes.dense)}>Plantilla</InputLabel>
-                                   <Select
-                                        value={state.selectedTemplate}
-                                        onChange={handleUseTemplate}
-                                        inputProps={{
-                                            name: 'selectedTemplate',
-                                            id: 'selectedTemplate',
-                                        }}
-                                        disabled={(state.useTemplate === false)?true:false}
-                                    >
-                                        {props.templates.map((item,key) => 
-                                                <MenuItem key={key} value={toString(item.id)}>
-                                                    {toString(item.titulo)}
-                                                </MenuItem>
-                                        )}
-                                    </Select> 
+                                <Select
+                                    value={state.selectedTemplate}
+                                    onChange={handleUseTemplate}
+                                    inputProps={{
+                                        name: 'selectedTemplate',
+                                        id: 'selectedTemplate',
+                                    }}
+                                    disabled={(state.useTemplate === false)?true:false}
+                                >
+                                    {props.templates.map((item,key) => 
+                                            <MenuItem key={key} value={toString(item.id)}>
+                                                {toString(item.titulo)}
+                                            </MenuItem>
+                                    )}
+                                </Select>
                             </FormControl>
                         </Grid>
                     )}
@@ -241,22 +234,6 @@ const useStyles = makeStyles(theme => ({
                         />
                     </FormControl>
                     </Grid>
-                    { state.isBoarding && (
-                        <Grid>
-                            <FormControlLabel className={classes.formControl}
-                                control={
-                                    <Checkbox color="primary" 
-                                        checked={state.newTemplate}
-                                        disabled={(state.useTemplate === true)?true:false}
-                                        onChange={handleCheck("newTemplate")}
-                                        value={"newTemplate"}
-                                    />
-                                }
-                                label="Guardar como Plantilla"
-                                labelPlacement="end"
-                                />
-                        </Grid>
-                    )}
                     <Grid item xs={12} className={classes.buttons}>
                         <Button
                             variant="contained"

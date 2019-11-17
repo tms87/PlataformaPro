@@ -25,8 +25,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
-import ActivityForm from '../activities/ActivityForm';
-import UrlInteligente from '../url';
+import TemplateForm from '../activities/TemplateForm';
+import UrlInteligente from './../url';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +35,6 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     maxWidth: 600,
-    margin:"auto",
   },
   media: {
     height: 0,
@@ -93,7 +92,7 @@ export default function ActivityCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch( UrlInteligente.obtenerUrl('actividadCard', '/actividades/') +state.activityId,{
+    fetch(UrlInteligente.obtenerUrl + '/actividades/'+state.activityId,{
         method: 'DELETE',
         headers: {
         Accept: 'application/json',
@@ -140,7 +139,7 @@ export default function ActivityCard(props) {
             <Fade {...TransitionProps} timeout={350}>
               <Paper className={classes.root}>
                 <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
-                <ActivityForm 
+                <TemplateForm 
                   handleAccept={handleEdit}
                   handleCancel={handleClose}
                   activityId={state.activityId}
@@ -167,6 +166,12 @@ export default function ActivityCard(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,

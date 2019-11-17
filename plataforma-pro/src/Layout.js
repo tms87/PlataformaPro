@@ -12,15 +12,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import EventNoteIcon from '@material-ui/icons/EventNote';
 import NoteIcon from '@material-ui/icons/Note';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Avatar from '@material-ui/core/Avatar';
-import ProfilePic from './lopez.png';
+import ProfilePic from './img/lopez.png';
 import HomeIcon from '@material-ui/icons/Home';
-import ImagenFondo from './fondo.jpg';
+import ImagenFondo from './img/fondo.jpg';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import MessageIcon from '@material-ui/icons/Message';
@@ -34,6 +33,7 @@ const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
       backgroundImage: `url(${ImagenFondo})`,
+      height: "auto",
      },
   },
   drawer: {
@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
+   
   },
   avatar: {
     margin: 10,
@@ -75,7 +76,6 @@ function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [title, setTitle] = React.useState("NUTRIHOME");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -99,41 +99,36 @@ function Header(props) {
       <List>
         <ListItem key="Home">
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Home" value="home" icon={<HomeIcon />} onClick={() => setTitle("NUTRIHOME")}/>
+            <BottomNavigationAction label="Home" value="home" icon={<HomeIcon />}/>
           </BottomNavigation>
         </ListItem>
         <Divider />
         <ListItem key="Pacientes">
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Pacientes" value="patients" icon={<PeopleOutlineIcon />} onClick={() => setTitle("PACIENTES")}/>
-          </BottomNavigation>
-        </ListItem>
-        <ListItem key="Actividades">
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Actividades" value="activities" icon={<EventNoteIcon />} onClick={() => setTitle("ACTIVIDADES")}/>
+            <BottomNavigationAction label="Pacientes" value="patients" icon={<PeopleOutlineIcon />}/>
           </BottomNavigation>
         </ListItem>
         <ListItem key="Plantillas">
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Plantillas" value="templates" icon={<NoteIcon />} onClick={() => setTitle("PLANTILLAS")}/>
+            <BottomNavigationAction label="Plantillas" value="templates" icon={<NoteIcon />}/>
           </BottomNavigation>
         </ListItem>
         <ListItem key="Productos">
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Productos" value="productos" icon={<ShoppingCartIcon />} onClick={() => setTitle("PRODUCTOS")}/>
+            <BottomNavigationAction label="Productos" value="productos" icon={<ShoppingCartIcon />}/>
           </BottomNavigation>
         </ListItem>
         <ListItem key="Recetas">
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Recetas" value="recetas" icon={<FolderOpenIcon />} onClick={() => setTitle("RECETAS")}/>
+            <BottomNavigationAction label="Recetas" value="recetas" icon={<FolderOpenIcon />}/>
           </BottomNavigation>
         </ListItem>
         <ListItem key="Perfil">
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Perfil" value="profile" icon={<AccountBoxIcon />} onClick={() => setTitle("PERFIL")}/>
+            <BottomNavigationAction label="Perfil" value="profile" icon={<AccountBoxIcon />}/>
           </BottomNavigation>
         </ListItem>
-        <ListItem key="Logout" style={{ marginTop: "90%" }}>
+        <ListItem key="Logout" style={{ marginTop: "100%" }}>
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
             <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }}/>
           </BottomNavigation>
@@ -157,7 +152,7 @@ function Header(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap style={{ width: "50%", textAlign: "left" }}>
-            {title}
+            NUTRIHOME
           </Typography>
           <div style={{ width: "50%", float: "right" }}>
             <IconButton className={classes.button}>
@@ -208,3 +203,9 @@ function Header(props) {
 }
 
 export default Header;
+
+/*        <ListItem key="Actividades">
+          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
+            <BottomNavigationAction label="Actividades" value="activities" icon={<EventNoteIcon />} onClick={() => setTitle("ACTIVIDADES")}/>
+          </BottomNavigation>
+        </ListItem> */

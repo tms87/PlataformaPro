@@ -1,8 +1,8 @@
 import App from '../App';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import UrlNgrok from '../url';
 
-const url ="http://318d4634.ngrok.io/api";
 //const urlInsertUser="/insertUser";
 const urlGetUserLogin="/profesionales/";
 
@@ -10,7 +10,7 @@ class UserController
 {
     /*insertUser(data)
     {
-        const endpoint = `${url}${urlInsertUser}`;
+        const endpoint = `${UrlNgrok}${urlInsertUser}`;
         fetch (endpoint, {
             method:'POST',
             mode: "cors",
@@ -21,7 +21,7 @@ class UserController
         })
     }*/
     async getUserLogin(data) {
-        const endpoint = `${url}${urlGetUserLogin}${data.email}`;
+        const endpoint = `${UrlNgrok}${urlGetUserLogin}${data.email}`;
         const options = {
             method:'POST',
             mode: "cors",

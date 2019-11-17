@@ -1,15 +1,19 @@
-const url ="http://beec83ba.ngrok.io/api/profesionalclientes/";
+import UrlInteligente from './../url';
+
+const url = UrlInteligente.obtenerUrl('profesionales', "/profesionalclientes/");
+const urlDelete = UrlInteligente.obtenerUrl('profesional', '/profesionalclientes/profesional/35/cliente/'); 
 
 class ProfesionalClienteController
 {
-    async insertUser(data)
+    async insertUser(relationData)
     {
         const endpoint = `${url}`;
+        console.log(relationData);
         const options = {
             method:'POST',
             mode: "cors",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
+            headers: {'Content-Type': 'application/json', Accept: 'application/json'},
+            body: JSON.stringify(relationData)
         };
         try {
             const res = await fetch(endpoint, options);
@@ -21,37 +25,17 @@ class ProfesionalClienteController
         }
     };
 
-    async updateUser(oldData, newData) {
-        const endpoint = `${url}${oldData.name}`;
-        const options = {
-            method:'POST',
-            mode: "cors",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newData)
-        };
-        try {
-            const res = await fetch(endpoint, options);
-            const resObject = await res.json();
-            console.log(resObject);
-            alert("Se ha actualizado el usuario");
-        } catch (error) {
-            console.error('Error: ', error);
-        }
-    }
-
-    async deleteUser(data) {
-        console.log(data);
-        const endpoint = `${url}${data.name}`;
+    async deleteUser(userId) {
+        console.log("dsfdsfsd " + userId);
+        const endpoint = `${urlDelete}${userId}`;
         const options = {
             method:'DELETE',
             mode: "cors",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
         };
         try {
             const res = await fetch(endpoint, options);
-            const resObject = await res.json();
-            console.log(resObject);
+            console.log(res);
             alert("Se ha eliminado el usuario");
         } catch (error) {
             console.error('Error: ', error);

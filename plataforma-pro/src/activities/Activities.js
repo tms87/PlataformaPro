@@ -12,8 +12,9 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 
-//const url = 'http://beec83ba.ngrok.io/api/actividades/profesional/35/cliente/25';
-const url = 'http://www.mocky.io/v2/5dd1af893200006a0006fafc';
+import UrlInteligente from '../url';
+//const url = 'http://b95ec43e.ngrok.io/api';
+const url =  UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/`); // 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,11 +26,18 @@ const useStyles = makeStyles(theme => ({
 export default function Activities(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [hasError, setErrors] = useState(false);
+  const [templates, setTemplates] = useState(null);
+  const [error, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
   const [refresh,setRefresh] = useState(false);
+  const { nroPaciente } = props;
+  console.log(nroPaciente);
+
+  const url = UrlInteligente.obtenerUrl('actividades' ,`/actividades/profesional/35/cliente/${nroPaciente}`) ; //
+  console.log(url);
   useEffect(() => {
       fetchApi();
+      getTemplates();
       setRefresh(false);
   },[refresh]);
 
@@ -42,6 +50,22 @@ export default function Activities(props) {
     } catch (e){
       setErrors(e);
     } finally {
+      setLoading(false);
+    }
+  }
+
+  async function getTemplates() {
+    try {
+      setLoading(true);
+      const urlT =  UrlInteligente.obtenerUrl('', '/actividades/profesional/35/templates');
+      const res = await fetch(urlT);
+      await res.json()
+      .then(json => {  setTemplates(json); });
+    } catch (e){
+      setErrors(e);
+    } finally {
+      /* Agrego un array vacio al estado de los temples porque si no la funcion map del section, tira erro y no abre el pop */
+      setTemplates([]) 
       setLoading(false);
     }
   }
@@ -71,7 +95,8 @@ export default function Activities(props) {
  
   return (<Container>
     <CssBaseline />
-    <h1>Actividades<BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /></h1>
+    <h1>Actividades</h1>
+    <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
@@ -83,6 +108,8 @@ export default function Activities(props) {
               isBoarding= {true}
               useTemplate= {false}
               setState={setData}
+              templates= {templates}
+              nroPaciente={props.nroPaciente}
             />
           </Paper>
         </Fade>

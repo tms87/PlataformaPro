@@ -23,6 +23,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Activities from '../activities/Activities';
 import fondo from './fondoLogin.png';
+import UrlInteligenete from '../url';
 
 const theme = createMuiTheme({
   palette: {
@@ -56,7 +57,7 @@ const useStyles = makeStyles(theme => ({
   
   '@global': {
     body: {
-      backgroundImage: `url(${fondo})`,
+      backgroundImage: UrlInteligenete.obtenerUrl('fondo') +  `(${fondo})`,
      },
   },
 
@@ -78,7 +79,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const url = 'http://141aa639.ngrok.io/api/clientes';
+
 
 
 export default function SignUp() {
