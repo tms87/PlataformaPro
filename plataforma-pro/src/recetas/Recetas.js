@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from './../../node_modules/react';
+import React, { useState, useEffect } from './../../node_modules/react';
 import CssBaseline from './../../node_modules/@material-ui/core/CssBaseline';
 import Container from './../../node_modules/@material-ui/core/Container';
 import { makeStyles } from './../../node_modules/@material-ui/core/styles';
@@ -13,7 +13,7 @@ import RecetasForm from './RecetasForm';
 import Grid from './../../node_modules/@material-ui/core/Grid';
 import UrlInteligente from '../url';
 const pr = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';
-const url = UrlInteligente.obtenerUrl('recetas' , '/recetas/profesional/35') ;
+const url = UrlInteligente.obtenerUrl('recetas', '/recetas/profesional/35');
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,29 +27,32 @@ export default function Resetas(props) {
   const [data, setData] = useState([]);
   const [hasError, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [refresh,setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+
+  let { modoPaciente } = props;
+
   useEffect(() => {
-      fetchApi();
-      console.log("data"+data[0])
-      setRefresh(false);
-  },[refresh]);
+    fetchApi();
+    console.log("data" + data[0])
+    setRefresh(false);
+  }, [refresh]);
 
   async function fetchApi() {
     try {
       setLoading(true);
       const res = await fetch(url);
       await res.json()
-      .then(json => {setData(json);});
-    } catch (e){
+        .then(json => { setData(json); });
+    } catch (e) {
       setErrors(e);
     } finally {
       setLoading(false);
     }
   }
 
-  function toString(json){
-    if (json != null){
-      return JSON.stringify(json).replace(/"/g,'')
+  function toString(json) {
+    if (json != null) {
+      return JSON.stringify(json).replace(/"/g, '')
     }
     return "";
   }
@@ -67,42 +70,41 @@ export default function Resetas(props) {
   const handleUpdate = () => {
     setAnchorEl(null);
     /* setData([]); */
-    setTimeout(()=>setRefresh(true),1000);
+    setTimeout(() => setRefresh(true), 1000);
   }
- 
-  return (<Container>  
+
+  return (<Container>
     <CssBaseline />
     <h1>Recetas</h1>
-    <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />
+    {!modoPaciente ? <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize='large' aria-describedby={id} variant="contained" onClick={handleClick} />} /> : ""}
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
-        
           <Paper className={classes.root}>
             <Typography className={classes.typography}>Para crear una nueva receta complete los datos</Typography>
-            <RecetasForm 
+            <RecetasForm
               handleAccept={handleUpdate}
               handleCancel={handleClose}
-              isBoarding= {true}
+              isBoarding={true}
               setState={setData}
             />
           </Paper>
         </Fade>
       )}
     </Popper>
-    {(loading)?"loading...": 
+    {(loading) ? "loading..." :
       <Grid container spacing={3}>
-        {data.map((item,key) => 
-       
+        {data.map((item, key) =>
+
           <Grid item xs={12}>
-          
+
             <ResetasCard
               key={key}
               handleUpdate={handleUpdate}
-              resetaId={(loading)?"":toString(item.id)}
-              title= {(loading)?"loading...":toString(item.titulo)}
-              content={(loading)?"loading...":toString(item.contenido)}
-              startDate={(loading)?"loading...":toString(item.fecha_inicio)}
+              resetaId={(loading) ? "" : toString(item.id)}
+              title={(loading) ? "loading..." : toString(item.titulo)}
+              content={(loading) ? "loading..." : toString(item.contenido)}
+              startDate={(loading) ? "loading..." : toString(item.fecha_inicio)}
             />
           </Grid>
         )}

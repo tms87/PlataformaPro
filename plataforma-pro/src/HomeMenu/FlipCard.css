@@ -2,7 +2,6 @@
     background-color: transparent;
     width: 300px;
     height: 300px;
-    margin: 5vh;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
   }
   
@@ -41,4 +40,8 @@
     color: rgba(0, 0, 0);
     transform: rotateY(180deg);
     border: 0;
+  }
+
+  .MuiCardContent-root {
+    width: 100% !important;
   }

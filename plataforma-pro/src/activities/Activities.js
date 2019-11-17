@@ -29,8 +29,11 @@ export default function Activities(props) {
   const [error, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
   const [refresh,setRefresh] = useState(false);
-  const { nroPaciente } = props;
-  console.log(nroPaciente);
+  let { nroPaciente , modoPaciente } = props;
+
+  if(modoPaciente) {
+    nroPaciente = "4";
+  }
 
   const url = UrlInteligente.obtenerUrl('actividades' ,`/actividades/profesional/35/cliente/${nroPaciente}`) ; //
   console.log(url);
@@ -95,7 +98,7 @@ export default function Activities(props) {
   return (<Container>
     <CssBaseline />
     <h1>Actividades</h1>
-    <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />
+    {!modoPaciente ? <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /> : ""}
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
