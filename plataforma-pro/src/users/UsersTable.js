@@ -36,6 +36,11 @@ export default function UsersTable(props) {
         actionsColumnIndex: -1,
         search: true
       }}
+      localization={{
+        header: {
+          actions: 'Acciones',
+        }
+      }}
       title="Pacientes"
       columns={state.columns}
       data={state.data}
