@@ -9,6 +9,7 @@ export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
   const [nroPaciente, setNroPaciente] = React.useState("");
   const [clientes, setClientes] = React.useState([]);
+  const displayData = [];
 
   const tableRef = React.createRef();
 
@@ -44,16 +45,25 @@ export default function UsersTable(props) {
     }
   }
 
+  const handleSearch = () => {
+    tableRef.current.onQueryChange();
+  }
+
   return (
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
-        search: true
+        search: false,
+        paging: false,
+        minBodyHeight: '75vh',
+        maxBodyHeight: '75vh',
       }}
       title="Pacientes"
+      toolbar= {{ searchPlaceholder: "Buscar..." }}
       columns={state.columns}
       tableRef={tableRef}
-      data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: 5}), 600))}
+      onSearchChange={handleSearch}
+      data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: state.data.length}), 600))}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
