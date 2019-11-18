@@ -48,7 +48,7 @@ export default function UsersTable(props) {
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
-        search: false
+        search: true
       }}
       title="Pacientes"
       columns={state.columns}
@@ -77,11 +77,14 @@ export default function UsersTable(props) {
         onRowDelete: oldData =>
           new Promise(resolve => {
             setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data.splice(data.indexOf(oldData), 1);
+              {
+              const data = state.data;
+              const index = data.findIndex(i => i.id === oldData.id);
+              data.splice(index, 1);
               ProfesionalClientesController.deleteUser(oldData.id);
               setState({ ...state, data });
+              }
+              resolve();
             }, 600);
           }),
       }}
@@ -91,7 +94,7 @@ export default function UsersTable(props) {
           tooltip: 'Actividades',
           onClick: (event, rowData) => {
             props.setNroPaciente(rowData.id);
-            props.setPage("activities")
+            props.setPage("activities");
           }
         },
         {
@@ -99,7 +102,15 @@ export default function UsersTable(props) {
           tooltip: 'Notas',
           onClick: (event, rowData) => {
             props.setNroPaciente(rowData.id);
-            props.setPage("notas")
+            props.setPage("notas");
+          }
+        },
+        {
+          icon: 'person',
+          tooltip: 'Perfil',
+          onClick: (event, rowData) => {
+            props.setNroPaciente(rowData.id);
+            props.setPage("profile");
           }
         },
         {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,8 +16,7 @@ import FastfoodIcon from '@material-ui/icons/Fastfood';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red, green, blue } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import Tooltip from '@material-ui/core/Tooltip';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
@@ -26,6 +25,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ActivityForm from '../activities/ActivityForm';
+import DoneIcon from '@material-ui/icons/Done';
 import UrlInteligente from '../url';
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     maxWidth: 600,
-    margin:"auto",
+    margin: "auto",
   },
   media: {
     height: 0,
@@ -60,6 +60,9 @@ const useStyles = makeStyles(theme => ({
   blueAvatar: {
     backgroundColor: blue[500],
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function ActivityCard(props) {
@@ -79,7 +82,7 @@ export default function ActivityCard(props) {
     setAnchorEl(null);
     setAnchorPoper(null);
   };
-    
+
   //para el poper
   const [anchorPoper, setAnchorPoper] = useState(null);
   const handleClickPoper = event => {
@@ -91,14 +94,25 @@ export default function ActivityCard(props) {
     setAnchorEl(null);
     state.handleUpdate();
   };
-  const handleDelete = () => {
-    setAnchorEl(null);
-    fetch( UrlInteligente.obtenerUrl('actividadCard', '/actividades/') +state.activityId,{
-        method: 'DELETE',
-        headers: {
+  const handleRealizado = async () => {
+    const res = await fetch(UrlInteligente.obtenerUrl('actividadCard', '/actividades/finalizar/') + state.activityId, {
+      method: 'GET',
+      headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        },
+      },
+    });
+    console.log(await res.json());
+    state.handleUpdate();
+  };
+  const handleDelete = () => {
+    setAnchorEl(null);
+    fetch(UrlInteligente.obtenerUrl('actividadCard', '/actividades/') + state.activityId, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     })
     state.handleUpdate();
   }
@@ -111,14 +125,14 @@ export default function ActivityCard(props) {
       <Card className={classes.card}>
         <CardHeader id={id}
           avatar={
-                (state.type === '1' && <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon/></Avatar>) ||
-                (state.type === '2' && <Avatar aria-label="recipe" className={classes.greenAvatar}><FastfoodIcon/></Avatar>) ||
-                (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon/></Avatar>)
+            (state.type === '1' && <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon /></Avatar>) ||
+            (state.type === '2' && <Avatar aria-label="recipe" className={classes.greenAvatar}><FastfoodIcon /></Avatar>) ||
+            (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon /></Avatar>)
           }
           action={
             /* <IconButton aria-label="settings"> */
-              <div>
-              <MoreVertIcon aria-describedby={id}  variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick}/>
+            <div>
+              <MoreVertIcon aria-describedby={id} variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick} />
               <Menu
                 id="menu"
                 anchorEl={anchorEl}
@@ -129,7 +143,7 @@ export default function ActivityCard(props) {
                 <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
                 <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
               </Menu>
-              </div>
+            </div>
             /* </IconButton> */
           }
           title={state.title}
@@ -140,7 +154,7 @@ export default function ActivityCard(props) {
             <Fade {...TransitionProps} timeout={350}>
               <Paper className={classes.root}>
                 <Typography className={classes.typography}>Complete los datos para crear una nueva actividad</Typography>
-                <ActivityForm 
+                <ActivityForm
                   handleAccept={handleEdit}
                   handleCancel={handleClose}
                   activityId={state.activityId}
@@ -149,12 +163,12 @@ export default function ActivityCard(props) {
                   type={state.type}
                   description={state.description}
                   isBoarding={false}
-                  setState={setState}/>
+                  setState={setState} />
               </Paper>
             </Fade>
           )}
         </Popper>
-        { state.media && (
+        {state.media && (
           <CardMedia
             className={classes.media}
             image="https://material-ui.com/static/images/cards/paella.jpg"
@@ -167,12 +181,11 @@ export default function ActivityCard(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
+          <Tooltip title="Realizado" placement="top">
+            <IconButton className={classes.button} onClick={handleRealizado}>
+              <DoneIcon />
+            </IconButton>
+          </Tooltip>
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,

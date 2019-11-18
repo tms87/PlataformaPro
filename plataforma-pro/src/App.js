@@ -5,7 +5,7 @@ import Layout from './Layout/Layout';
 
 export default function App() {
   const [page, setPage] = useState("home");
-  const [modoPaciente, setModoPaciente] = useState(true);
+  const [modoPaciente, setModoPaciente] = useState(false);
   return (
     <div className="App">
       <Layout page={page} setPage={setPage} modoPaciente={modoPaciente} />
