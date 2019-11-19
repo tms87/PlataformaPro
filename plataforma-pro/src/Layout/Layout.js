@@ -26,11 +26,11 @@ import './Layout.css';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundImage: `url(${ImagenFondo})`,
-      height: "auto",
-    },
+  imagenFondo: {
+    position: 'absolute',
+    zIndex: -1,
+    height: '100%',
+    width: '100%',
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -56,7 +56,6 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-
   },
   avatar: {
     margin: 10,
@@ -188,7 +187,8 @@ function Header(props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <img src={ImagenFondo} alt="Imagen Fondo" className={classes.imagenFondo}/>
+        <div className={classes.toolbar}/>
       </main>
     </div>
   );

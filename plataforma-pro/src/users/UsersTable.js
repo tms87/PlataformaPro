@@ -45,10 +45,6 @@ export default function UsersTable(props) {
     }
   }
 
-  const handleSearch = () => {
-    tableRef.current.onQueryChange();
-  }
-
   return (
     <MaterialTable
       options={{
@@ -62,7 +58,6 @@ export default function UsersTable(props) {
       toolbar= {{ searchPlaceholder: "Buscar..." }}
       columns={state.columns}
       tableRef={tableRef}
-      onSearchChange={handleSearch}
       data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: state.data.length}), 600))}
       editable={{
         onRowAdd: newData =>
