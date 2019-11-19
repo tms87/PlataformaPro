@@ -7,7 +7,7 @@ import Patients from './users/Patients';
 import Recetas from './recetas/Recetas';
 import { makeStyles } from '@material-ui/core/styles';
 import Home from './HomeMenu/Home';
-
+import Producto from './productos/productos';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
@@ -28,6 +28,7 @@ export default function Body(props) {
         || (props.page === "activities" && <Activities page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} modoPaciente={props.modoPaciente}/>)
         || (props.page === "templates" && <Templates page={props.page} setPage={props.setPage}/>)
         ||  (props.page === "recetas" && <Recetas page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
+        || (props.page === "productos" && <Producto   page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente} />)
       }
    </Container>
   );
