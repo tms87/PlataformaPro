@@ -13,7 +13,7 @@ const firstRowNutri = [
 
 const secondRowNutri = [
     {titulo: 'Administre productos que consultaran sus pacientes', descripcion: 'Nuestra lista de productos contiene varias comidas y bebidas que puede integrar dentro de las dietas de los clientes. Desde nuestra pagina usted podra encontrar informacion que le servira al paciente a la hora de conseguir las comidas para su dieta', imagen: ProductosCardImg,},
-    {titulo: 'Comuniquese con sus pacientes', descripcion: 'Ya sea comentarios, reviews, notas, logs de actividades, etc. Nutrihome provee varias herramientas para facilitar y optimizar la comunicacion con sus pacientes. INdependicese de las aplicaciones o paginas externas y facilite el contacto con su cliente', imagen: ComunicacionCardImg,},
+    {titulo: 'Comuniquese con sus pacientes', descripcion: 'Ya sea comentarios, reviews, notas, logs de actividades, etc. Nutrihome provee varias herramientas para facilitar y optimizar la comunicacion con sus pacientes. Independicese de las aplicaciones o paginas externas y facilite el contacto con su cliente', imagen: ComunicacionCardImg,},
     {titulo: 'Resuelva cualquier duda sobre el sitio', descripcion: 'Si tiene alguna cuestion relacionada con el funcionamiento de Nutrihome le recomendamos chequear nuestro FAQ, el mismo contiene las preguntas y respuestas mas generales y comunes que puede utilizar para resolver sus dudas', imagen: DudasCardImg,},
 ];
 

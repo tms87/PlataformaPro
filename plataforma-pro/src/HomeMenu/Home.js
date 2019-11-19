@@ -50,7 +50,7 @@ export default function Home(props) {
     secondRow = secondRowNutri;
   }
 
-  return (<Container component="main">
+  return (<Container component="main" style={{ paddingTop: '5vh' }}>
         <Grid container justify="center" spacing={spacing}>
           {firstRow.map(i =>
             <Grid key={i.titulo} item xs={12} sm={12} md={6} lg={4} className={classes.cardAlign}>
