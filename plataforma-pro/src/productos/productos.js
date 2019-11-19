@@ -51,13 +51,19 @@ function TabPanel(props) {
     },
     tabs: {
       borderRight: `1px solid ${theme.palette.divider}`,
-      
     },
     wrapper: {
       textAlign:"left",
       flexDirection:"row",
       justifyContent: "initial",
+      margin: "10px",
     },
+    labelIcon:{
+      margin: "5px",
+    },
+    rootSvg: {
+      margin: "7px",
+    }
   }));
   
 
@@ -82,13 +88,13 @@ export default  function Producto(porps){
         variant="scrollable"
         value={value}
         onChange={handleChange}
-        //aria-label="Vertical tabs example"
+      
         aria-label="disabled tabs example"
         className={classes.tabs}
         textColor="secondary"
       >
-        <Tab label="Todos los productos aaaaaaaaaaaaS" icon={<KitchenIcon />} classes={{wrapper: classes.wrapper}}    {...a11yProps(0)} />
-        <Tab label="Grupo 1: Lecha y derivados" classes={{wrapper: classes.wrapper}}   icon={<KitchenIcon /> } {...a11yProps(1)} />
+        <Tab label="Todos los productos" icon={<KitchenIcon classes={{root : classes.rootSvg}} />} classes={{wrapper: classes.wrapper /*, labelIcon: classes.labelIcon*/}}    {...a11yProps(0)} />
+        <Tab label="Grupo 1: Lecha y derivados" classes={{wrapper: classes.wrapper}}   icon={<KitchenIcon classes={{root : classes.rootSvg}} /> } {...a11yProps(1)} />
         <Tab label="Grupo 2: Carne, pescado y huevo" classes={{wrapper: classes.wrapper}}  {...a11yProps(2)} />
         <Tab label="Grupo 3: Papas, legumbres y futos secos" classes={{wrapper: classes.wrapper}}  {...a11yProps(3)} />
         <Tab label="Grupo 4: Verduras y hortalizas" classes={{wrapper: classes.wrapper}}  {...a11yProps(4)} />
