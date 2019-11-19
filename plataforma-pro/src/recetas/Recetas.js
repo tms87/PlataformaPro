@@ -103,6 +103,7 @@ export default function Resetas(props) {
               title= {(loading)?"loading...":toString(item.titulo)}
               content={(loading)?"loading...":toString(item.contenido)}
               startDate={(loading)?"loading...":toString(item.fecha_inicio)}
+
             />
           </Grid>
         )}

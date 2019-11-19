@@ -1,6 +1,6 @@
     
 export default  {
-    backEndHabilitado : true,
+    backEndHabilitado : false,
     UrlNgrok : 'http://de6e9bc3.ngrok.io/api',
     pacientes: 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc', 
     //[{ "id" : "1","profesional_id" : "2",   "nombre": "Ernesto", "apellido": "Araujo", "lastTurn": "03-10-2019" ,   "nextTurn": "22-10-2019", "dni" : "37009167"}]
@@ -9,7 +9,7 @@ export default  {
     actividaesForm: 'No hay url',
     templateForm: 'No hay url',
     actividadCard: 'No hay url',
-    recetas: 'No hay url',
+    recetas: 'http://www.mocky.io/v2/5dd3d6502f00005700d4f77d',
     recetasForm : 'No hay url',
     profesionales: 'No hay url',
     profesional: "http://www.mocky.io/v2/5dd071652f000051003f208d",

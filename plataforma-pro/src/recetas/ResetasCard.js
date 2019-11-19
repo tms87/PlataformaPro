@@ -130,7 +130,7 @@ export default function ResetaCard(props) {
               </Menu>
               </div>
           }
-         
+          
           title={state.title !== "" ? state.title : "Sin titulo"}
           subheader={state.startDate}
         />
@@ -147,7 +147,7 @@ export default function ResetaCard(props) {
                   title={state.title} 
                   content={state.content}
                   type={state.type}
-                  isBoarding={false}
+                  isBoarding={true}
                   setState={setState}/>
               </Paper>
             </Fade>
