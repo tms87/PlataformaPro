@@ -7,6 +7,5 @@ export default function Profile(props) {
   //const classes = useStyles();
   return (<Container component="main" maxWidth="xs">
     <CssBaseline />
-    <h1>Profile</h1>
   </Container>);
 }

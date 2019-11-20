@@ -12,6 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
+import UrlInteligente from '../url';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -82,21 +84,23 @@ const useStyles = makeStyles(theme => ({
     }
     
     const handleAccept = () => {
-        console.log(state.title)
+        //console.log(state.title)
         const today = new Date();
         const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         const endpoint = (state.isBoarding)?"":state.activityId;
+        //console.log("Este es el end point" + endpoint);
+        //console.log("INSERTAR " + state.description + state.type + state.content);
         const form = {
             titulo: state.title,
             contenido: state.content,
             descripcion: state.description,
             tipo_id: state.type,
-            cliente_id: "25",
+            cliente_id: props.nroPaciente,
             profesional_id: "35",
             template: state.newTemplate,
             fecha_inicio: startDate,
         }
-        fetch('http://b95ec43e.ngrok.io/api/actividades/'+endpoint,{
+        fetch(UrlInteligente.obtenerUrl('actividaesForm',  '/actividades/') ,{
             method: 'POST',
             headers: {
             Accept: 'application/json',
@@ -104,14 +108,7 @@ const useStyles = makeStyles(theme => ({
             },
             body: JSON.stringify(form),
         })
-        /* fetch('https://lalala.free.beeceptor.com/api/actividades/'+endpoint,{
-            method: 'POST',
-            headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(form),
-        }) */
+     
         state.handleAccept();
     }
     const handleChange = event => {
@@ -122,7 +119,7 @@ const useStyles = makeStyles(theme => ({
           [name]: value,
         }));
         
-        console.log(state.title +" "+event.target.name+" "+event.target.value)
+        //console.log(state.title +" "+event.target.name+" "+event.target.value)
     };
 
     const handleUseTemplate = event => {
@@ -141,7 +138,7 @@ const useStyles = makeStyles(theme => ({
     
     const handleCheck = name => event => {
         setState({ ...state, [name]: event.target.checked });
-        console.log(event.target.checked);
+        //console.log(event.target.checked);
     };
     return (
         <div className={classes.root}>
@@ -163,21 +160,21 @@ const useStyles = makeStyles(theme => ({
                             />
                             <FormControl className={classes.template}>
                                 <InputLabel htmlFor="template" className={clsx(classes.textField, classes.dense)}>Plantilla</InputLabel>
-                                <Select
-                                    value={state.selectedTemplate}
-                                    onChange={handleUseTemplate}
-                                    inputProps={{
-                                        name: 'selectedTemplate',
-                                        id: 'selectedTemplate',
-                                    }}
-                                    disabled={(state.useTemplate === false)?true:false}
-                                >
-                                    {props.templates.map((item,key) => 
-                                            <MenuItem key={key} value={toString(item.id)}>
-                                                {toString(item.titulo)}
-                                            </MenuItem>
-                                    )}
-                                </Select>
+                                   <Select
+                                        value={state.selectedTemplate}
+                                        onChange={handleUseTemplate}
+                                        inputProps={{
+                                            name: 'selectedTemplate',
+                                            id: 'selectedTemplate',
+                                        }}
+                                        disabled={(state.useTemplate === false)?true:false}
+                                    >
+                                        {props.templates.map((item,key) => 
+                                                <MenuItem key={key} value={toString(item.id)}>
+                                                    {toString(item.titulo)}
+                                                </MenuItem>
+                                        )}
+                                    </Select> 
                             </FormControl>
                         </Grid>
                     )}
@@ -266,9 +263,9 @@ const useStyles = makeStyles(theme => ({
                             variant="contained"
                             color="primary"
                             className={classes.button}
-                            startIcon={<SaveIcon />}
+                            startIcon={<AddIcon />}
                             onClick={handleAccept}
-                            > Aceptar
+                            > Guardar
                         </Button>
                         <Button
                             variant="contained"

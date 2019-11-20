@@ -1,17 +1,30 @@
 import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import UserInfo from './UsersInfo';
-import UsersController from './ProfesionalClientesController';
+import ProfesionalClientesController from './ProfesionalClientesController';
+import UsersController from './UsersController';
+import UrlInteligente from './../url';
 
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
+  const [nroPaciente, setNroPaciente] = React.useState("");
+  const [clientes, setClientes] = React.useState([]);
+
+  const tableRef = React.createRef();
+
+  async function updateClientes() {
+    const nuevosClientes = await UsersController.getClientes() || [];
+    setClientes(nuevosClientes);
+  }
 
   useEffect( () => {
       fetchData();
+      updateClientes();
   } ,[])
 
   async function fetchData() {
-    const endpoint = 'http://b95ec43e.ngrok.io/api/profesionalclientes';
+    const endpoint = UrlInteligente.obtenerUrl('profesionales','/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
+    console.log(endpoint);
     const options = {
         method:'GET',
         mode: "cors",
@@ -20,9 +33,12 @@ export default function UsersTable(props) {
     try {
         const res = await fetch(endpoint, options);
         const resObject = await res.json();
-        const data = [...state.data];
-        data.push(resObject);
-        setState({ ...state, data });
+        const patientsList = state;
+        let newPatients = [];
+        newPatients = resObject.map(d => ({ name: d.nombre, surname: d.apellido, dni: d.dni, id: d.id }));
+        patientsList.data = newPatients;
+        setState(patientsList);
+        tableRef.current.onQueryChange();
     } catch(error) {
         console.error('Error: ', error);
     }
@@ -32,33 +48,30 @@ export default function UsersTable(props) {
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
-        search: true
+        search: false
       }}
       title="Pacientes"
       columns={state.columns}
-      data={state.data}
+      tableRef={tableRef}
+      data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: 5}), 600))}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              const data = [...state.data];
-              console.log(JSON.stringify(newData));
-              data.push(newData);
-              setState({ ...state, data });
-              UsersController.insertUser(newData);
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data[data.indexOf(oldData)] = newData;
-              console.log(oldData);
-              console.log(newData);
-              setState({ ...state, data });
-              UsersController.updateUser(oldData, newData);
+              const foundUser = clientes.find(x => x.dni === newData.dni);
+              if(foundUser) {
+                const data = [...state.data];
+                newData.name = foundUser.nombre;
+                newData.surname = foundUser.apellido;
+                data.push(newData);
+                setState({ ...state, data });
+                const relationData = { cliente_id: foundUser.id, profesional_id: '35' };
+                ProfesionalClientesController.insertUser(relationData);
+              } else {
+                alert("No se encontro al usuario");
+                return;
+              }
             }, 600);
           }),
         onRowDelete: oldData =>
@@ -67,8 +80,8 @@ export default function UsersTable(props) {
               resolve();
               const data = [...state.data];
               data.splice(data.indexOf(oldData), 1);
+              ProfesionalClientesController.deleteUser(oldData.id);
               setState({ ...state, data });
-              UsersController.deleteUser(oldData);
             }, 600);
           }),
       }}
@@ -77,22 +90,25 @@ export default function UsersTable(props) {
           icon: 'assignment',
           tooltip: 'Actividades',
           onClick: (event, rowData) => {
+            props.setNroPaciente(rowData.id);
             props.setPage("activities")
           }
         },
-      ]}
-      /* components={{
-        Toolbar: props => (
-            <div style={{ backgroundColor: '#e8eaf5' }}>
-                <MTableToolbar {...props} />
-            </div>
-        ),
-      }} */
-      /* localization={{
-        header: {
-          actions: 'Acciones',
+        {
+          icon: 'note',
+          tooltip: 'Notas',
+          onClick: (event, rowData) => {
+            props.setNroPaciente(rowData.id);
+            props.setPage("notas")
+          }
+        },
+        {
+          icon: 'refresh',
+          tooltip: 'Refresh Data',
+          isFreeAction: true,
+          onClick: () => tableRef.current && tableRef.current.onQueryChange(),
         }
-      }} */
+      ]}
     />
   );
 }

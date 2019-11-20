@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import './App.css';
 import Body from './Body';
-import Footer from './Footer';
-import Header from './Header';
+import Layout from './Layout/Layout';
 
 export default function App() {
-  const [page, setPage] = useState("profile");
+  const [page, setPage] = useState("home");
+  const [modoPaciente, setModoPaciente] = useState(false);
+  const [login,setLogin] = useState(true);
   return (
     <div className="App">
-      <Header/>
-      <Body page={page} setPage={setPage}/>
-      <Footer page={page} setPage={setPage}/>
+      <Layout page={page} setPage={setPage} modoPaciente={modoPaciente} />
+      <Body page={page} setPage={setPage} modoPaciente={modoPaciente} />
     </div>
   )
 }

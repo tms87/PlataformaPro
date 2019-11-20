@@ -1,10 +1,9 @@
 
 export default {  
     columns: [
-        { title: 'Nombre', field: 'name' },
-        { title: 'Apellido', field: 'surname' },
-        { title: 'Ultimo Turno', field: 'lastTurn', type: 'date' },
-        { title: 'Proximo Turno', field: 'nextTurn', type: 'date'},
+        { title: 'Nombre', field: 'name', editable: 'never'},
+        { title: 'Apellido', field: 'surname', editable: 'never' },
+        { title: 'DNI', field: 'dni' },
     ],
     data: []
 }

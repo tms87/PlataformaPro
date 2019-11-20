@@ -22,7 +22,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Activities from '../activities/Activities';
-import fondo from './fondoLogin.png';
+//import fondo from './fondoLogin.png';
+import UrlInteligenete from '../url';
 
 const theme = createMuiTheme({
   palette: {
@@ -35,7 +36,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit">
-        Pro Platform
+        Nutrihome
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -56,7 +57,7 @@ const useStyles = makeStyles(theme => ({
   
   '@global': {
     body: {
-      backgroundImage: `url(${fondo})`,
+      //backgroundImage: UrlInteligenete.obtenerUrl('fondo') +  `(${fondo})`,
      },
   },
 
@@ -78,7 +79,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const url = 'http://141aa639.ngrok.io/api/clientes';
+
 
 
 export default function SignUp() {
@@ -225,7 +226,7 @@ export default function SignUp() {
                 <Grid item xs={12}>
                 <FormControlLabel
                     control={<Checkbox value="TerminosYCondiciones" color="primary" />}
-                    label="He leido y acepto los terminos y condiciones de Pro Platform"
+                    label="He leido y acepto los terminos y condiciones de Nutrihome"
                 />
                 </Grid>
             </Grid>

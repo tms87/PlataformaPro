@@ -11,9 +11,12 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
+import UrlInteligente from '../url';
+import Button from '@material-ui/core/Button';
+import UsersController from '../users/UsersController';
 
-const url = 'http://b95ec43e.ngrok.io/api/actividades/profesional/35/cliente/25';
-//const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
+//const url = 'http://b95ec43e.ngrok.io/api';
+const url =  UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/`); // 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,12 +28,27 @@ const useStyles = makeStyles(theme => ({
 export default function Activities(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [templates, setTemplates] = useState(null);
   const [error, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
   const [refresh,setRefresh] = useState(false);
+  let { nroPaciente , modoPaciente } = props;
+
+  if(modoPaciente) {
+    nroPaciente = "4";
+  }
+
+  const url = UrlInteligente.obtenerUrl('actividades' ,`/actividades/profesional/35/cliente/${nroPaciente}`) ;
+  console.log(url);
+
+  const url2 = UrlInteligente.obtenerUrl('pacientes' ,`/clientes/${nroPaciente}`) ;
+  console.log(url2);
+
+
   useEffect(() => {
       fetchApi();
+      fetchApi2();
       getTemplates();
       setRefresh(false);
   },[refresh]);
@@ -48,16 +66,32 @@ export default function Activities(props) {
     }
   }
 
-  async function getTemplates() {
+  async function fetchApi2() {
     try {
       setLoading(true);
-      const urlT = 'http://b95ec43e.ngrok.io/api/actividades/profesional/35/templates';
-      const res = await fetch(urlT);
+      const res = await fetch(url2);
       await res.json()
-      .then(json => {setTemplates(json);});
+      .then(json => {setData2(json);});
     } catch (e){
       setErrors(e);
     } finally {
+      setLoading(false);
+    }
+  }
+
+
+  async function getTemplates() {
+    try {
+      setLoading(true);
+      const urlT =  UrlInteligente.obtenerUrl('', '/actividades/profesional/35/templates');
+      const res = await fetch(urlT);
+      await res.json()
+      .then(json => {  setTemplates(json); });
+    } catch (e){
+      setErrors(e);
+    } finally {
+      /* Agrego un array vacio al estado de los temples porque si no la funcion map del section, tira erro y no abre el pop */
+      setTemplates([]) 
       setLoading(false);
     }
   }
@@ -78,7 +112,7 @@ export default function Activities(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
-
+  
   const handleUpdate = () => {
     setAnchorEl(null);
     /* setData([]); */
@@ -87,7 +121,12 @@ export default function Activities(props) {
  
   return (<Container>
     <CssBaseline />
-    <h1>Actividades<BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /></h1>
+    <h1>Actividades de {toString(data2.nombre)} {toString(data2.apellido)} </h1>
+    {!modoPaciente ? /* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />  */
+        <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
+        Agregar nueva actividad
+      </Button>: ""}
+      
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
@@ -100,12 +139,13 @@ export default function Activities(props) {
               useTemplate= {false}
               setState={setData}
               templates= {templates}
+              nroPaciente={props.nroPaciente}
             />
           </Paper>
         </Fade>
       )}
     </Popper>
-    {(loading)?"loading...":
+    {(loading)?"":
       <Grid container spacing={3}
         >
         {data.map((item,key) => 

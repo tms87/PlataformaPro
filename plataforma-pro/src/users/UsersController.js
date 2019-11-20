@@ -1,9 +1,13 @@
-const url ="http://beec83ba.ngrok.io/api/profesionales/";
+import UrlInteligente from './../url';
+
+const url = UrlInteligente.obtenerUrl('pacientes', "/profesionales/");
+const urlClientes = UrlInteligente.obtenerUrl('pacientes', '') ; 
 
 class UsersController
 {
     async insertUser(userData)
     {
+        
         console.log(userData);
         const endpoint = `${url}`;
         const options = {
@@ -27,19 +31,20 @@ class UsersController
         }
     };
 
-    async getUser(username)
+    async getClientes()
     {
-        const endpoint = `${url}`;
+        const endpoint = `${urlClientes}`;
+        console.log(urlClientes);
         const options = {
-            method:'POST',
+            method:'GET',
             mode: "cors",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(username)
+            headers: {'Content-Type': 'application/json', Accept: 'application/json'},
         };
         try {
             const res = await fetch(endpoint, options);
             const resObject = await res.json();
             console.log(resObject);
+            return resObject;
         } catch(error) {
             console.error('Error: ', error);
         }

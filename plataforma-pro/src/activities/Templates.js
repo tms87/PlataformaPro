@@ -11,9 +11,10 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import TemplateForm from './TemplateForm';
 import Grid from '@material-ui/core/Grid';
+import UrlInteligente from '../url';
+import Button from '@material-ui/core/Button';
 
-const url = 'http://b95ec43e.ngrok.io/api/actividades/profesional/35/templates';
-//const url = 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
+const url = UrlInteligente.obtenerUrl( 'templates' ,'/actividades/profesional/35/templates') ;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -86,7 +87,11 @@ export default function Activities(props) {
  
   return (<Container>
     <CssBaseline />
-    <h1>Plantillas<BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /></h1>
+    <h1>Plantillas</h1>
+    {/* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /> */}
+    <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
+        Agregar nueva plantilla
+      </Button>
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
@@ -104,7 +109,7 @@ export default function Activities(props) {
         </Fade>
       )}
     </Popper>
-    {(loading)?"loading...":
+    {(loading)?"":
       <Grid container spacing={3}>
         {data.map((item,key) => 
           <Grid item xs={12}>

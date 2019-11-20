@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ReactDOM from 'react-dom';
-import logo from '../minilogo.png'
+import logo from '../img/minilogo.png'
 //import App from '../App';
 import UserController from './LoginController';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -25,7 +25,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from '@material-ui/icons/Close';
 import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
-import fondo from './fondoLogin.png';
+import fondo from '../img/fondoLogin.png';
 import SignUp from './SignUp';
 
 const theme = createMuiTheme({
@@ -92,7 +92,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <MaterialLink color="inherit">
-        PlataformaPro
+        Nutrihome
       </MaterialLink>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -201,17 +201,17 @@ const handleClose = (event, reason) => {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Correo Electronico"
-                name="email"
-                autoComplete="email"
+                id="dni"
+                label="DNI"
+                name="dni"
+                autoComplete="dni"
                 autoFocus
-                onChange={(event) => setUserData({...userData, email: event.target.value })}
+                onChange={(event) => setUserData({...userData, dni: event.target.value })}
             />
             <TextField
                 variant="outlined"
                 margin="normal"
-                required
+                //required
                 fullWidth
                 name="password"
                 label="Contraseña"
