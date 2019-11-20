@@ -41,7 +41,7 @@ export default function Resetas(props) {
       setLoading(true);
       const res = await fetch(url);
       await res.json()
-        .then(json => { setData(json); });
+        .then(json => { setData(json);});
     } catch (e) {
       setErrors(e);
     } finally {
