@@ -12,7 +12,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import ImagenFondo from '../img/fondo.jpg';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import MessageIcon from '@material-ui/icons/Message';
@@ -20,17 +19,17 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { miniProfileNutri, optionsListNutri } from './LayoutInfoNutri';
 import { miniProfilePaciente, optionsListPaciente } from './LayoutInfoPaciente';
+import logo from '../img/logo.png';
 import HomeIcon from '@material-ui/icons/Home';
 import './Layout.css';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
-  imagenFondo: {
-    position: 'absolute',
-    zIndex: -1,
-    height: '100%',
-    width: '100%',
+  '@global': {
+    body: {
+      backgroundColor: '#fff',
+    },
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -43,6 +42,7 @@ const useStyles = makeStyles(theme => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
+    backgroundColor: '#fff',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -142,8 +142,8 @@ function Header(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap style={{ width: "50%", textAlign: "left" }}>
-            NUTRIHOME
+          <Typography variant="h6" noWrap style={{ width: "50%", textAlign: "left", display: 'flex' }}>
+            <img src={logo} alt="Logo" />
           </Typography>
           <div style={{ width: "50%", float: "right" }}>
             <IconButton className={classes.button}>
@@ -187,7 +187,6 @@ function Header(props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <img src={ImagenFondo} alt="Imagen Fondo" className={classes.imagenFondo}/>
         <div className={classes.toolbar}/>
       </main>
     </div>

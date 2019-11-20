@@ -51,8 +51,8 @@ export default function UsersTable(props) {
         actionsColumnIndex: -1,
         search: false,
         paging: false,
-        minBodyHeight: '75vh',
-        maxBodyHeight: '75vh',
+        minBodyHeight: '80vh',
+        maxBodyHeight: '80vh',
       }}
       title="Pacientes"
       toolbar= {{ searchPlaceholder: "Buscar..." }}

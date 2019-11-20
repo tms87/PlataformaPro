@@ -4,7 +4,7 @@ import UsersTable from './UsersTable';
 
 export default function Patients(props) {
   return (
-    <Container component="main" style={{paddingTop: '3vh'}}>
+    <Container component="main">
       <UsersTable page={props.page} setPage={props.setPage} nroPaciente={props.nroPaciente} setNroPaciente={props.setNroPaciente}/>
     </Container>
   );
