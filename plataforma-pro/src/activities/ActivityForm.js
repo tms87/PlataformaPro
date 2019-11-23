@@ -117,8 +117,6 @@ const useStyles = makeStyles(theme => ({
           ...oldState,
           [name]: value,
         }));
-        
-        //console.log(state.title +" "+event.target.name+" "+event.target.value)
     };
 
     const handleUseTemplate = event => {
@@ -137,7 +135,6 @@ const useStyles = makeStyles(theme => ({
     
     const handleCheck = name => event => {
         setState({ ...state, [name]: event.target.checked });
-        //console.log(event.target.checked);
     };
     return (
         <div className={classes.root}>

@@ -202,7 +202,7 @@ const handleClose = (event, reason) => {
                 required
                 fullWidth
                 id="email"
-                label="Correo Electronico"
+                label="E-mail"
                 name="email"
                 autoComplete="email"
                 autoFocus

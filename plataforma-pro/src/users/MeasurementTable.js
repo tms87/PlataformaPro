@@ -1,20 +1,19 @@
 import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
-import UserInfo from './UsersInfo';
-import ProfesionalClientesController from './ProfesionalClientesController';
-import UsersController from './UsersController';
-import UrlInteligente from './../url';
+import MeasurementInfo from './MeasurementInfo';
+import MeasurementController from './MeasurementController';
+import UrlInteligente from '../url';
 
-export default function UsersTable(props) {
-  const [state, setState] = React.useState(UserInfo);
+export default function MeasurementTable(props) {
+  const [state, setState] = React.useState(MeasurementInfo);
   const [nroPaciente, setNroPaciente] = React.useState("");
   const [clientes, setClientes] = React.useState([]);
 
   const tableRef = React.createRef();
 
   async function updateClientes() {
-    const nuevosClientes = await UsersController.getClientes() || [];
-    setClientes(nuevosClientes);
+    /* const nuevosClientes = await UsersController.getClientes() || [];
+    setClientes(nuevosClientes);*/
   }
 
   useEffect( () => {
@@ -23,7 +22,7 @@ export default function UsersTable(props) {
   } ,[])
 
   async function fetchData() {
-    const endpoint = UrlInteligente.obtenerUrl('profesionales','/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
+    /* const endpoint = UrlInteligente.obtenerUrl('profesionales','/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
     console.log(endpoint);
     const options = {
         method:'GET',
@@ -41,14 +40,14 @@ export default function UsersTable(props) {
         tableRef.current.onQueryChange();
     } catch(error) {
         console.error('Error: ', error);
-    }
+    } */
   }
 
   return (
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
-        search: false
+        search: true
       }}
       localization={{
         header: {
@@ -77,7 +76,7 @@ export default function UsersTable(props) {
           labelDisplayedRows: '{from}-{to} de {count}',
         }
       }}
-      title="Pacientes"
+      title="Mediciones"
       columns={state.columns}
       tableRef={tableRef}
       data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: 5}), 600))}
@@ -94,7 +93,7 @@ export default function UsersTable(props) {
                 data.push(newData);
                 setState({ ...state, data });
                 const relationData = { cliente_id: foundUser.id, profesional_id: '35' };
-                ProfesionalClientesController.insertUser(relationData);
+                MeasurementController.insertMeasurement(relationData);
               } else {
                 alert("No se encontro al usuario");
                 return;
@@ -107,35 +106,21 @@ export default function UsersTable(props) {
               resolve();
               const data = [...state.data];
               data.splice(data.indexOf(oldData), 1);
-              ProfesionalClientesController.deleteUser(oldData.id);
+              MeasurementController.deleteMeasurement(oldData.id);
+              setState({ ...state, data });
+            }, 600);
+          }),
+        onRowUpdate: oldData =>
+          new Promise(resolve => {
+            setTimeout(() => {
+              resolve();
+              const data = [...state.data];
+              /* data.splice(data.indexOf(oldData), 1); */
+              MeasurementController.updateMeasurement(oldData.id);
               setState({ ...state, data });
             }, 600);
           }),
       }}
-      actions={[
-        {
-          icon: 'assignment',
-          tooltip: 'Actividades',
-          onClick: (event, rowData) => {
-            props.setNroPaciente(rowData.id);
-            props.setPage("activities")
-          }
-        },
-        {
-          icon: 'note',
-          tooltip: 'Notas',
-          onClick: (event, rowData) => {
-            props.setNroPaciente(rowData.id);
-            props.setPage("notas")
-          }
-        },
-        {
-          icon: 'refresh',
-          tooltip: 'Refresh Data',
-          isFreeAction: true,
-          onClick: () => tableRef.current && tableRef.current.onQueryChange(),
-        }
-      ]}
     />
   );
 }

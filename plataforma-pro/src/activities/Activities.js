@@ -93,47 +93,49 @@ export default function Activities(props) {
     setTimeout(()=>setRefresh(true),1000);
   }
  
-  return (<Container>
-    <CssBaseline />
-    <h1>Actividades</h1>
-    <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />
-    <Popper id={id} open={open} anchorEl={anchorEl} transition>
-      {({ TransitionProps }) => (
-        <Fade {...TransitionProps} timeout={350}>
-          <Paper className={classes.root}>
-            <Typography className={classes.typography}>Para crear una nueva actividad complete los datos o seleccione una plantilla</Typography>
-            <ActivityForm 
-              handleAccept={handleUpdate}
-              handleCancel={handleClose}
-              isBoarding= {true}
-              useTemplate= {false}
-              setState={setData}
-              templates= {templates}
-              nroPaciente={props.nroPaciente}
-            />
-          </Paper>
-        </Fade>
-      )}
-    </Popper>
-    {(loading)?"loading...":
-      <Grid container spacing={3}
-        >
-        {data.map((item,key) => 
-          <Grid item xs={12}>
-            <ActivityCard 
-              key={key}
-              handleUpdate={handleUpdate}
-              activityId={(loading)?"":toString(item.id)}
-              title= {(loading)?"loading...":toString(item.titulo)}
-              description={(loading)?"loading...":toString(item.descripcion)}
-              content={(loading)?"loading...":toString(item.contenido)}
-              type={(loading)?"loading...":toString(item.tipo_id)}
-              startDate={(loading)?"loading...":toString(item.fecha_inicio)}
-              /* media= {true} */
-            />
-          </Grid>
+  return (
+    <Container component="main">
+      <CssBaseline />
+      <h1>Actividades</h1>
+      <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />
+      <Popper id={id} open={open} anchorEl={anchorEl} transition>
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Paper className={classes.root}>
+              <Typography className={classes.typography}>Para crear una nueva actividad complete los datos o seleccione una plantilla</Typography>
+              <ActivityForm 
+                handleAccept={handleUpdate}
+                handleCancel={handleClose}
+                isBoarding= {true}
+                useTemplate= {false}
+                setState={setData}
+                templates= {templates}
+                nroPaciente={props.nroPaciente}
+              />
+            </Paper>
+          </Fade>
         )}
-      </Grid>
-    }
-  </Container>);
+      </Popper>
+      {(loading)?"loading...":
+        <Grid container spacing={3}
+          >
+          {data.map((item,key) => 
+            <Grid item xs={12}>
+              <ActivityCard 
+                key={key}
+                handleUpdate={handleUpdate}
+                activityId={(loading)?"":toString(item.id)}
+                title= {(loading)?"loading...":toString(item.titulo)}
+                description={(loading)?"loading...":toString(item.descripcion)}
+                content={(loading)?"loading...":toString(item.contenido)}
+                type={(loading)?"loading...":toString(item.tipo_id)}
+                startDate={(loading)?"loading...":toString(item.fecha_inicio)}
+                /* media= {true} */
+              />
+            </Grid>
+          )}
+        </Grid>
+      }
+    </Container>
+  );
 }
