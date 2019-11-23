@@ -1,7 +1,7 @@
 import UrlInteligente from './../url';
 
 const url = UrlInteligente.obtenerUrl('pacientes', "/profesionales/");
-const urlClientes = UrlInteligente.obtenerUrl('pacientes', '') ; 
+const urlClientes = UrlInteligente.obtenerUrl('pacientes', '/clientes/') ; 
 
 class UsersController
 {

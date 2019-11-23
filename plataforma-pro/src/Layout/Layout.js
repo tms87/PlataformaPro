@@ -11,20 +11,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import NoteIcon from '@material-ui/icons/Note';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Avatar from '@material-ui/core/Avatar';
-import ProfilePic from './img/lopez.png';
-import HomeIcon from '@material-ui/icons/Home';
-import ImagenFondo from './img/fondo.jpg';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import MessageIcon from '@material-ui/icons/Message';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { miniProfileNutri, optionsListNutri } from './LayoutInfoNutri';
+import { miniProfilePaciente, optionsListPaciente } from './LayoutInfoPaciente';
+import logo from '../img/logo.png';
+import HomeIcon from '@material-ui/icons/Home';
 import './Layout.css';
 
 const drawerWidth = 240;
@@ -32,9 +28,8 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundImage: `url(${ImagenFondo})`,
-      height: "auto",
-     },
+      backgroundColor: '#fff',
+    },
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -47,6 +42,7 @@ const useStyles = makeStyles(theme => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
+    backgroundColor: '#fff',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -60,7 +56,6 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-   
   },
   avatar: {
     margin: 10,
@@ -76,6 +71,18 @@ function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { modoPaciente } = props;
+
+  let miniProfile;
+  let optionsList;
+
+  if(modoPaciente) {
+    miniProfile = miniProfilePaciente;
+    optionsList = optionsListPaciente;
+  } else {
+    miniProfile = miniProfileNutri;
+    optionsList = optionsListNutri;
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -87,50 +94,34 @@ function Header(props) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} style={{ textAlign: "left" , marginLeft: "5%" }}>
-        <Avatar alt="Profile" src={ProfilePic} className={classes.avatar} />
+      <div className={classes.toolbar} style={{ textAlign: "left", marginLeft: "5%" }}>
+        <Avatar alt="Profile" src={miniProfile.picture} className={classes.avatar} />
         <Typography variant="h6">
-            Lautaro Lopez
+          {miniProfile.name}
         </Typography>
         <Typography variant="subtitle1" color="textSecondary">
-            Nutricionista
+          {miniProfile.type}
         </Typography>
       </div>
       <List>
         <ListItem key="Home">
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Home" value="home" icon={<HomeIcon />}/>
+            <BottomNavigationAction label="Home" value="home" icon={<HomeIcon />} />
           </BottomNavigation>
         </ListItem>
         <Divider />
-        <ListItem key="Pacientes">
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Pacientes" value="patients" icon={<PeopleOutlineIcon />}/>
-          </BottomNavigation>
-        </ListItem>
-        <ListItem key="Plantillas">
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Plantillas" value="templates" icon={<NoteIcon />}/>
-          </BottomNavigation>
-        </ListItem>
-        <ListItem key="Productos">
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Productos" value="productos" icon={<ShoppingCartIcon />}/>
-          </BottomNavigation>
-        </ListItem>
-        <ListItem key="Recetas">
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Recetas" value="recetas" icon={<FolderOpenIcon />}/>
-          </BottomNavigation>
-        </ListItem>
-        <ListItem key="Perfil">
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Perfil" value="profile" icon={<AccountBoxIcon />}/>
-          </BottomNavigation>
-        </ListItem>
+        {optionsList.map(i =>
+          <div>
+            <ListItem key={i.label}>
+              <BottomNavigation value={props.page} onChange={handleChange} showLabels>
+                <BottomNavigationAction label={i.label} value={i.value} icon={i.icon} />
+              </BottomNavigation>
+            </ListItem>
+          </div>
+        )}
         <ListItem key="Logout" style={{ marginTop: "100%" }}>
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }}/>
+            <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }} />
           </BottomNavigation>
         </ListItem>
       </List>
@@ -151,8 +142,8 @@ function Header(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap style={{ width: "50%", textAlign: "left" }}>
-            NUTRIHOME
+          <Typography variant="h6" noWrap style={{ width: "50%", textAlign: "left", display: 'flex' }}>
+            <img src={logo} alt="Logo" />
           </Typography>
           <div style={{ width: "50%", float: "right" }}>
             <IconButton className={classes.button}>
@@ -196,7 +187,7 @@ function Header(props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar}/>
       </main>
     </div>
   );

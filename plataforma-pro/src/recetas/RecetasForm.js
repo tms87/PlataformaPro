@@ -112,6 +112,7 @@ const useStyles = makeStyles(theme => ({
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <form className={classes.container} noValidate autoComplete="off">
+                {console.log("Titule es " + state.title) }
             { state.isBoarding && (    
                 <Grid item xs={12}>
                         <FormControl className={classes.formControl}>

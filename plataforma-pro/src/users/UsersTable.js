@@ -9,6 +9,7 @@ export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
   const [nroPaciente, setNroPaciente] = React.useState("");
   const [clientes, setClientes] = React.useState([]);
+  const displayData = [];
 
   const tableRef = React.createRef();
 
@@ -48,7 +49,10 @@ export default function UsersTable(props) {
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
-        search: false
+        search: false,
+        paging: false,
+        minBodyHeight: '80vh',
+        maxBodyHeight: '80vh',
       }}
       localization={{
         header: {
@@ -78,9 +82,10 @@ export default function UsersTable(props) {
         }
       }}
       title="Pacientes"
+      toolbar= {{ searchPlaceholder: "Buscar..." }}
       columns={state.columns}
       tableRef={tableRef}
-      data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: 5}), 600))}
+      data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: state.data.length}), 600))}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
@@ -104,11 +109,14 @@ export default function UsersTable(props) {
         onRowDelete: oldData =>
           new Promise(resolve => {
             setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data.splice(data.indexOf(oldData), 1);
+              {
+              const data = state.data;
+              const index = data.findIndex(i => i.id === oldData.id);
+              data.splice(index, 1);
               ProfesionalClientesController.deleteUser(oldData.id);
               setState({ ...state, data });
+              }
+              resolve();
             }, 600);
           }),
       }}
@@ -118,7 +126,7 @@ export default function UsersTable(props) {
           tooltip: 'Actividades',
           onClick: (event, rowData) => {
             props.setNroPaciente(rowData.id);
-            props.setPage("activities")
+            props.setPage("activities");
           }
         },
         {
@@ -126,7 +134,15 @@ export default function UsersTable(props) {
           tooltip: 'Notas',
           onClick: (event, rowData) => {
             props.setNroPaciente(rowData.id);
-            props.setPage("notas")
+            props.setPage("notas");
+          }
+        },
+        {
+          icon: 'person',
+          tooltip: 'Perfil',
+          onClick: (event, rowData) => {
+            props.setNroPaciente(rowData.id);
+            props.setPage("profile");
           }
         },
         {
