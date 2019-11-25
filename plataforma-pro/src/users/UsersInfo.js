@@ -1,9 +1,9 @@
 
 export default {  
     columns: [
-        { title: 'Nombre', field: 'name', editable: 'never', searchable: true },
-        { title: 'Apellido', field: 'surname', editable: 'never', searchable: true },
-        { title: 'DNI', field: 'dni', searchable: true },
+        { title: 'Nombre', field: 'name', editable: 'never'},
+        { title: 'Apellido', field: 'surname', editable: 'never' },
+        { title: 'DNI', field: 'dni' },
     ],
     data: []
 }

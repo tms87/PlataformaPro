@@ -22,7 +22,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Activities from '../activities/Activities';
-import fondo from './fondoLogin.png';
+//import fondo from './fondoLogin.png';
 import UrlInteligenete from '../url';
 
 const theme = createMuiTheme({
@@ -36,7 +36,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit">
-        Pro Platform
+        Nutrihome
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
   
   '@global': {
     body: {
-      backgroundImage: UrlInteligenete.obtenerUrl('fondo') +  `(${fondo})`,
+      //backgroundImage: UrlInteligenete.obtenerUrl('fondo') +  `(${fondo})`,
      },
   },
 
@@ -226,7 +226,7 @@ export default function SignUp() {
                 <Grid item xs={12}>
                 <FormControlLabel
                     control={<Checkbox value="TerminosYCondiciones" color="primary" />}
-                    label="He leido y acepto los terminos y condiciones de Pro Platform"
+                    label="He leido y acepto los terminos y condiciones de Nutrihome"
                 />
                 </Grid>
             </Grid>

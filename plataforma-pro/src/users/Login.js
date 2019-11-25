@@ -92,7 +92,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <MaterialLink color="inherit">
-        PlataformaPro
+        Nutrihome
       </MaterialLink>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -201,17 +201,17 @@ const handleClose = (event, reason) => {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="E-mail"
-                name="email"
-                autoComplete="email"
+                id="dni"
+                label="DNI"
+                name="dni"
+                autoComplete="dni"
                 autoFocus
-                onChange={(event) => setUserData({...userData, email: event.target.value })}
+                onChange={(event) => setUserData({...userData, dni: event.target.value })}
             />
             <TextField
                 variant="outlined"
                 margin="normal"
-                required
+                //required
                 fullWidth
                 name="password"
                 label="Contraseña"

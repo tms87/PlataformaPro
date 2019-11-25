@@ -12,6 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import ImagenFondo from '../img/fondo.jpg';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import MessageIcon from '@material-ui/icons/Message';
@@ -19,16 +20,19 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { miniProfileNutri, optionsListNutri } from './LayoutInfoNutri';
 import { miniProfilePaciente, optionsListPaciente } from './LayoutInfoPaciente';
-import logo from '../img/logo.png';
 import HomeIcon from '@material-ui/icons/Home';
 import './Layout.css';
+import Login from '../users/Login';
+import ReactDOM from 'react-dom';
+import logo from '../img/logo.png';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundColor: '#fff',
+      backgroundImage: `url(${ImagenFondo})`,
+      height: "auto",
     },
   },
   drawer: {
@@ -88,6 +92,10 @@ function Header(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const showLogin = () => {
+    ReactDOM.render(<Login />, document.getElementById('root'));
+};
+
   function handleChange(event, newValue) {
     props.setPage(newValue)
   }
@@ -121,7 +129,7 @@ function Header(props) {
         )}
         <ListItem key="Logout" style={{ marginTop: "100%" }}>
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }} />
+            <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }} onClick={showLogin} /> 
           </BottomNavigation>
         </ListItem>
       </List>

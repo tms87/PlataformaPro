@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import UrlInteligente from '../url';
+import AddIcon from '@material-ui/icons/Add';
 const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
@@ -239,9 +240,9 @@ const useStyles = makeStyles(theme => ({
                             variant="contained"
                             color="primary"
                             className={classes.button}
-                            startIcon={<SaveIcon />}
+                            startIcon={<AddIcon />}
                             onClick={handleAccept}
-                            > Aceptar
+                            > Guardar
                         </Button>
                         <Button
                             variant="contained"

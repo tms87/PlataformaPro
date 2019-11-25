@@ -3,16 +3,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import ActivityCard from '../components/ActivityCard';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import AddIcon from '@material-ui/icons/Add';
 import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
-
 import UrlInteligente from '../url';
+import Button from '@material-ui/core/Button';
+
 //const url = 'http://b95ec43e.ngrok.io/api';
 const url = UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/`); // 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
@@ -26,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 export default function Activities(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [templates, setTemplates] = useState(null);
   const [error, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -57,18 +57,19 @@ export default function Activities(props) {
     }
   }
 
+
   async function getTemplates() {
     try {
       setLoading(true);
-      const urlT = UrlInteligente.obtenerUrl('', '/actividades/profesional/35/templates');
+      const urlT =  UrlInteligente.obtenerUrl('', '/actividades/profesional/35/templates');
       const res = await fetch(urlT);
       await res.json()
-        .then(json => { setTemplates(json); });
-    } catch (e) {
+      .then(json => {  setTemplates(json); });
+    } catch (e){
       setErrors(e);
     } finally {
       /* Agrego un array vacio al estado de los temples porque si no la funcion map del section, tira erro y no abre el pop */
-      setTemplates([])
+      setTemplates([]) 
       setLoading(false);
     }
   }
@@ -89,7 +90,7 @@ export default function Activities(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
-
+  
   const handleUpdate = () => {
     setAnchorEl(null);
     /* setData([]); */
@@ -98,8 +99,12 @@ export default function Activities(props) {
 
   return (<Container>
     <CssBaseline />
-    <h1>Actividades</h1>
-    {!modoPaciente ? <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize='large' aria-describedby={id} variant="contained" onClick={handleClick} />} /> : ""}
+    <h1>Actividades de {toString(data2.nombre)} {toString(data2.apellido)} </h1>
+    {!modoPaciente ? /* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />  */
+        <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
+        Agregar nueva actividad
+      </Button>: ""}
+      
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
@@ -111,33 +116,32 @@ export default function Activities(props) {
               isBoarding={true}
               useTemplate={false}
               setState={setData}
-              templates={templates}
+              templates= {templates}
               nroPaciente={props.nroPaciente}
             />
           </Paper>
         </Fade>
       )}
-      </Popper>
-      {(loading)?"loading...":
-        <Grid container spacing={3}
-          >
-          {data.map((item,key) => 
-            <Grid item xs={12}>
-              <ActivityCard 
-                key={key}
-                handleUpdate={handleUpdate}
-                activityId={(loading)?"":toString(item.id)}
-                title= {(loading)?"loading...":toString(item.titulo)}
-                description={(loading)?"loading...":toString(item.descripcion)}
-                content={(loading)?"loading...":toString(item.contenido)}
-                type={(loading)?"loading...":toString(item.tipo_id)}
-                startDate={(loading)?"loading...":toString(item.fecha_inicio)}
-                /* media= {true} */
-              />
-            </Grid>
-          )}
-        </Grid>
-      }
-    </Container>
-  );
+    </Popper>
+    {(loading)?"":
+      <Grid container spacing={3}
+        >
+        {data.map((item,key) => 
+          <Grid item xs={12}>
+            <ActivityCard 
+              key={key}
+              handleUpdate={handleUpdate}
+              activityId={(loading)?"":toString(item.id)}
+              title= {(loading)?"loading...":toString(item.titulo)}
+              description={(loading)?"loading...":toString(item.descripcion)}
+              content={(loading)?"loading...":toString(item.contenido)}
+              type={(loading)?"loading...":toString(item.tipo_id)}
+              startDate={(loading)?"loading...":toString(item.fecha_inicio)}
+              /* media= {true} */
+            />
+          </Grid>
+        )}
+      </Grid>
+    }
+  </Container>);
 }

@@ -12,6 +12,7 @@ import Paper from './../../node_modules/@material-ui/core/Paper';
 import RecetasForm from './RecetasForm';
 import Grid from './../../node_modules/@material-ui/core/Grid';
 import UrlInteligente from '../url';
+const pr = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';
 const url = UrlInteligente.obtenerUrl('recetas', '/recetas/profesional/35');
 
 const useStyles = makeStyles(theme => ({
@@ -104,7 +105,7 @@ export default function Resetas(props) {
               title={(loading) ? "loading..." : toString(item.titulo)}
               content={(loading) ? "loading..." : toString(item.contenido)}
               startDate={(loading) ? "loading..." : toString(item.fecha_inicio)}
-          />
+            />
           </Grid>
         )}
       </Grid>

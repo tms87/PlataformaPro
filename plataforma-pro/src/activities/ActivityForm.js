@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import UrlInteligente from '../url';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -117,6 +118,8 @@ const useStyles = makeStyles(theme => ({
           ...oldState,
           [name]: value,
         }));
+        
+        //console.log(state.title +" "+event.target.name+" "+event.target.value)
     };
 
     const handleUseTemplate = event => {
@@ -135,6 +138,7 @@ const useStyles = makeStyles(theme => ({
     
     const handleCheck = name => event => {
         setState({ ...state, [name]: event.target.checked });
+        //console.log(event.target.checked);
     };
     return (
         <div className={classes.root}>
@@ -259,9 +263,9 @@ const useStyles = makeStyles(theme => ({
                             variant="contained"
                             color="primary"
                             className={classes.button}
-                            startIcon={<SaveIcon />}
+                            startIcon={<AddIcon />}
                             onClick={handleAccept}
-                            > Aceptar
+                            > Guardar
                         </Button>
                         <Button
                             variant="contained"
