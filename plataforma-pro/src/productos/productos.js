@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TabInfo from './TabInfo';
 import UrlInteligente from '../url';
-
+import Card from './productoCard';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
     height: '97vh',
+    
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -55,8 +56,14 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "initial",
     margin: "10px",
   },
+  tabsContenido:{
+   
+  }
 }));
 
+
+
+const url = UrlInteligente.obtenerUrl('productos', `/productos/`); 
 export default function Producto(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -70,15 +77,14 @@ export default function Producto(props) {
   };
 
 
-  const url = UrlInteligente.obtenerUrl('productos', `/productos/`); //
-  console.log(url);
+ 
   useEffect(() => {
     async function fetchApi() {
       try {
         setLoading(true);
         const res = await fetch(url);
         await res.json()
-          .then(json => { setData(json); console.log(json); });
+          .then(json => { setData(json); console.log(json);});
       } catch (e) {
         console.log(e);
       } finally {
@@ -87,7 +93,8 @@ export default function Producto(props) {
     }
     fetchApi();
     setRefresh(false);
-  }, [refresh, url]);
+  }, [refresh]);
+
 
   return (
     <div className={classes.root}>
@@ -101,12 +108,21 @@ export default function Producto(props) {
           {TabInfo.map(i => <Tab label={i.label} icon={i.icon} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
           </Tabs>
       {TabInfo.map(i =>
-          <TabPanel value={value} index={i.key} key={i.key * 10}>
-            <p>{i.key}</p>
-            {data.map(x => <p>{x.nombre}</p>)}
+          <TabPanel value={value} index={i.key} key={i.key * 10}  style={{width:"100%"}} >
+              <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
+              {data.filter(function(x) {
+                console.log(x.grupo_id + " " + i.categoria)
+                if (x.grupo_id == i.categoria || i.categoria == 0){
+                  return true;
+                }
+                  return false;
+                }).map(x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion} />)}
+              </Box>
+            
           </TabPanel>
         )}
     </div>
   );
 }
 
+//            <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>

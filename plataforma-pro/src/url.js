@@ -17,7 +17,7 @@ export default  {
     default : 'No hay url',
     profesionales : 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc',
     /*La direfencia es que uno es un cliente de un profesional en particular, otro son todos los clientes de un profesional*/
-    productos: 'http://www.mocky.io/v2/5dd5361c3300007b00f37f5e',
+    productos: 'http://www.mocky.io/v2/5ddeea583100005f733ae5c0',
     //[{"id": 16,"grupo_id": 1,"categoria_id": 5,"nombre": "Hudson Roob","descripcion": "Fuga dolorem veniam sed repudiandae in in dolorem.","marca": "Dusty Langosh","url": "https://lorempixel.com/400/240/?94585","created_at": "2019-11-18 17:37:10","updated_at": "2019-11-18 17:37:10"}]
     notas: 'http://www.mocky.io/v2/5dd57bbd330000359ff381d6',
 
