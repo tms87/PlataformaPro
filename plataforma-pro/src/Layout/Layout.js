@@ -194,9 +194,3 @@ function Header(props) {
 }
 
 export default Header;
-
-/*        <ListItem key="Actividades">
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Actividades" value="activities" icon={<EventNoteIcon />} onClick={() => setTitle("ACTIVIDADES")}/>
-          </BottomNavigation>
-        </ListItem> */

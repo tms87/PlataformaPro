@@ -24,7 +24,7 @@ export default function UsersTable(props) {
   } ,[])
 
   async function fetchData() {
-    const endpoint = UrlInteligente.obtenerUrl('profesionales','/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
+    const endpoint = UrlInteligente.obtenerUrl('profesionales','/profesionalclientes/clientes/35');
     console.log(endpoint);
     const options = {
         method:'GET',
