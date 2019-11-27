@@ -2,12 +2,10 @@ import React, {useEffect} from 'react';
 import MaterialTable from 'material-table';
 import MeasurementInfo from './MeasurementInfo';
 import MeasurementController from './MeasurementController';
-import UrlInteligente from '../url';
 
 export default function MeasurementTable(props) {
   const [state, setState] = React.useState(MeasurementInfo);
-  const [nroPaciente, setNroPaciente] = React.useState("");
-  const [clientes, setClientes] = React.useState([]);
+  const [clientes] = React.useState([]);
 
   const tableRef = React.createRef();
 

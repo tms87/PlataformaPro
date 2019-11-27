@@ -12,7 +12,7 @@ import Paper from './../../node_modules/@material-ui/core/Paper';
 import RecetasForm from './RecetasForm';
 import Grid from './../../node_modules/@material-ui/core/Grid';
 import UrlInteligente from '../url';
-const pr = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';
+//const pr = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';
 const url = UrlInteligente.obtenerUrl('recetas', '/recetas/profesional/35');
 
 const useStyles = makeStyles(theme => ({
@@ -25,30 +25,27 @@ const useStyles = makeStyles(theme => ({
 export default function Resetas(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [hasError, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
 
   let { modoPaciente } = props;
 
   useEffect(() => {
+    async function fetchApi() {
+      try {
+        setLoading(true);
+        const res = await fetch(url);
+        await res.json()
+          .then(json => { setData(json); });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
+    }
     fetchApi();
-    console.log("data" + data[0])
     setRefresh(false);
   }, [refresh]);
-
-  async function fetchApi() {
-    try {
-      setLoading(true);
-      const res = await fetch(url);
-      await res.json()
-        .then(json => { setData(json); });
-    } catch (e) {
-      setErrors(e);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   function toString(json) {
     if (json != null) {

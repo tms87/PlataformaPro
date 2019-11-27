@@ -93,12 +93,7 @@ export default function Profile(props) {
       [name]: value,
     }));
   };
-  function toString(json){
-    if (json != null){
-        return JSON.stringify(json).replace(/"/g,'')
-    }
-    return "";
-  }
+
   const handleAccept = () => {
 
   }
@@ -282,7 +277,7 @@ export default function Profile(props) {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} lg={12}>
-                        <FormControl fullWidth className={classes.textField, classes.textBox}>
+                        <FormControl fullWidth className={classes.textField}>
                             <TextField
                                 id="allergyText"
                                 name="allergies"

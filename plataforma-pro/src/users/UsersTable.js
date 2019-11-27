@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 import UserInfo from './UsersInfo';
 import ProfesionalClientesController from './ProfesionalClientesController';
@@ -7,9 +7,7 @@ import UrlInteligente from './../url';
 
 export default function UsersTable(props) {
   const [state, setState] = React.useState(UserInfo);
-  const [nroPaciente, setNroPaciente] = React.useState("");
   const [clientes, setClientes] = React.useState([]);
-  const displayData = [];
 
   const tableRef = React.createRef();
 
@@ -18,20 +16,16 @@ export default function UsersTable(props) {
     setClientes(nuevosClientes);
   }
 
-  useEffect( () => {
-      fetchData();
-      updateClientes();
-  } ,[])
-
-  async function fetchData() {
-    const endpoint = UrlInteligente.obtenerUrl('profesionales','/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
-    console.log(endpoint);
-    const options = {
-        method:'GET',
+  useEffect(() => {
+    async function fetchData() {
+      const endpoint = UrlInteligente.obtenerUrl('profesionales', '/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
+      console.log(endpoint);
+      const options = {
+        method: 'GET',
         mode: "cors",
-        headers: {'Content-Type': 'application/json'},
-    };
-    try {
+        headers: { 'Content-Type': 'application/json' },
+      };
+      try {
         const res = await fetch(endpoint, options);
         const resObject = await res.json();
         const patientsList = state;
@@ -40,10 +34,14 @@ export default function UsersTable(props) {
         patientsList.data = newPatients;
         setState(patientsList);
         tableRef.current.onQueryChange();
-    } catch(error) {
+      } catch (error) {
         console.error('Error: ', error);
+      }
     }
-  }
+    fetchData();
+    updateClientes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <MaterialTable
@@ -82,17 +80,17 @@ export default function UsersTable(props) {
         }
       }}
       title="Pacientes"
-      toolbar= {{ searchPlaceholder: "Buscar..." }}
+      toolbar={{ searchPlaceholder: "Buscar..." }}
       columns={state.columns}
       tableRef={tableRef}
-      data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: state.data.length}), 600))}
+      data={() => new Promise(resolve => setTimeout(() => resolve({ data: state.data, page: 0, totalCount: state.data.length }), 600))}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
               const foundUser = clientes.find(x => x.dni === newData.dni);
-              if(foundUser) {
+              if (foundUser) {
                 const data = [...state.data];
                 newData.name = foundUser.nombre;
                 newData.surname = foundUser.apellido;
@@ -110,11 +108,11 @@ export default function UsersTable(props) {
           new Promise(resolve => {
             setTimeout(() => {
               {
-              const data = state.data;
-              const index = data.findIndex(i => i.id === oldData.id);
-              data.splice(index, 1);
-              ProfesionalClientesController.deleteUser(oldData.id);
-              setState({ ...state, data });
+                const data = state.data;
+                const index = data.findIndex(i => i.id === oldData.id);
+                data.splice(index, 1);
+                ProfesionalClientesController.deleteUser(oldData.id);
+                setState({ ...state, data });
               }
               resolve();
             }, 600);

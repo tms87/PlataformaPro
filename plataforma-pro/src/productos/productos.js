@@ -1,22 +1,22 @@
-import CssBaseline from './../../node_modules/@material-ui/core/CssBaseline';
 import Container from './../../node_modules/@material-ui/core/Container';
-import React, { useState, useEffect } from './../../node_modules/react';
+import React from './../../node_modules/react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import KitchenIcon from '@material-ui/icons/Kitchen';
+import TabInfo from './TabInfo';
+
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, tabValue, index, ...other } = props;
 
   return (
     <Typography
       component="div"
       role="tabpanel"
-      hidden={value !== index}
+      hidden={tabValue !== index}
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
@@ -30,7 +30,7 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  tabValue: PropTypes.any.isRequired,
 };
 
 
@@ -59,21 +59,15 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "initial",
     margin: "10px",
   },
-  labelIcon: {
-    margin: "5px",
-  },
-  rootSvg: {
-    margin: "7px",
-  }
 }));
 
-export default function Producto(porps) {
+export default function Producto(props) {
 
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [tabValue, setTabValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChangeTab = (event, newtabValue) => {
+    setTabValue(newtabValue);
   };
 
   return (
@@ -82,46 +76,17 @@ export default function Producto(porps) {
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value={value}
-          onChange={handleChange}
-
-          aria-label="disabled tabs example"
-          className={classes.tabs}
-          textColor="secondary"
-        >
-          <Tab label="Todos los productos" icon={<KitchenIcon classes={{ root: classes.rootSvg }} />} classes={{ wrapper: classes.wrapper /*, labelIcon: classes.labelIcon*/ }}    {...a11yProps(0)} />
-          <Tab label="Grupo 1: Lecha y derivados" classes={{ wrapper: classes.wrapper }} icon={<KitchenIcon classes={{ root: classes.rootSvg }} />} {...a11yProps(1)} />
-          <Tab label="Grupo 2: Carne, pescado y huevo" classes={{ wrapper: classes.wrapper }}  {...a11yProps(2)} />
-          <Tab label="Grupo 3: Papas, legumbres y futos secos" classes={{ wrapper: classes.wrapper }}  {...a11yProps(3)} />
-          <Tab label="Grupo 4: Verduras y hortalizas" classes={{ wrapper: classes.wrapper }}  {...a11yProps(4)} />
-          <Tab label="Grupo 5: Frutas" classes={{ wrapper: classes.wrapper }}  {...a11yProps(5)} />
-          <Tab label="Grupo 6: Cereales y derivados, axucar y dulces" classes={{ wrapper: classes.wrapper }}  {...a11yProps(6)} />
-          <Tab label="Grupo 7: Grasas, aceite y manteca" classes={{ wrapper: classes.wrapper }}  {...a11yProps(7)} />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-          Item One
-            </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-            </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-            </TabPanel>
-        <TabPanel value={value} index={3}>
-          Item Four
-            </TabPanel>
-        <TabPanel value={value} index={4}>
-          Item Five
-            </TabPanel>
-        <TabPanel value={value} index={5}>
-          Item Six
-            </TabPanel>
-        <TabPanel value={value} index={6}>
-          Item Seven
-            </TabPanel>
-        <TabPanel value={value} index={7}>
-          Item Eight
-            </TabPanel>
+          value={tabValue}
+          onChange={handleChangeTab}
+          indicatorColor="primary"
+          className={classes.tabs}>
+          {TabInfo.map(i => <Tab label={i.label} icon={i.icon} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
+          </Tabs>
+        {TabInfo.map(i =>
+          <TabPanel value={tabValue} index={i.key} key={i.key * 10}>
+            {i.label}
+          </TabPanel>
+        )}
       </div>
     </Container>
   );

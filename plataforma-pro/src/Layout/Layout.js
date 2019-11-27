@@ -12,7 +12,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import ImagenFondo from '../img/fondo.jpg';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import MessageIcon from '@material-ui/icons/Message';
@@ -31,7 +30,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundImage: `url(${ImagenFondo})`,
+      backgroundColor: "#ffffff",
       height: "auto",
     },
   },

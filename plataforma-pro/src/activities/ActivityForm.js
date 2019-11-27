@@ -11,7 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
 import UrlInteligente from '../url';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -87,7 +86,7 @@ const useStyles = makeStyles(theme => ({
         //console.log(state.title)
         const today = new Date();
         const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        const endpoint = (state.isBoarding)?"":state.activityId;
+        //const endpoint = (state.isBoarding)?"":state.activityId;
         //console.log("Este es el end point" + endpoint);
         //console.log("INSERTAR " + state.description + state.type + state.content);
         const form = {
@@ -100,6 +99,7 @@ const useStyles = makeStyles(theme => ({
             template: state.newTemplate,
             fecha_inicio: startDate,
         }
+        console.log(form);
         fetch(UrlInteligente.obtenerUrl('actividaesForm',  '/actividades/') ,{
             method: 'POST',
             headers: {
@@ -125,7 +125,7 @@ const useStyles = makeStyles(theme => ({
     const handleUseTemplate = event => {
         const name = event.target.name;
         const value = event.target.value;
-        const te = props.templates.filter(temp=> temp.id == value)
+        const te = props.templates.filter(temp=> temp.id === value)
         setState(oldState => ({
           ...oldState,
           [name]: value,

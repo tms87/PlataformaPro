@@ -255,11 +255,6 @@ const handleClose = (event, reason) => {
             </Snackbar>
             <ThemeProvider theme={theme}>
                 <Grid container>
-                    <Grid item xs>
-                        <MaterialLink href="#" variant="body2">
-                            Olvide mi Contraseña
-                        </MaterialLink>
-                    </Grid>
                     <Grid item>
                         <MaterialLink href="#" variant="body2" onClick={showSignUp}>
                             {"Registrarse"}
