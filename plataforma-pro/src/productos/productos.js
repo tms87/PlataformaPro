@@ -108,7 +108,7 @@ export default function Producto(props) {
           {TabInfo.map(i => <Tab label={i.label} icon={i.icon} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
           </Tabs>
       {TabInfo.map(i =>
-          <TabPanel value={value} index={i.key} key={i.key * 10}  style={{width:"100%"}} >
+          <TabPanel value={value} index={i.key} key={i.key * 10}  style={{width:"100%", overFlow:'auto'}} >
               <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
               {data.filter(function(x) {
                 console.log(x.grupo_id + " " + i.categoria)
