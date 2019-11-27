@@ -11,7 +11,6 @@ export default  {
     actividadCard: 'No hay url',
     recetas: 'http://www.mocky.io/v2/5dd3d6502f00005700d4f77d',
     recetasForm : 'No hay url',
-    profesionales: 'No hay url',
     profesional: "http://www.mocky.io/v2/5dd071652f000051003f208d",
     //{"id":2,"nombre":"Mrs. Herta Hirthe IV","apellido":"Torphy","dni":"97640794","fecha_nacimiento":"2016-04-17","genero":"female","comentarios":"Voluptatibus dolor vel cupiditate dolorum.","telefono":"1-706-547-2091 x2500","direccion":"3207 Bonnie Cove Suite 400\nAidanland, NY 76879-9710","email":"2","created_at":"2019-10-18 22:28:54","updated_at":"2019-10-29 03:38:30"}
     fondo : 'No url',

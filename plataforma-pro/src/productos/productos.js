@@ -10,14 +10,16 @@ import KitchenIcon from '@material-ui/icons/Kitchen';
 import UrlInteligente from '../url';
 import Grid from '@material-ui/core/Grid';
 
+
+
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, tabValue, index, ...other } = props;
 
   return (
     <Typography
       component="div"
       role="tabpanel"
-      hidden={value !== index}
+      hidden={tabValue !== index}
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
@@ -31,7 +33,7 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  tabValue: PropTypes.any.isRequired,
 };
 
 
@@ -60,12 +62,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "initial",
     margin: "10px",
   },
-  labelIcon: {
-    margin: "5px",
-  },
-  rootSvg: {
-    margin: "7px",
-  }
 }));
 
 const url = UrlInteligente.obtenerUrl("productos", "/productos");
@@ -84,7 +80,6 @@ export default function Producto(props) {
 
   useEffect(() => {
     fetchApi();
-    console.log("data" + data[0])
     setRefresh(false);
   }, [refresh]);
 
@@ -162,6 +157,5 @@ export default function Producto(props) {
         <TabPanel value={value} index={7}>
           Item Eight
       </TabPanel>
-    </div>
-  );
+    </div> );
 }

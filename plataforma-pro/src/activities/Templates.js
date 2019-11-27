@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import TemplateCard from '../components/TemplateCard';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import AddIcon from '@material-ui/icons/Add';
 import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
@@ -12,8 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import TemplateForm from './TemplateForm';
 import Grid from '@material-ui/core/Grid';
 import UrlInteligente from '../url';
+import Button from '@material-ui/core/Button';
 
-const url = UrlInteligente.obtenerUrl( 'templates' ,'/actividades/profesional/35/templates') ;
+const url = UrlInteligente.obtenerUrl('templates', '/actividades/profesional/35/templates');
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,29 +24,26 @@ const useStyles = makeStyles(theme => ({
 export default function Activities(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [error, setErrors] = useState(false);
   /* const [templates, setTemplates] = useState(null); */
   const [loading, setLoading] = useState(true);
-  const [refresh,setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   useEffect(() => {
-      fetchApi();
-      /* getTemplates(); */
-      console.log("data"+data[0])
-      setRefresh(false);
-  },[refresh]);
-
-  async function fetchApi() {
-    try {
-      setLoading(true);
-      const res = await fetch(url);
-      await res.json()
-      .then(json => {setData(json);});
-    } catch (e){
-      setErrors(e);
-    } finally {
-      setLoading(false);
+    async function fetchApi() {
+      try {
+        setLoading(true);
+        const res = await fetch(url);
+        await res.json()
+          .then(json => { setData(json); });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
     }
-  }
+    fetchApi();
+    setRefresh(false);
+  }, [refresh]);
+
   /* async function getTemplates() {
     try {
       setLoading(true);
@@ -61,9 +57,9 @@ export default function Activities(props) {
       setLoading(false);
     }
   } */
-  function toString(json){
-    if (json != null){
-      return JSON.stringify(json).replace(/"/g,'')
+  function toString(json) {
+    if (json != null) {
+      return JSON.stringify(json).replace(/"/g, '')
     }
     return "";
   }
@@ -81,49 +77,52 @@ export default function Activities(props) {
   const handleUpdate = () => {
     setAnchorEl(null);
     /* setData([]); */
-    setTimeout(()=>setRefresh(true),1000);
+    setTimeout(() => setRefresh(true), 1000);
   }
- 
+
   return (<Container>
     <CssBaseline />
     <h1>Plantillas</h1>
-    <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />
+    {/* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /> */}
+    <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
+      Agregar nueva plantilla
+      </Button>
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
           <Paper className={classes.root}>
             <Typography className={classes.typography}>Para crear una nueva plantilla complete los datos o seleccione otra plantilla para tomar de base</Typography>
-            <TemplateForm 
+            <TemplateForm
               handleAccept={handleUpdate}
               handleCancel={handleClose}
-              isBoarding= {true}
-              useTemplate= {false}
+              isBoarding={true}
+              useTemplate={false}
               setState={setData}
-              templates= {data}
+              templates={data}
             />
           </Paper>
         </Fade>
       )}
     </Popper>
-    {(loading)?"loading...":
+    {(loading) ? "" :
       <Grid container spacing={3}>
-        {data.map((item,key) => 
+        {data.map((item, key) =>
           <Grid item xs={12}>
-            <TemplateCard 
+            <TemplateCard
               key={key}
               handleUpdate={handleUpdate}
-              activityId={(loading)?"":toString(item.id)}
-              title= {(loading)?"loading...":toString(item.titulo)}
-              description={(loading)?"loading...":toString(item.descripcion)}
-              content={(loading)?"loading...":toString(item.contenido)}
-              type={(loading)?"loading...":toString(item.tipo_id)}
-              startDate={(loading)?"loading...":toString(item.fecha_inicio)}
-              /* media= {true} */
+              activityId={(loading) ? "" : toString(item.id)}
+              title={(loading) ? "loading..." : toString(item.titulo)}
+              description={(loading) ? "loading..." : toString(item.descripcion)}
+              content={(loading) ? "loading..." : toString(item.contenido)}
+              type={(loading) ? "loading..." : toString(item.tipo_id)}
+              startDate={(loading) ? "loading..." : toString(item.fecha_inicio)}
+            /* media= {true} */
             />
           </Grid>
         )}
       </Grid>
-      
+
     }
   </Container>);
 }

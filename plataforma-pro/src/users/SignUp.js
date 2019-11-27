@@ -10,9 +10,8 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-//import logo from './img/minilogo.png'
 import { createMuiTheme } from '@material-ui/core/styles';
-import { orange,grey,indigo } from '@material-ui/core/colors';
+import { grey } from '@material-ui/core/colors';
 import { ThemeProvider } from '@material-ui/styles';
 import ReactDOM from 'react-dom';
 import App from '../App';
@@ -21,9 +20,7 @@ import UsersController from './UsersController';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Activities from '../activities/Activities';
-import fondo from './fondoLogin.png';
-import UrlInteligenete from '../url';
+import fondo from '../img/fondoLogin.png';
 
 const theme = createMuiTheme({
   palette: {
@@ -36,7 +33,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit">
-        Pro Platform
+        Nutrihome
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -48,19 +45,13 @@ const showLogin = () => {
     ReactDOM.render(<Login />, document.getElementById('root'));
 };
 
-/*const showMainMenu = () => {
-    ReactDOM.render(<App />, document.getElementById('root'));
-};*/
-
-
 const useStyles = makeStyles(theme => ({
   
   '@global': {
     body: {
-      backgroundImage: UrlInteligenete.obtenerUrl('fondo') +  `(${fondo})`,
+      backgroundImage: `url(${fondo})`,
      },
   },
-
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -216,7 +207,7 @@ export default function SignUp() {
                 <Select 
                   style={{ width : '100%' }}
                   value={userData.nutricionista}
-                  onChange={(event) => setUserData({...userData, nutricionista: event.target.nutricionista })}>
+                  onChange={(event) => setUserData({...userData, nutricionista: event.target.value })}>
                     <MenuItem value={'Mariana Martinez'}>Mariana Martinez</MenuItem>
                     <MenuItem value={'Martin Gonzalez'}>Martin Gonzalez</MenuItem>
                     <MenuItem value={'Laura Garcia'}>Laura Garcia</MenuItem>
@@ -226,7 +217,7 @@ export default function SignUp() {
                 <Grid item xs={12}>
                 <FormControlLabel
                     control={<Checkbox value="TerminosYCondiciones" color="primary" />}
-                    label="He leido y acepto los terminos y condiciones de Pro Platform"
+                    label="He leido y acepto los terminos y condiciones de Nutrihome"
                 />
                 </Grid>
             </Grid>

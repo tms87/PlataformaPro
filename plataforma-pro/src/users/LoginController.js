@@ -21,7 +21,7 @@ class UserController
         })
     }*/
     async getUserLogin(data) {
-        const endpoint = `${UrlNgrok}${urlGetUserLogin}${data.email}`;
+        const endpoint = `${UrlNgrok}${urlGetUserLogin}${data.dni}`;
         const options = {
             method:'POST',
             mode: "cors",

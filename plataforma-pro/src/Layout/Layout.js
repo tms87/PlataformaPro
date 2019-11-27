@@ -19,16 +19,19 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { miniProfileNutri, optionsListNutri } from './LayoutInfoNutri';
 import { miniProfilePaciente, optionsListPaciente } from './LayoutInfoPaciente';
-import logo from '../img/logo.png';
 import HomeIcon from '@material-ui/icons/Home';
 import './Layout.css';
+import Login from '../users/Login';
+import ReactDOM from 'react-dom';
+import logo from '../img/logo.png';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundColor: '#fff',
+      backgroundColor: "#ffffff",
+      height: "auto",
     },
   },
   drawer: {
@@ -88,6 +91,10 @@ function Header(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const showLogin = () => {
+    ReactDOM.render(<Login />, document.getElementById('root'));
+};
+
   function handleChange(event, newValue) {
     props.setPage(newValue)
   }
@@ -121,7 +128,7 @@ function Header(props) {
         )}
         <ListItem key="Logout" style={{ marginTop: "100%" }}>
           <BottomNavigation value={props.page} onChange={handleChange} showLabels>
-            <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }} />
+            <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }} onClick={showLogin} /> 
           </BottomNavigation>
         </ListItem>
       </List>

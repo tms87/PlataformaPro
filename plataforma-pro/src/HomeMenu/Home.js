@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    cursor: 'pointer',
   },
   media: {
     height: 140,
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Home(props) {
   const classes = useStyles();
-  const [spacing, setSpacing] = React.useState(10);
+  const [spacing] = React.useState(10);
 
   const { modoPaciente } = props;
 
@@ -48,6 +49,10 @@ export default function Home(props) {
   } else {
     firstRow = firstRowNutri;
     secondRow = secondRowNutri;
+  }
+
+  const handleChangeMenu = (newValue) => {
+    props.setPage(newValue)
   }
 
   return (<Container component="main" style={{ paddingTop: '5vh' }}>
@@ -74,7 +79,7 @@ export default function Home(props) {
                   <div class="flip-card-back">
                     <Card className={classes.backCardContent}>
                       <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p" onClick={() => handleChangeMenu(i.menuValue)}>
                           {i.descripcion}
                         </Typography>
                       </CardContent>
@@ -108,7 +113,7 @@ export default function Home(props) {
                   <div class="flip-card-back">
                     <Card className={classes.backCardContent}>
                       <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p" onClick={() => handleChangeMenu(i.menuValue)}>
                           {i.descripcion}
                         </Typography>
                       </CardContent>

@@ -3,8 +3,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import ActivityCard from '../components/ActivityCard';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import AddIcon from '@material-ui/icons/Add';
 import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
@@ -12,8 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 import UrlInteligente from '../url';
+import Button from '@material-ui/core/Button';
+
 //const url = 'http://b95ec43e.ngrok.io/api';
-const url = UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/`); // 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
+//const url = UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/`); // 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,8 +25,8 @@ const useStyles = makeStyles(theme => ({
 export default function Activities(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [data2] = useState([]);
   const [templates, setTemplates] = useState(null);
-  const [error, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
   let { nroPaciente, modoPaciente } = props;
@@ -38,23 +38,23 @@ export default function Activities(props) {
   const url = UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/${nroPaciente}`); //
   console.log(url);
   useEffect(() => {
+    async function fetchApi() {
+      try {
+        setLoading(true);
+        const res = await fetch(url);
+        await res.json()
+          .then(json => { setData(json); console.log(json); });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
+    }
     fetchApi();
     getTemplates();
     setRefresh(false);
-  }, [refresh]);
+  }, [refresh, url]);
 
-  async function fetchApi() {
-    try {
-      setLoading(true);
-      const res = await fetch(url);
-      await res.json()
-        .then(json => { setData(json); console.log(json); });
-    } catch (e) {
-      setErrors(e);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   async function getTemplates() {
     try {
@@ -64,7 +64,7 @@ export default function Activities(props) {
       await res.json()
         .then(json => { setTemplates(json); });
     } catch (e) {
-      setErrors(e);
+      console.log(e);
     } finally {
       /* Agrego un array vacio al estado de los temples porque si no la funcion map del section, tira erro y no abre el pop */
       setTemplates([])
@@ -97,8 +97,12 @@ export default function Activities(props) {
 
   return (<Container>
     <CssBaseline />
-    <h1>Actividades</h1>
-    {!modoPaciente ? <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize='large' aria-describedby={id} variant="contained" onClick={handleClick} />} /> : ""}
+    <h1>Actividades de {toString(data2.nombre)} {toString(data2.apellido)} </h1>
+    {!modoPaciente ? /* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />  */
+      <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
+        Agregar nueva actividad
+      </Button> : ""}
+
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
@@ -117,12 +121,12 @@ export default function Activities(props) {
         </Fade>
       )}
     </Popper>
-    {(loading) ? "loading..." :
+    {(loading) ? "" :
       <Grid container spacing={3}
       >
         {data.map((item, key) =>
           <Grid item xs={12}>
-          {item.finalizada ? "" : <ActivityCard
+            <ActivityCard
               key={key}
               handleUpdate={handleUpdate}
               activityId={(loading) ? "" : toString(item.id)}
@@ -132,7 +136,7 @@ export default function Activities(props) {
               type={(loading) ? "loading..." : toString(item.tipo_id)}
               startDate={(loading) ? "loading..." : toString(item.fecha_inicio)}
             /* media= {true} */
-            />}
+            />
           </Grid>
         )}
       </Grid>

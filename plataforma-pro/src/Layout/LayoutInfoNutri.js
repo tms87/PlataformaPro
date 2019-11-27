@@ -13,7 +13,7 @@ const optionsListNutri = [
     {label: 'Plantillas', value: 'templates', icon: <NoteIcon />,},
     {label: 'Productos', value: 'productos', icon: <ShoppingCartIcon />,},
     {label: 'Recetas', value: 'recetas', icon: <FolderOpenIcon />,},
-    {label: 'Perfil', value: 'profile', icon: <AccountBoxIcon />,},
+    {label: 'Mi Perfil', value: 'profile', icon: <AccountBoxIcon />,},
 ];
 
 export { miniProfileNutri , optionsListNutri };
