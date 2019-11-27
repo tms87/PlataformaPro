@@ -57,12 +57,6 @@ export default function Activities(props) {
       setLoading(false);
     }
   } */
-  function toString(json) {
-    if (json != null) {
-      return JSON.stringify(json).replace(/"/g, '')
-    }
-    return "";
-  }
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = event => {
@@ -86,7 +80,8 @@ export default function Activities(props) {
     {/* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} /> */}
     <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
       Agregar nueva plantilla
-      </Button>
+    </Button>
+    <br /><br />
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
@@ -104,19 +99,19 @@ export default function Activities(props) {
         </Fade>
       )}
     </Popper>
-    {(loading) ? "" :
+    {(loading) ? "Loading..." :
       <Grid container spacing={3}>
         {data.map((item, key) =>
           <Grid item xs={12}>
             <TemplateCard
               key={key}
               handleUpdate={handleUpdate}
-              activityId={(loading) ? "" : toString(item.id)}
-              title={(loading) ? "loading..." : toString(item.titulo)}
-              description={(loading) ? "loading..." : toString(item.descripcion)}
-              content={(loading) ? "loading..." : toString(item.contenido)}
-              type={(loading) ? "loading..." : toString(item.tipo_id)}
-              startDate={(loading) ? "loading..." : toString(item.fecha_inicio)}
+              activityId={(loading) ? "" : item.id}
+              title={(loading) ? "loading..." : item.titulo}
+              description={(loading) ? "loading..." : item.descripcion}
+              content={(loading) ? "loading..." : item.contenido}
+              type={(loading) ? "loading..." : item.tipo_id}
+              startDate={(loading) ? "loading..." : item.fecha_inicio}
             /* media= {true} */
             />
           </Grid>

@@ -64,10 +64,10 @@ const useStyles = makeStyles(theme => ({
 export default function Producto(props) {
 
   const classes = useStyles();
-  const [tabValue, setTabValue] = React.useState(0);
+  const [value, setValue] = React.useState(0);
 
-  const handleChangeTab = (event, newtabValue) => {
-    setTabValue(newtabValue);
+  const handleChangeTab = (event, newValue) => {
+    setValue(newValue);
   };
 
   return (
@@ -76,14 +76,14 @@ export default function Producto(props) {
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value={tabValue}
+          value={value}
           onChange={handleChangeTab}
           indicatorColor="primary"
           className={classes.tabs}>
           {TabInfo.map(i => <Tab label={i.label} icon={i.icon} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
           </Tabs>
         {TabInfo.map(i =>
-          <TabPanel value={tabValue} index={i.key} key={i.key * 10}>
+          <TabPanel value={value} index={i.key}>
             {i.label}
           </TabPanel>
         )}

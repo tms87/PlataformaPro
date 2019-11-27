@@ -129,12 +129,12 @@ export default function Activities(props) {
             <ActivityCard
               key={key}
               handleUpdate={handleUpdate}
-              activityId={(loading) ? "" : toString(item.id)}
-              title={(loading) ? "loading..." : toString(item.titulo)}
-              description={(loading) ? "loading..." : toString(item.descripcion)}
-              content={(loading) ? "loading..." : toString(item.contenido)}
-              type={(loading) ? "loading..." : toString(item.tipo_id)}
-              startDate={(loading) ? "loading..." : toString(item.fecha_inicio)}
+              activityId={(loading) ? "" : item.id}
+              title={(loading) ? "loading..." : item.titulo}
+              description={(loading) ? "loading..." : item.descripcion}
+              content={(loading) ? "loading..." : item.contenido}
+              type={(loading) ? "loading..." : item.tipo_id}
+              startDate={(loading) ? "loading..." : item.fecha_inicio}
             /* media= {true} */
             />
           </Grid>
