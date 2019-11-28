@@ -67,6 +67,10 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     float: "right",
   },
+  cerrarSesion: {
+    position: 'fixed',
+    bottom: 0,
+  },
 }));
 
 function Header(props) {
@@ -126,8 +130,8 @@ function Header(props) {
             </ListItem>
           </div>
         )}
-        <ListItem key="Logout" style={{ marginTop: "100%" }}>
-          <BottomNavigation value={props.page} onChange={handleChange} showLabels>
+        <ListItem key="Logout" className={classes.cerrarSesion}>
+          <BottomNavigation value={props.page} onChange={handleChange} showLabels >
             <BottomNavigationAction label="Cerrar Sesion" value="logout" icon={<ExitToAppIcon />} style={{ color: "red" }} onClick={showLogin} /> 
           </BottomNavigation>
         </ListItem>
@@ -193,7 +197,7 @@ function Header(props) {
           </Drawer>
         </Hidden>
       </nav>
-      <main className={classes.content}>
+      <main className={classes.content} style={{padding: 0}}>
         <div className={classes.toolbar}/>
       </main>
     </div>

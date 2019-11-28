@@ -1,0 +1,18 @@
+export default [
+    {key: 0, label: "Arroz"},
+    {key: 1, label: "Manteca"},
+    {key: 2, label: "Pure"},
+    {key: 3, label: "Queso"},
+    {key: 4, label: "Manzana"},
+    {key: 5, label: "Jamon"},
+    {key: 6, label: "Banana"},
+    {key: 7, label: "Leche"},
+    {key: 8, label: "Lechuga"},
+    {key: 9, label: "Tomate"},
+    {key: 10, label: "Matambre"},
+    {key: 11, label: "Chorizo"},
+    {key: 12, label: "Pizza"},
+    {key: 13, label: "Mani"},
+    {key: 14, label: "Milanesa"},
+    {key: 15, label: "Almendras"},
+]

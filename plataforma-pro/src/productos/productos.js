@@ -93,7 +93,7 @@ export default function Producto(props) {
     }
     fetchApi();
     setRefresh(false);
-  }, [refresh]);
+  }, []);
 
 
   return (

@@ -11,6 +11,8 @@ import ActivityForm from './ActivityForm';
 import Grid from '@material-ui/core/Grid';
 import UrlInteligente from '../url';
 import Button from '@material-ui/core/Button';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 //const url = 'http://b95ec43e.ngrok.io/api';
 //const url = UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/`); // 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
@@ -29,13 +31,19 @@ export default function Activities(props) {
   const [templates, setTemplates] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
+  const [switchState, setSwitchState] = useState(false);
+  let url = "";
   let { nroPaciente, modoPaciente } = props;
 
   if (modoPaciente) {
     nroPaciente = "4";
   }
 
-  const url = UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/${nroPaciente}`); //
+  if (modoPaciente) {
+    url = UrlInteligente.obtenerUrl('actividades', `/actividades/cliente/4`);
+  } else {
+    url = UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/${nroPaciente}`);
+  }
   console.log(url);
   useEffect(() => {
     async function fetchApi() {
@@ -95,14 +103,28 @@ export default function Activities(props) {
     setTimeout(() => setRefresh(true), 1000);
   }
 
+  const handleChangeSwitch = (swcState) => {
+    setSwitchState(swcState);
+  }
+
   return (<Container>
     <CssBaseline />
     <h1>Actividades de {toString(data2.nombre)} {toString(data2.apellido)} </h1>
     {!modoPaciente ? /* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />  */
       <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
         Agregar nueva actividad
-      </Button> : ""}
-
+      </Button> :
+      <FormControlLabel
+        control={
+          <Switch
+            onChange={() => handleChangeSwitch(!switchState)}
+            value={switchState}
+            color="primary"
+          />
+        }
+        label="Actividades Archivadas" />
+    }
+    <br /><br />
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
@@ -122,23 +144,42 @@ export default function Activities(props) {
       )}
     </Popper>
     {(loading) ? "" :
-      <Grid container spacing={3}
-      >
-        {data.map((item, key) =>
-          <Grid item xs={12}>
-            <ActivityCard
-              key={key}
-              handleUpdate={handleUpdate}
-              activityId={(loading) ? "" : item.id}
-              title={(loading) ? "loading..." : item.titulo}
-              description={(loading) ? "loading..." : item.descripcion}
-              content={(loading) ? "loading..." : item.contenido}
-              type={(loading) ? "loading..." : item.tipo_id}
-              startDate={(loading) ? "loading..." : item.fecha_inicio}
-            /* media= {true} */
-            />
-          </Grid>
-        )}
+      <Grid container spacing={3}>
+        {switchState ?
+          data.map((item, key) =>
+            !data.finalizada ?
+              <Grid item xs={12}>
+                <ActivityCard
+                  key={key}
+                  handleUpdate={handleUpdate}
+                  activityId={(loading) ? "" : item.id}
+                  title={(loading) ? "loading..." : item.titulo}
+                  description={(loading) ? "loading..." : item.descripcion}
+                  content={(loading) ? "loading..." : item.contenido}
+                  type={(loading) ? "loading..." : item.tipo_id}
+                  startDate={(loading) ? "loading..." : item.fecha_inicio}
+                />
+              </Grid>
+              : ""
+          )
+          :
+          data.map((item, key) =>
+            (data.finalizada === null) ?
+              <Grid item xs={12}>
+                <ActivityCard
+                  key={key}
+                  handleUpdate={handleUpdate}
+                  activityId={(loading) ? "" : item.id}
+                  title={(loading) ? "loading..." : item.titulo}
+                  description={(loading) ? "loading..." : item.descripcion}
+                  content={(loading) ? "loading..." : item.contenido}
+                  type={(loading) ? "loading..." : item.tipo_id}
+                  startDate={(loading) ? "loading..." : item.fecha_inicio}
+                />
+              </Grid>
+              : ""
+          )
+        }
       </Grid>
     }
   </Container>);
