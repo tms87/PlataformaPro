@@ -122,7 +122,7 @@ export default function Activities(props) {
             color="primary"
           />
         }
-        label="Actividades Archivadas" />
+        label="Actividades Realizadas" />
     }
     <br /><br />
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
@@ -145,9 +145,10 @@ export default function Activities(props) {
     </Popper>
     {(loading) ? "" :
       <Grid container spacing={3}>
+        {console.log(data)}
         {switchState ?
           data.map((item, key) =>
-            !data.finalizada ?
+            item.finalizada ?
               <Grid item xs={12}>
                 <ActivityCard
                   key={key}
@@ -158,13 +159,14 @@ export default function Activities(props) {
                   content={(loading) ? "loading..." : item.contenido}
                   type={(loading) ? "loading..." : item.tipo_id}
                   startDate={(loading) ? "loading..." : item.fecha_inicio}
+                  switchState={switchState}
                 />
               </Grid>
               : ""
           )
           :
           data.map((item, key) =>
-            (data.finalizada === null) ?
+            item.finalizada ? "" :
               <Grid item xs={12}>
                 <ActivityCard
                   key={key}
@@ -175,9 +177,9 @@ export default function Activities(props) {
                   content={(loading) ? "loading..." : item.contenido}
                   type={(loading) ? "loading..." : item.tipo_id}
                   startDate={(loading) ? "loading..." : item.fecha_inicio}
+                  switchState={switchState}
                 />
               </Grid>
-              : ""
           )
         }
       </Grid>
