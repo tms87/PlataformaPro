@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const url = UrlInteligente.obtenerUrl('productos', `/productos/`); 
+const url = UrlInteligente.obtenerUrl('productos', `/productos/grupo/0`); 
 export default function Producto(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);

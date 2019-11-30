@@ -28,7 +28,7 @@ export default function ImgMediaCard(props) {
           component="img"
           alt="Contemplative Reptile"
           height="140"
-          image={require('./img/' + props.url)}
+          image={/*require('./img/' +*/ props.url /*)*/}
           title="Contemplative Reptile"
         />
         <CardContent>
