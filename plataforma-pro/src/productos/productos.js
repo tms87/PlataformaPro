@@ -95,10 +95,10 @@ export default function Producto(props) {
     setRefresh(false);
   }, []);
 
-  async function fetchApiPorId() {
+  async function fetchApiPorId(id) {
     try {
       setLoading(true);
-      const res = await fetch(url);
+      const res = await fetch(url+ id);
       await res.json()
         .then(json => { setData(json);});
     } catch (e) {
@@ -108,9 +108,10 @@ export default function Producto(props) {
     }
   }
 
-  const clickEvent= (e, index) => {
+  const clickEvent= (index) => {
     setTab(index);
-    console.log("----" + tab)
+    console.log("----" + tab + " vs " + index);
+    fetchApiPorId(index);
   };
   
   return (
@@ -122,9 +123,24 @@ export default function Producto(props) {
           onChange={handleChange}
           indicatorColor="primary"
           className={classes.tabs}>
-          {TabInfo.map(i => <Tab label={i.label} icon={i.icon}  onClick={() => setTab(i.key)} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
+          {TabInfo.map(i => <Tab label={i.label} icon={i.icon} onClick={() => clickEvent(i.key)} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
           </Tabs>
-      {TabInfo.map(i =>
+          <TabPanel style={{width:"100%", overFlow:'auto'}}>
+            <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
+                  {data.map( x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion}  />)}
+            </Box>
+          </TabPanel>
+            
+          
+     
+    </div>
+  );
+}
+
+//            <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>
+/*
+
+ {TabInfo.map(i =>
           <TabPanel value={value} index={i.key} key={i.key * 10}  style={{width:"100%", overFlow:'auto'}} >
               <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
                 {data.map( x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion}  />)}
@@ -132,8 +148,5 @@ export default function Producto(props) {
             
           </TabPanel>
         )}
-    </div>
-  );
-}
 
-//            <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>
+*/
