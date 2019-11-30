@@ -87,9 +87,10 @@ export default function Resetas(props) {
     </Popper>
     <Container >
     <Box display="flex" p={1} bgcolor="background.paper">
-   
+        
         {(loading) ? "Loading..." :
-          <Grid container spacing={3}  >
+        <div style={{flex:'1'}}>
+          <Grid container spacing={3}   >
             {data.map((item, key) =>
 
               <Grid item xs={12}>
@@ -106,6 +107,7 @@ export default function Resetas(props) {
               </Grid>
             )}
           </Grid>
+          </div>
         }
          </Box>
          </Container>
