@@ -2,6 +2,7 @@ import React from 'react';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ArchiveIcon from '@material-ui/icons/Archive';
 import TodayIcon from '@material-ui/icons/Today';
 import ProfilePic from '../img/julian.jpg';
 

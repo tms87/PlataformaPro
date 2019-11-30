@@ -27,6 +27,8 @@ import Paper from '@material-ui/core/Paper';
 import ActivityForm from '../activities/ActivityForm';
 import UrlInteligente from '../url';
 import DoneIcon from '@material-ui/icons/Done';
+import UnarchiveIcon from '@material-ui/icons/Unarchive';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     maxWidth: 600,
-    margin:"auto",
+    margin: "auto",
   },
   media: {
     height: 0,
@@ -69,6 +71,7 @@ export default function ActivityCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [state, setState] = useState(props);
+  const [loading, setLoading] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -95,21 +98,35 @@ export default function ActivityCard(props) {
     state.handleUpdate();
   };
   const handleRealizado = async () => {
-    const res = await fetch(UrlInteligente.obtenerUrl('actividadCard', '/actividades/finalizar/') + state.activityId, {
+    setLoading(true);
+    await fetch(UrlInteligente.obtenerUrl('actividadCard', '/actividades/finalizar/') + state.activityId, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     });
-    console.log(await res.json());
     state.handleUpdate();
+    setLoading(false);
   };
+
+  const handleDesarchivar = async () => {
+    setLoading(true);
+    await fetch(UrlInteligente.obtenerUrl('actividadCard', '/actividades/comenzar/') + state.activityId, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    state.handleUpdate();
+    setLoading(false);
+  }
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch( UrlInteligente.obtenerUrl('actividadCard', '/actividades/') +state.activityId,{
-        method: 'DELETE',
-        headers: {
+    fetch(UrlInteligente.obtenerUrl('actividadCard', '/actividades/') + state.activityId, {
+      method: 'DELETE',
+      headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -181,11 +198,20 @@ export default function ActivityCard(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <Tooltip title="Realizado" placement="top">
-            <IconButton className={classes.button} onClick={handleRealizado}>
-              <DoneIcon />
-            </IconButton>
-          </Tooltip>
+          {props.switchState ?
+            <Tooltip title="Desarchivar" placement="top">
+              <IconButton className={classes.button} onClick={handleDesarchivar}>
+                <UnarchiveIcon />
+              </IconButton>
+            </Tooltip>
+            :
+            <Tooltip title="Realizado" placement="top">
+              <IconButton className={classes.button} onClick={handleRealizado}>
+                <DoneIcon />
+              </IconButton>
+            </Tooltip>
+          }
+          {loading && <CircularProgress />}
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,

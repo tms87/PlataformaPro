@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,6 +24,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ResetasForm from './RecetasForm';
+import Chip from '@material-ui/core/Chip';
 import UrlInteligente from '../url';
 
 const useStyles = makeStyles(theme => ({
@@ -31,9 +32,18 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3, 2),
     maxWidth: "600px"
   },
+  paper: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    padding: theme.spacing(0.5),
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
   card: {
     maxWidth: 600,
-    margin:"auto",
+    margin: "auto",
   },
   media: {
     height: 0,
@@ -64,6 +74,7 @@ export default function ResetaCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [state, setState] = useState(props);
+  const [chipData] = useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -77,7 +88,7 @@ export default function ResetaCard(props) {
     setAnchorEl(null);
     setAnchorPoper(null);
   };
-    
+
   //para el poper
   const [anchorPoper, setAnchorPoper] = useState(null);
   const handleClickPoper = event => {
@@ -91,12 +102,12 @@ export default function ResetaCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch(UrlInteligente.obtenerUrl('recetaCard', 'recetas/') + +state.resetaId,{
-        method: 'DELETE',
-        headers: {
+    fetch(UrlInteligente.obtenerUrl('recetaCard', 'recetas/') + +state.resetaId, {
+      method: 'DELETE',
+      headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        },
+      },
     })
     state.handleUpdate();
   }
@@ -109,13 +120,13 @@ export default function ResetaCard(props) {
       <Card className={classes.card}>
         <CardHeader id={id}
           avatar={
-                (state.type === '1' && <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon/></Avatar>) ||
-                (state.type === '2' && <Avatar aria-label="recipe" className={classes.greenAvatar}><FastfoodIcon/></Avatar>) ||
-                (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon/></Avatar>)
+            (state.type === '1' && <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon /></Avatar>) ||
+            (state.type === '2' && <Avatar aria-label="recipe" className={classes.greenAvatar}><FastfoodIcon /></Avatar>) ||
+            (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon /></Avatar>)
           }
           action={
-              <div>
-              <MoreVertIcon aria-describedby={id}  variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick}/>
+            <div>
+              <MoreVertIcon aria-describedby={id} variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick} />
               <Menu
                 id="menu"
                 anchorEl={anchorEl}
@@ -126,13 +137,13 @@ export default function ResetaCard(props) {
                 <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
                 <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
               </Menu>
-              </div>
+            </div>
           }
-          
+
           title={state.title !== "" ? state.title : "Sin titulo"}
           subheader={state.startDate}
         />
-         {console.log("Titule es " + state.title) }
+        {console.log("Titule es " + state.title)}
         <Popper id={id} open={open} anchorEl={anchorPoper} transition>
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
@@ -142,16 +153,16 @@ export default function ResetaCard(props) {
                   handleAccept={handleEdit}
                   handleCancel={handleClose}
                   resetaId={state.resetaId}
-                  title={state.title} 
+                  title={state.title}
                   content={state.content}
                   type={state.type}
                   isBoarding={true}
-                  setState={setState}/>
+                  setState={setState} />
               </Paper>
             </Fade>
           )}
         </Popper>
-        { state.media && (
+        {state.media && (
           <CardMedia
             className={classes.media}
             image="https://material-ui.com/static/images/cards/paella.jpg"
@@ -178,6 +189,16 @@ export default function ResetaCard(props) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>{state.content}</Typography>
+            {console.log(chipData)}
+            {(chipData.length === 0) ? "" : <Paper className={classes.paper}>
+              {chipData.map(data =>
+                <Chip
+                  key={data.key}
+                  label={data.label}
+                  className={classes.chip}
+                />
+              )}
+            </Paper>}
           </CardContent>
         </Collapse>
       </Card>

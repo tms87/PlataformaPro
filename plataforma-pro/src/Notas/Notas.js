@@ -30,7 +30,7 @@ export default function Notas(props) {
     fetchApi();
     console.log("data" + data[0])
     setRefresh(false);
-  }, [refresh]);
+  }, []);
 
   async function fetchApi() {
     try {

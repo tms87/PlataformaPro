@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     maxWidth: 600,
+    margin:"auto",
   },
   media: {
     height: 0,
@@ -177,7 +178,9 @@ export default function ActivityCard(props) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>{state.content}</Typography>
+            {state.content.split("\n").map((i, key) => 
+              <Typography key={key} paragraph style={{ textAlign: 'left' }}>{i}</Typography>
+            )}
           </CardContent>
         </Collapse>
       </Card>

@@ -3,8 +3,6 @@ import CssBaseline from './../../node_modules/@material-ui/core/CssBaseline';
 import Container from './../../node_modules/@material-ui/core/Container';
 import { makeStyles } from './../../node_modules/@material-ui/core/styles';
 import ResetasCard from './ResetasCard';
-import BottomNavigationAction from './../../node_modules/@material-ui/core/BottomNavigationAction';
-import AddIcon from './../../node_modules/@material-ui/icons/Add';
 import Popper from './../../node_modules/@material-ui/core/Popper';
 import Typography from './../../node_modules/@material-ui/core/Typography';
 import Fade from './../../node_modules/@material-ui/core/Fade';
@@ -12,6 +10,7 @@ import Paper from './../../node_modules/@material-ui/core/Paper';
 import RecetasForm from './RecetasForm';
 import Grid from './../../node_modules/@material-ui/core/Grid';
 import UrlInteligente from '../url';
+import Button from '@material-ui/core/Button';
 //const pr = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';
 const url = UrlInteligente.obtenerUrl('recetas', '/recetas/profesional/35');
 
@@ -47,14 +46,6 @@ export default function Resetas(props) {
     setRefresh(false);
   }, [refresh]);
 
-
-  function toString(json) {
-    if (json != null) {
-      return JSON.stringify(json).replace(/"/g, '')
-    }
-    return "";
-  }
-
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = event => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -74,7 +65,8 @@ export default function Resetas(props) {
   return (<Container>
     <CssBaseline />
     <h1>Recetas</h1>
-    {!modoPaciente ? <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize='large' aria-describedby={id} variant="contained" onClick={handleClick} />} /> : ""}
+    {!modoPaciente ? <Button value="profile" color="primary" variant="contained" onClick={handleClick} >Agregar nueva Receta</Button> : ""}
+    <br /><br />
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
@@ -90,7 +82,7 @@ export default function Resetas(props) {
         </Fade>
       )}
     </Popper>
-    {(loading) ? "loading..." :
+    {(loading) ? "Loading..." :
       <Grid container spacing={3}>
         {data.map((item, key) =>
 
@@ -99,10 +91,10 @@ export default function Resetas(props) {
             <ResetasCard
               key={key}
               handleUpdate={handleUpdate}
-              resetaId={(loading) ? "" : toString(item.id)}
-              title={(loading) ? "loading..." : toString(item.titulo)}
-              content={(loading) ? "loading..." : toString(item.contenido)}
-              startDate={(loading) ? "loading..." : toString(item.fecha_inicio)}
+              resetaId={(loading) ? "" : item.id}
+              title={(loading) ? "loading..." : item.titulo}
+              content={(loading) ? "loading..." : item.contenido}
+              startDate={(loading) ? "loading..." : item.fecha_inicio}
             />
           </Grid>
         )}

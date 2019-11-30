@@ -16,34 +16,33 @@ export default function UsersTable(props) {
     setClientes(nuevosClientes);
   }
 
-
-
   useEffect(() => {
-    async function fetchData() {
-      const endpoint = UrlInteligente.obtenerUrl('profesionales', '/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
-      console.log(endpoint);
-      const options = {
-        method: 'GET',
-        mode: "cors",
-        headers: { 'Content-Type': 'application/json' },
-      };
-      try {
-        const res = await fetch(endpoint, options);
-        const resObject = await res.json();
-        const patientsList = state;
-        let newPatients = [];
-        newPatients = resObject.map(d => ({ name: d.nombre, surname: d.apellido, dni: d.dni, id: d.id }));
-        patientsList.data = newPatients;
-        setState(patientsList);
-        tableRef.current.onQueryChange();
-      } catch (error) {
-        console.error('Error: ', error);
-      }
-    }
     fetchData();
     updateClientes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  async function fetchData() {
+    const endpoint = UrlInteligente.obtenerUrl('profesionales', '/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
+    console.log(endpoint);
+    const options = {
+      method: 'GET',
+      mode: "cors",
+      headers: { 'Content-Type': 'application/json' },
+    };
+    try {
+      const res = await fetch(endpoint, options);
+      const resObject = await res.json();
+      const patientsList = state;
+      let newPatients = [];
+      newPatients = resObject.map(d => ({ name: d.nombre, surname: d.apellido, dni: d.dni, id: d.id }));
+      patientsList.data = newPatients;
+      setState(patientsList);
+      tableRef.current.onQueryChange();
+    } catch (error) {
+      console.error('Error: ', error);
+    }
+  }
 
   return (
     <MaterialTable
