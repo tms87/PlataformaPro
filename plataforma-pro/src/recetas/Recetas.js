@@ -11,6 +11,9 @@ import RecetasForm from './RecetasForm';
 import Grid from './../../node_modules/@material-ui/core/Grid';
 import UrlInteligente from '../url';
 import Button from '@material-ui/core/Button';
+import CardResetasDos from './ResetasCard2';
+import Box from '@material-ui/core/Box';
+
 //const pr = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';
 const url = UrlInteligente.obtenerUrl('recetas', '/recetas/profesional/35');
 
@@ -82,13 +85,35 @@ export default function Resetas(props) {
         </Fade>
       )}
     </Popper>
-    {(loading) ? "Loading..." :
-      <Grid container spacing={3}>
-        {data.map((item, key) =>
+    <Container >
+    <Box display="flex" p={1} bgcolor="background.paper">
+   
+        {(loading) ? "Loading..." :
+          <Grid container spacing={3}  >
+            {data.map((item, key) =>
 
-          <Grid item xs={12}>
+              <Grid item xs={12}>
 
-            <ResetasCard
+                  <CardResetasDos 
+                        key={key}
+                        handleUpdate={handleUpdate}
+                        resetaId={(loading) ? "" : item.id}
+                        title={(loading) ? "loading..." : item.titulo}
+                        content={(loading) ? "loading..." : item.contenido}
+                        startDate={(loading) ? "loading..." : item.fecha_inicio}
+                  />
+              
+              </Grid>
+            )}
+          </Grid>
+        }
+         </Box>
+         </Container>
+  </Container>);
+}
+
+/**
+   <ResetasCard
               key={key}
               handleUpdate={handleUpdate}
               resetaId={(loading) ? "" : item.id}
@@ -96,9 +121,4 @@ export default function Resetas(props) {
               content={(loading) ? "loading..." : item.contenido}
               startDate={(loading) ? "loading..." : item.fecha_inicio}
             />
-          </Grid>
-        )}
-      </Grid>
-    }
-  </Container>);
-}
+ */

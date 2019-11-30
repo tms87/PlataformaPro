@@ -27,7 +27,9 @@ import ResetasForm from './RecetasForm';
 import Chip from '@material-ui/core/Chip';
 import UrlInteligente from '../url';
 import Box from '@material-ui/core/Box';
-
+import Button from '@material-ui/core/Button';
+import recetaDetalle from'./recetaDetalle';
+import Detalle from './recetaDetalle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -92,6 +94,24 @@ export default function ResetaCard(props) {
     setAnchorPoper(null);
   };
 
+  const [anchorElDetalle, setAnchorElDetalle] = React.useState(null);
+
+  const handleClickDetalle = event => {
+      console.log("gola");
+    setAnchorElDetalle(anchorElDetalle ? null : event.currentTarget);
+    setAnchorEl(null);
+  };
+
+  const handleCloseDetalle = () => {
+    setAnchorElDetalle(null);
+    setAnchorPoper(null);
+  };
+
+
+  const openDetalle = Boolean(anchorElDetalle);
+  const idDetalle = openDetalle ? 'simple-popper' : undefined;
+
+
   //para el poper
   const [anchorPoper, setAnchorPoper] = useState(null);
   const handleClickPoper = event => {
@@ -120,48 +140,35 @@ export default function ResetaCard(props) {
   return (
     <Container>
       <CssBaseline />
-      <Box display="flex" flexDirection="row" p={1} m={1} bgcolor="background.paper">
+   
         <Card className={classes.card}>
-          <CardHeader id={id}
-            avatar={
-              (state.type === '1' && <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon /></Avatar>) ||
-              (state.type === '2' && <Avatar aria-label="recipe" className={classes.greenAvatar}><FastfoodIcon /></Avatar>) ||
-              (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon /></Avatar>)
-            }
-            action={
-              <div>
-                <MoreVertIcon aria-describedby={id} variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick} />
-                <Menu
-                  id="menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
-                  <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
-                </Menu>
-              </div>
-            }
-
-            title={state.title !== "" ? state.title  : "Sin titulo"}
-            subheader={state.startDate}
-          />
-          {console.log("Titule es " + state.title)}
+         
           <Popper id={id} open={open} anchorEl={anchorPoper} transition>
             {({ TransitionProps }) => (
               <Fade {...TransitionProps} timeout={350}>
                 <Paper className={classes.root}>
                   <Typography className={classes.typography}>Complete los datos para crear una nueva receta</Typography>
-                  <ResetasForm
-                    handleAccept={handleEdit}
-                    handleCancel={handleClose}
-                    resetaId={state.resetaId}
-                    title={state.title}
-                    content={state.content}
-                    type={state.type}
-                    isBoarding={true}
-                    setState={setState} />
+                    <ResetasForm
+                        handleAccept={handleEdit}
+                        handleCancel={handleClose}
+                        resetaId={state.resetaId}
+                        title={state.title}
+                        content={state.content}
+                        type={state.type}
+                        isBoarding={true}
+                        setState={setState} />
+                        
+                </Paper>
+              </Fade>
+            )}
+          </Popper>
+          <Popper id={idDetalle} open={openDetalle} anchorEl={anchorElDetalle} transition>
+            {({ TransitionProps }) => (
+              <Fade {...TransitionProps} timeout={350}>
+                <Paper className={classes.root}>
+                    < Detalle 
+                    handleCancel={handleCloseDetalle}
+                    content={state.content} />
                 </Paper>
               </Fade>
             )}
@@ -174,35 +181,36 @@ export default function ResetaCard(props) {
             />)
           }
     
-          <CardActions disableSpacing>
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph>{state.content}</Typography>
-              {console.log(chipData)}
-              {(chipData.length === 0) ? "" : <Paper className={classes.paper}>
-                {chipData.map(data =>
-                  <Chip
-                    key={data.key}
-                    label={data.label}
-                    className={classes.chip}
-                  />
-                )}
-              </Paper>}
-            </CardContent>
-          </Collapse>
+    <CardContent>
+    
+        
+        <Typography variant="h5" component="h2">
+                {state.title !== "" ? state.title  : "Sin titulo"}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+        {state.startDate}
+        </Typography>
+    
+      </CardContent>
+     
+            <div>  
+               <CardActions>
+          
+                     <Button size="small" onClick={handleClickDetalle} >Ver detalle</Button>
+                     <Button size="small"  onClick={handleClick}>mas opciones</Button>
+                </CardActions>
+               <Menu
+                 id="menu"
+                 anchorEl={anchorEl}
+                 keepMounted
+                 open={Boolean(anchorEl)}
+                 onClose={handleClose}
+               >
+                 <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
+                 <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
+               </Menu>
+             </div>
         </Card>
-        </Box>
     </Container>
   );
 }
