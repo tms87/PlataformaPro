@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     flexGrow: 1,
+    zIndex:'999',
   },
   textField: {
     marginLeft: theme.spacing(1),
