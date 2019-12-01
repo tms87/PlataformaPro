@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import Activities from './activities/Activities';
 import Templates from './activities/Templates';
 import Profile from './users/Profile';
+import ProfileProfesional from './users/ProfileProfesional';
 import Patients from './users/Patients';
 import Recetas from './recetas/Recetas';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,6 +27,7 @@ export default function Body(props) {
     <Container component="main" maxWidth="xl" className={classes.root}>
       {(props.page === "home" && <Home page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
         || (props.page === "profile" && <Profile page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} setNroPaciente={setNroPaciente} modoPaciente={props.modoPaciente}/>)
+        || (props.page === "profileProfesional" && <ProfileProfesional page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} setNroPaciente={setNroPaciente} modoPaciente={props.modoPaciente}/>)
         || (props.page === "patients"  && <Patients page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} setNroPaciente={setNroPaciente} setNombrePaciente={setNombrePaciente}/>)
         || (props.page === "activities" && <Activities page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} modoPaciente={props.modoPaciente} nombrePaciente={nombrePaciente} />)
         || (props.page === "templates" && <Templates page={props.page} setPage={props.setPage}/>)

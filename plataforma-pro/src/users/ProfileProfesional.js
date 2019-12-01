@@ -92,11 +92,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Profile(props) {
-    let { nroPaciente, modoPaciente } = props;
-    if (modoPaciente) {
-        nroPaciente = "4";
+    let { nroProfesional, modoPaciente } = props;
+    if (!modoPaciente) {
+        nroProfesional = "35";
     }
-    const url = UrlInteligente.obtenerUrl('pacientes',`/clientes/${nroPaciente}`);
+    const url = UrlInteligente.obtenerUrl('profesionales',`/profesionales/${nroProfesional}`);
     const [state, setState] = useState(props);
     const [loading, setLoading] = useState(true);
     const classes = useStyles();
@@ -138,10 +138,6 @@ export default function Profile(props) {
             direccion: state.direccion,
             fecha_nacimiento: state.fecha_nacimiento,
             genero: state.genero,
-            comentarios: state.comentarios,
-            obra_social: state.obra_social,
-            numero_obra_social: state.numero_obra_social,
-            plan_obra_social: state.plan_obra_social,
             updated_at: updateDate,
         }
         fetch( url, {
@@ -158,9 +154,9 @@ export default function Profile(props) {
     <Container component="main">
       <Grid container spacing={2}>
         <Grid item xs={12}>
-            <h1>Perfil</h1>
+            <h1>Perfil Profesional</h1>
         </Grid>
-        <Grid item  xs={12} md={6} lg={6}>
+        <Grid item  xs={12} md={12} lg={12}>
             <Paper className={classes.root}>
                 <form className={classes.container} noValidate autoComplete="off">
                     <Grid item xs={12}>
@@ -273,156 +269,6 @@ export default function Profile(props) {
                             />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} lg={12}>
-                        <Typography variant="h6" className={classes.sectionTitle}>Obra Social</Typography>
-                    </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <FormControl>
-                            <InputLabel htmlFor="type" className={clsx(classes.dense)}>Prepaga</InputLabel>
-                            <Select className={clsx(classes.dense, classes.select)}
-                                value={state.obra_social || ''}
-                                onChange={handleChange}
-                                inputProps={{
-                                    name: 'obra_social',
-                                    id: 'obra_social',
-                                }}
-                            >
-                                <MenuItem value={'OSDE'}>OSDE</MenuItem>
-                                <MenuItem value={'SWISS MEDICAL'}>Swiss Medical</MenuItem>
-                                <MenuItem value={'GALENO'}>Galeno</MenuItem>
-                                <MenuItem value={'MEDIFE'}>Medife</MenuItem>
-                                <MenuItem value={'OMINT'}>Omint</MenuItem>
-                                <MenuItem value={'ACCORD'}>Accord</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <FormControl>
-                            <TextField
-                                id="plan_obra_social"
-                                name="plan_obra_social"
-                                label="Plan"
-                                className={clsx(classes.dense)}
-                                margin="normal"
-                                value= {state.plan_obra_social || ''}
-                                onChange={handleChange}
-                            />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <FormControl>
-                            <TextField
-                                id="numero_obra_social"
-                                name="numero_obra_social"
-                                label="Numero de Socio"
-                                className={clsx(classes.dense)}
-                                margin="normal"
-                                value= {state.numero_obra_social || ''}
-                                onChange={handleChange}
-                            />
-                        </FormControl>
-                    </Grid>
-                    {/* <Grid item xs={12} lg={12}>
-                        <Typography variant="h6" className={classes.sectionTitle}>Condiciones Especiales</Typography>
-                    </Grid> */}
-                    {/* <Grid item xs={6} lg={6}>
-                        <FormControl component="fieldset" >
-                            <FormControlLabel className={clsx(classes.checkbox)}  
-                                control={
-                                    <Checkbox color="primary" 
-                                        checked={state.celiac}
-                                        onChange={handleCheck("celiac")}
-                                        value={"celiac"}
-                                        name="celiac"
-                                    />
-                                }
-                                label="Celiaquía"
-                                labelPlacement="end"
-                            />
-                            <FormControlLabel className={clsx(classes.checkbox)}  
-                                control={
-                                    <Checkbox color="primary" 
-                                        checked={state.bulimic}
-                                        onChange={handleCheck("bulimic")}
-                                        value={"bulimic"}
-                                        name="bulimic"
-                                    />
-                                }
-                                label="Bulimia"
-                                labelPlacement="end"
-                            />
-                            <FormControlLabel className={clsx(classes.checkbox)}  
-                                control={
-                                    <Checkbox color="primary" 
-                                        checked={state.diabetic}
-                                        onChange={handleCheck("diabetic")}
-                                        value={"diabetic"}
-                                        name="diabetic"
-                                    />
-                                }
-                                label="Diabetes"
-                                labelPlacement="end"
-                            />
-                        </FormControl>
-                    </Grid> */}
-                    {/* <Grid item xs={3} lg={3}>
-                        <FormControl component="fieldset" >
-                            <FormControlLabel className={clsx(classes.checkbox)}  
-                                control={
-                                    <Checkbox color="primary" 
-                                        checked={state.anorexy}
-                                        onChange={handleCheck("anorexy")}
-                                        value={"anorexy"}
-                                        name="anorexy"
-                                    />
-                                }
-                                label="Anorexia"
-                                labelPlacement="end"
-                            />
-                            <FormControlLabel className={clsx(classes.checkbox)}  
-                                control={
-                                    <Checkbox color="primary" 
-                                        checked={state.atherosclerosis}
-                                        onChange={handleCheck("atherosclerosis")}
-                                        value={"atherosclerosis"}
-                                        name="atherosclerosis"
-                                    />
-                                }
-                                label="Aterosclerosis"
-                                labelPlacement="end"
-                            />
-                            <FormControlLabel className={clsx(classes.checkbox)}  
-                                control={
-                                    <Checkbox color="primary" 
-                                        checked={state.obesity}
-                                        onChange={handleCheck("obesity")}
-                                        value={"obesity"}
-                                        name="obesity"
-                                    />
-                                }
-                                label="Obesidad"
-                                labelPlacement="end"
-                            />
-                        </FormControl>
-                    </Grid> */}
-                    <Grid item xs={12} lg={12}>
-                        <FormControl fullWidth className={clsx(classes.textBox)}>
-                            <TextField
-                                id="comentarios"
-                                name="comentarios"
-                                label="Comentarios"
-                                value= {state.comentarios || ''}
-                                onChange={handleChange}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                multiline
-                                rows="4"
-                                placeholder="Ingrese aquí cualquier informacion que considere relevante (ej. si tiene alergias, es diabetico, celiaco, etc.)"
-                                variant="outlined"
-                            />
-                        </FormControl>
-                    </Grid>
                 </form>
                 <Grid item xs={12} className={classes.buttons}>
                     <Button
@@ -435,9 +281,6 @@ export default function Profile(props) {
                     </Button>
                 </Grid>
             </Paper>
-        </Grid>
-        <Grid item xs={12} lg={6}>
-            <MeasurementTable nroPaciente={nroPaciente}/>
         </Grid>
       </Grid>
     </Container>
