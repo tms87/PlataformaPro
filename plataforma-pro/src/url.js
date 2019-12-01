@@ -1,9 +1,9 @@
     
 export default  {
-    backEndHabilitado : false,
-    UrlNgrok : 'http://10b89f74.ngrok.io/api',
+    backEndHabilitado : true,
+    UrlNgrok : 'http://c733d86c.ngrok.io/api',
 
-    pacientes: 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc', 
+    pacientes: 'http://www.mocky.io/v2/5de2eb0d3000006800e9c966', 
     //[{ "id" : "1","profesional_id" : "2",   "nombre": "Ernesto", "apellido": "Araujo", "lastTurn": "03-10-2019" ,   "nextTurn": "22-10-2019", "dni" : "37009167"}]
     actividades : 'http://www.mocky.io/v2/5dd072752f000053003f208e',
     //[{"id":18,"cliente_id":61,"tipo_id":48,"profesional_id":2,"contenido":"Ea perspiciatis recusandae atque quis voluptatem labore similique.","comentario_paciente":"Quia molestiae dolores est ex.","comentario_profesional":"Voluptas facere non consequatur fugiat totam qui minus.","fecha_inicio":"2019-10-06","fecha_fin":"2020-01-01","finalizada":1,"created_at":"2019-10-18 22:19:08","updated_at":"2019-10-18 22:19:08","template":0,"titulo":null,"descripcion":null}]

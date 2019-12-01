@@ -24,7 +24,7 @@ export default function Body(props) {
   return (
     <Container component="main" maxWidth="xl" className={classes.root}>
       {(props.page === "home" && <Home page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
-        || (props.page === "profile" && <Profile page={props.page} setPage={props.setPage}/>)
+        || (props.page === "profile" && <Profile page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} setNroPaciente={setNroPaciente} modoPaciente={props.modoPaciente}/>)
         || (props.page === "patients"  && <Patients page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} setNroPaciente={setNroPaciente}/>)
         || (props.page === "activities" && <Activities page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} modoPaciente={props.modoPaciente}/>)
         || (props.page === "templates" && <Templates page={props.page} setPage={props.setPage}/>)

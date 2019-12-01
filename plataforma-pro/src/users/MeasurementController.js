@@ -1,9 +1,26 @@
-//import UrlInteligente from '../url';
+import UrlInteligente from '../url';
 
 //const url = UrlInteligente.obtenerUrl('profesionales', "/profesionalclientes/");
 //const urlDelete = UrlInteligente.obtenerUrl('profesional', '/profesionalclientes/profesional/35/cliente/'); 
 
 class MeasurementController {
+    async getMeasurements(nroPaciente) {
+        const url = UrlInteligente.obtenerUrl('pacientes',`/mediciones/cliente/${nroPaciente}`);
+        const options = {
+            method:'GET',
+            mode: "cors",
+            headers: {'Content-Type': 'application/json', Accept: 'application/json'},
+        };
+        try {
+            const res = await fetch(url, options);
+            const resObject = await res.json();
+            console.log(resObject);
+            return resObject;
+        } catch(error) {
+            console.error('Error: ', error);
+        }
+    }
+
     async insertMeasurement(relationData) {
         /* const endpoint = `${url}`;
         console.log(relationData);
