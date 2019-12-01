@@ -70,6 +70,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ResetaForm(props) {
   const [state, setState] = useState(props);
+  const [productos, setProductos] = useState([]);
   const classes = useStyles();
 
   const handleAccept = () => {
@@ -97,6 +98,15 @@ export default function ResetaForm(props) {
       body: JSON.stringify(form),
     })
     state.handleAccept();
+
+    fetch(UrlInteligente.obtenerUrl('recetaProducto', '/recetaproductos/'), {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(productos),
+    })
   }
   const handleChange = event => {
     const name = event.target.name;
@@ -154,12 +164,14 @@ export default function ResetaForm(props) {
           {state.isBoarding && (
             <Grid item xs={12}>
               <FormControl className={classes.formControl}>
+              {console.log(productos)}
                 <Autocomplete
                   multiple
                   id="tags-standard"
                   options={ProductosList}
                   getOptionLabel={option => option.label}
                   defaultValue={[]}
+                  onChange={(event, value) => setProductos(value)}
                   renderInput={params => (
                     <TextField
                       {...params}
@@ -190,7 +202,7 @@ export default function ResetaForm(props) {
               startIcon={<DeleteIcon />}
               onClick={state.handleCancel}
             > Cancelar
-                        </Button>
+            </Button>
           </Grid>
         </form>
       </Grid>

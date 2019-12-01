@@ -4,22 +4,19 @@ import MeasurementInfo from './MeasurementInfo';
 import MeasurementController from './MeasurementController';
 
 export default function MeasurementTable(props) {
-  const [state, setState] = React.useState(MeasurementInfo);
-  const [clientes] = React.useState([]);
-
+  const [infoMediciones, setInfoMediciones] = React.useState(MeasurementInfo);
+  const [mediciones, setMediciones] = React.useState([]);
+  const clientes = React.useState([]);
   const tableRef = React.createRef();
-
-  async function updateClientes() {
-    /* const nuevosClientes = await UsersController.getClientes() || [];
-    setClientes(nuevosClientes);*/
-  }
-
+  const [state, setState] = React.useState(props);
+  
   useEffect( () => {
-      fetchData();
-      updateClientes();
+    fetchData();
   } ,[])
-
+  
   async function fetchData() {
+    const mediciones = await MeasurementController.getMeasurements(state.nroPaciente) || [];
+    setMediciones(mediciones);
     /* const endpoint = UrlInteligente.obtenerUrl('profesionales','/profesionalclientes/clientes/35');// 'http://www.mocky.io/v2/5dcf22cc3000005500931dcc';// UrlNgrok + ;
     console.log(endpoint);
     const options = {
@@ -75,9 +72,9 @@ export default function MeasurementTable(props) {
         }
       }}
       title="Mediciones"
-      columns={state.columns}
+      columns={infoMediciones.columns}
       tableRef={tableRef}
-      data={() => new Promise(resolve => setTimeout(() => resolve({data: state.data, page: 0, totalCount: 5}), 600))}
+      data={() => new Promise(resolve => setTimeout(() => resolve({mediciones: state.mediciones, page: 0, totalCount: 10}), 600))}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {

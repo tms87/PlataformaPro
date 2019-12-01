@@ -125,6 +125,7 @@ export default function UsersTable(props) {
           tooltip: 'Actividades',
           onClick: (event, rowData) => {
             props.setNroPaciente(rowData.id);
+            props.setNombrePaciente(rowData.name + ' ' + rowData.surname)
             props.setPage("activities");
           }
         },

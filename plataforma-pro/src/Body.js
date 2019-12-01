@@ -20,17 +20,18 @@ export default function Body(props) {
   const classes = useStyles();
 
   const [nroPaciente, setNroPaciente] = useState("");
+  const [nombrePaciente, setNombrePaciente] = useState("");
 
   return (
     <Container component="main" maxWidth="xl" className={classes.root}>
       {(props.page === "home" && <Home page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
-        || (props.page === "profile" && <Profile page={props.page} setPage={props.setPage}/>)
-        || (props.page === "patients"  && <Patients page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} setNroPaciente={setNroPaciente}/>)
-        || (props.page === "activities" && <Activities page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} modoPaciente={props.modoPaciente}/>)
+        || (props.page === "profile" && <Profile page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} setNroPaciente={setNroPaciente} modoPaciente={props.modoPaciente}/>)
+        || (props.page === "patients"  && <Patients page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} setNroPaciente={setNroPaciente} setNombrePaciente={setNombrePaciente}/>)
+        || (props.page === "activities" && <Activities page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} modoPaciente={props.modoPaciente} nombrePaciente={nombrePaciente} />)
         || (props.page === "templates" && <Templates page={props.page} setPage={props.setPage}/>)
         ||  (props.page === "recetas" && <Recetas page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
         || (props.page === "productos" && <Producto   page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
-        || (props.page === "notas" && <Notas   page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente} nroPaciente={nroPaciente}/>)
+        || (props.page === "notas" && <Notas   page={props.page} setPage={props.setPage} nroPaciente={nroPaciente} modoPaciente={props.modoPaciente}/>)
       }
    </Container>
   );

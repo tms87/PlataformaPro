@@ -24,6 +24,8 @@ import Paper from '@material-ui/core/Paper';
 import ResetasForm from './RecetasForm';
 import Chip from '@material-ui/core/Chip';
 import UrlInteligente from '../url';
+import Box from '@material-ui/core/Box';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,6 +43,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     maxWidth: 600,
+    minWidth: 400,
     margin: "auto",
   },
   media: {

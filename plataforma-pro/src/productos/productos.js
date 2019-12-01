@@ -63,14 +63,14 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const url = UrlInteligente.obtenerUrl('productos', `/productos/`); 
+const url = UrlInteligente.obtenerUrl('productos',`/productos/grupo/`); 
 export default function Producto(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [refresh, setRefresh] = React.useState(false);
-
+  const [tab, setTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -82,9 +82,7 @@ export default function Producto(props) {
     async function fetchApi() {
       try {
         setLoading(true);
-        const res = await fetch(url);
-        console.log(loading);
-        console.log(refresh);
+        const res = await fetch(url + tab);
         await res.json()
           .then(json => { setData(json); console.log(json);});
       } catch (e) {
@@ -98,7 +96,25 @@ export default function Producto(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  async function fetchApiPorId(id) {
+    try {
+      setLoading(true);
+      const res = await fetch(url+ id);
+      await res.json()
+        .then(json => { setData(json);});
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  }
 
+  const clickEvent= (index) => {
+    setTab(index);
+    console.log("----" + tab + " vs " + index);
+    fetchApiPorId(index);
+  };
+  
   return (
     <div className={classes.root}>
         <Tabs
@@ -108,24 +124,30 @@ export default function Producto(props) {
           onChange={handleChange}
           indicatorColor="primary"
           className={classes.tabs}>
-          {TabInfo.map(i => <Tab label={i.label} icon={i.icon} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
+          {TabInfo.map(i => <Tab label={i.label} icon={i.icon} onClick={() => clickEvent(i.key)} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
           </Tabs>
-      {TabInfo.map(i =>
-          <TabPanel value={value} index={i.key} key={i.key * 10}  style={{width:"100%", overFlow:'auto'}} >
-              <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
-              {data.filter(function(x) {
-                //console.log(x.grupo_id + " " + i.categoria)
-                if (x.grupo_id === i.categoria || i.categoria === 0){
-                  return true;
-                }
-                  return false;
-                }).map(x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion} />)}
-              </Box>
-            
+          <TabPanel style={{width:"100%", overFlow:'auto'}}>
+            <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
+                  {data.map( x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion}  />)}
+            </Box>
           </TabPanel>
-        )}
+            
+          
+     
     </div>
   );
 }
 
 //            <div style={{display:"flex", justifyContent:"space-around", flexWrap:"wrap"}}>
+/*
+
+ {TabInfo.map(i =>
+          <TabPanel value={value} index={i.key} key={i.key * 10}  style={{width:"100%", overFlow:'auto'}} >
+              <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
+                {data.map( x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion}  />)}
+              </Box>
+            
+          </TabPanel>
+        )}
+
+*/

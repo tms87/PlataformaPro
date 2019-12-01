@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Notas(props) {
   const url = UrlInteligente.obtenerUrl('notas', '/notas/cliente/' + props.nroPaciente);
+  console.log(url);
   const classes = useStyles();
   const [data, setData] = useState([]);
   const[modificable, setModificable] = useState(true);
@@ -26,10 +27,10 @@ export default function Notas(props) {
   const [loading, setLoading] = useState(true);
   // eslint-disable-next-line
   const [refresh, setRefresh] = useState(false);
+  let nroPaciente = props.nroPaciente;
 
   useEffect(() => {
     fetchApi();
-    console.log("data" + data[0])
     setRefresh(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -60,19 +61,21 @@ export default function Notas(props) {
     setModificable(true);
     const today = new Date();
     const startDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    const endpoint = "" ; 
+    console.log(data);
+    const endpoint = data[0].id ; 
     console.log("Este es el end point" + endpoint)
    
     const form = {
-        tipo_id : "49",
-        profesional_id: "35",
-        contenido: data.contenido,
-        fecha_inicio: startDate,
-    }
-
-    console.log(form);
-  
-    fetch(UrlInteligente.obtenerUrl('notas' ,'/notas/profesional') + endpoint,{
+      "id": data.id,
+      "cliente_id": data.cliente_id,
+      "tipo_id": data.tipo_id,
+      "profesional_id": data.profesional_id,
+      "contenido": text,
+      "created_at": "2019-10-18 22:27:11",
+      "updated_at": startDate,
+      "url": 1
+    }  
+    fetch(UrlInteligente.obtenerUrl('notas' ,'/notas/') + endpoint ,{
         method: 'POST',
         headers: {
         Accept: 'application/json',
@@ -80,14 +83,14 @@ export default function Notas(props) {
         },
         body: JSON.stringify(form),
     })
-    handleSave();
+   
   }
 
 
   const open = Boolean(anchorEl);
   // eslint-disable-next-line
   const id = open ? 'simple-popper' : undefined;
-
+  const [text, setText] = React.useState("");
 
 
 return (<Container>
@@ -96,20 +99,21 @@ return (<Container>
 
     {(loading) ? "loading..." :
       <Grid container spacing={3}>
-        {data.map((item, key) =>
-
+       
           <Grid item xs={12}>
             <TextField
               id="outlined-multiline-static"   
               multiline
               rows="15"
-              defaultValue={item.contenido}
+              defaultValue={data[0].contenido}
               placeholder="Hace click para escribe algunas notas"
               className={classes.textField}
               fullWidth
               margin="normal"
               variant="outlined"
               disabled={modificable}
+              onChange={(event) => setText(event.target.value)}
+             
             />
             <div sytle={{displey:"flex", flexDirection:"row"}}>
                 {modificable !== true ? "" :<Button
@@ -130,7 +134,7 @@ return (<Container>
                   </Button>}
             </div>
           </Grid>
-        )}
+        
       </Grid>
     }
   </Container>);

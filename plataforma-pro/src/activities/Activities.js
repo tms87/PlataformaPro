@@ -103,11 +103,23 @@ export default function Activities(props) {
 
   return (<Container>
     <CssBaseline />
-    <h1>Actividades de Julian Perez </h1>
+    <h1>{modoPaciente ? "Actividades de Julian Perez" : "Actividades de " + props.nombrePaciente }</h1>
     {!modoPaciente ? /* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />  */
-      <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
-        Agregar nueva actividad
-      </Button> :
+      <div>
+        <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
+          Agregar nueva actividad
+      </Button>
+        <FormControlLabel style={{ marginLeft: "15px" }}
+          control={
+            <Switch
+              onChange={() => handleChangeSwitch(!switchState)}
+              value={switchState}
+              color="primary"
+            />
+          }
+          label={switchState ? "Actividades Realizadas" : "Actividades a Realizar"} />
+      </div>
+      :
       <FormControlLabel
         control={
           <Switch
@@ -116,7 +128,7 @@ export default function Activities(props) {
             color="primary"
           />
         }
-        label={switchState ?  "Actividades Realizadas" : "Actividades a realizar" } />
+        label={switchState ? "Actividades Realizadas" : "Actividades a realizar"} />
     }
     <br /><br />
     <Popper id={id} open={open} anchorEl={anchorEl} transition>

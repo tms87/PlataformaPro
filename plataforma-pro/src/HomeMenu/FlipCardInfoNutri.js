@@ -7,7 +7,7 @@ import DudasCardImg from '../img/dudasCard.jpg';
 
 const firstRowNutri = [
     {menuValue: "patients", titulo: 'Organice sus pacientes', descripcion:'Nutrihome almacena los datos de todos sus pacientes y los asocia automaticamente a su cuenta. Con un diseño ligero y simple de entender, tomar decisiones en base a las especificaciones del paciente nunca fue mas sencillo', imagen: PacienteCardImg,},
-    {menuValue: "activities", titulo: 'Cree y asigne actividades', descripcion: 'Diseñe una dieta de forma elegante y cohesiva utilizando las herramientas de administracion de actividades incluidas con Nutrihome. Facil y rapido, nuestro diseño se asegura de que el paciente entienda lo que tiene asignado', imagen: ActividadesCardImg,},
+    {menuValue: "patients", titulo: 'Cree y asigne actividades', descripcion: 'Diseñe una dieta de forma elegante y cohesiva utilizando las herramientas de administracion de actividades incluidas con Nutrihome. Facil y rapido, nuestro diseño se asegura de que el paciente entienda lo que tiene asignado', imagen: ActividadesCardImg,},
     {menuValue: "templates", titulo: 'Utilice plantillas para facilitar su trabajo', descripcion: 'Nuestra base de datos contiene varias plantillas precargadas que puede utilizar para generar actividades de distintas categorias, al mismo tiempo que usted puede crear sus propios templates y utilizarlos para la creacion de actividades repetidas', imagen: PlantillasCardImg,},
 ];
 
