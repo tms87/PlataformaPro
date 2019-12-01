@@ -22,7 +22,7 @@ class MeasurementController {
     }
 
     async insertMeasurement(relationData) {
-        /* const endpoint = `${url}`;
+        const endpoint = UrlInteligente.obtenerUrl('mediciones','/mediciones/');
         console.log(relationData);
         const options = {
             method:'POST',
@@ -34,13 +34,12 @@ class MeasurementController {
             const res = await fetch(endpoint, options);
             const resObject = await res.json();
             console.log(resObject);
-            alert("Se ha agregado el usuario");
         } catch(error) {
             console.error('Error: ', error);
-        } */
+        }
     };
     async updateMeasurement(relationData) {
-        /* const endpoint = `${url}`;
+        const url = UrlInteligente.obtenerUrl('mediciones',`/mediciones/${relationData.id}`);
         console.log(relationData);
         const options = {
             method:'POST',
@@ -49,30 +48,27 @@ class MeasurementController {
             body: JSON.stringify(relationData)
         };
         try {
-            const res = await fetch(endpoint, options);
+            const res = await fetch(url, options);
             const resObject = await res.json();
             console.log(resObject);
-            alert("Se ha agregado el usuario");
         } catch(error) {
             console.error('Error: ', error);
-        } */
+        }
     };
 
-    async deleteMeasurement(userId) {
-        /* console.log("dsfdsfsd " + userId);
-        const endpoint = `${urlDelete}${userId}`;
+    async deleteMeasurement(measurementId) {
+        const url = UrlInteligente.obtenerUrl('mediciones',`/mediciones/${measurementId}`);
         const options = {
             method:'DELETE',
             mode: "cors",
             headers: {'Content-Type': 'application/json'},
         };
         try {
-            const res = await fetch(endpoint, options);
+            const res = await fetch(url, options);
             console.log(res);
-            alert("Se ha eliminado el usuario");
         } catch (error) {
             console.error('Error: ', error);
-        } */
+        }
     }
 }
 

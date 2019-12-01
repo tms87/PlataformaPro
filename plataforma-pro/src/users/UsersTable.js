@@ -61,6 +61,12 @@ export default function UsersTable(props) {
           addTooltip: 'Agregar',
           deleteTooltip: 'Borrar',
           editTooltip: 'Editar',
+          emptyDataSourceMessage: 'No hay registros para mostrar',
+          editRow: {
+            deleteText: '¿Esta seguro de eliminar este paciente?',
+            cancelTooltip: 'Cancelar',
+            saveTooltip: 'Guardar',
+          }
         },
         toolbar: {
           searchTooltip: 'Buscar',

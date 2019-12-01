@@ -101,12 +101,12 @@ export default function Profile(props) {
         setState({ ...state, [name]: event.target.checked });
     };
     const handleChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setState(oldState => ({
-        ...oldState,
-        [name]: value,
-      }));
+        const name = event.target.name;
+        const value = event.target.value;
+        setState(oldState => ({
+            ...oldState,
+            [name]: value,
+        }));
     };
     useEffect(() => {
         async function fetchApi() {
@@ -156,7 +156,7 @@ export default function Profile(props) {
         <Grid item xs={12}>
             <h1>Perfil</h1>
         </Grid>
-        <Grid item direction="row" xs={12} md={6} lg={6}>
+        <Grid item  xs={12} md={6} lg={6}>
             <Paper className={classes.root}>
                 <form className={classes.container} noValidate autoComplete="off">
                     <Grid item xs={12}>
