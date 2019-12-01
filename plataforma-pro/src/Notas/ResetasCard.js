@@ -66,6 +66,7 @@ export default function ResetaCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [state, setState] = useState(props);
+  const { modoPaciente } = props;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -103,9 +104,6 @@ export default function ResetaCard(props) {
     state.handleUpdate();
   }
 
-  const handleAccept = () => {}
-    
-
   const open = Boolean(anchorPoper);
   const id = open ? 'options-popper' : undefined;
 
@@ -120,6 +118,7 @@ export default function ResetaCard(props) {
                 (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon/></Avatar>)
           }
           action={
+              modoPaciente ? "" :
               <div>
               <MoreVertIcon aria-describedby={id}  variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick}/>
               <Menu

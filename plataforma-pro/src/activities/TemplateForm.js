@@ -115,17 +115,19 @@ const useStyles = makeStyles(theme => ({
 
     const handleUseTemplate = event => {
         const name = event.target.name;
-        const value = event.target.value;
-        const te = props.templates.filter(temp=> temp.id === value)
-        setState(oldState => ({
-          ...oldState,
-          [name]: value,
-          title: te[0].titulo,
-          description: te[0].descripcion,
-          type: te[0].tipo_id,
-          content: te[0].contenido,
-        }));
-     }
+          const valueId = event.target.value;
+          const loadedTemplates = props.templates;
+          // eslint-disable-next-line
+          const te = loadedTemplates.find(t => t.id == valueId);
+          setState(oldState => ({
+            ...oldState,
+            [name]: valueId,
+            title: te.titulo,
+            description: te.descripcion,
+            type: te.tipo_id,
+            content: te.contenido,
+          }));
+        }
     
     const handleCheck = name => event => {
         setState({ ...state, [name]: event.target.checked });

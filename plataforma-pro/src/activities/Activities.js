@@ -13,6 +13,7 @@ import UrlInteligente from '../url';
 import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //const url = 'http://b95ec43e.ngrok.io/api';
 //const url = UrlInteligente.obtenerUrl('actividades', `/actividades/profesional/35/cliente/`); // 'http://www.mocky.io/v2/5da7592b2f00007c0036845c';
@@ -27,8 +28,8 @@ const useStyles = makeStyles(theme => ({
 export default function Activities(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [data2] = useState([]);
-  const [templates, setTemplates] = useState(null);
+  //const [data2] = useState([]);
+  const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
   const [switchState, setSwitchState] = useState(false);
@@ -67,24 +68,17 @@ export default function Activities(props) {
   async function getTemplates() {
     try {
       setLoading(true);
-      const urlT = UrlInteligente.obtenerUrl('', '/actividades/profesional/35/templates');
+      const urlT = UrlInteligente.obtenerUrl('templates', '/actividades/profesional/35/templates');
       const res = await fetch(urlT);
-      await res.json()
-        .then(json => { setTemplates(json); });
+      const response = await res.json();
+      setTemplates(response);
     } catch (e) {
       console.log(e);
     } finally {
       /* Agrego un array vacio al estado de los temples porque si no la funcion map del section, tira erro y no abre el pop */
-      setTemplates([])
+      //setTemplates([])
       setLoading(false);
     }
-  }
-
-  function toString(json) {
-    if (json != null) {
-      return JSON.stringify(json).replace(/"/g, '')
-    }
-    return "";
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -109,7 +103,7 @@ export default function Activities(props) {
 
   return (<Container>
     <CssBaseline />
-    <h1>Actividades de {toString(data2.nombre)} {toString(data2.apellido)} </h1>
+    <h1>Actividades de Julian Perez </h1>
     {!modoPaciente ? /* <BottomNavigationAction label="Perfil" value="profile" icon={<AddIcon fontSize= 'large' aria-describedby={id} variant="contained" onClick={handleClick} />} />  */
       <Button variant="contained" color="primary" onClick={handleClick} className={classes.button}>
         Agregar nueva actividad
@@ -122,7 +116,7 @@ export default function Activities(props) {
             color="primary"
           />
         }
-        label="Actividades Realizadas" />
+        label={switchState ?  "Actividades Realizadas" : "Actividades a realizar" } />
     }
     <br /><br />
     <Popper id={id} open={open} anchorEl={anchorEl} transition>
@@ -130,6 +124,7 @@ export default function Activities(props) {
         <Fade {...TransitionProps} timeout={350}>
           <Paper className={classes.root}>
             <Typography className={classes.typography}>Para crear una nueva actividad complete los datos o seleccione una plantilla</Typography>
+            {console.log(templates)}
             <ActivityForm
               handleAccept={handleUpdate}
               handleCancel={handleClose}
@@ -143,9 +138,8 @@ export default function Activities(props) {
         </Fade>
       )}
     </Popper>
-    {(loading) ? "" :
+    {(loading) ? <CircularProgress /> :
       <Grid container spacing={3}>
-        {console.log(data)}
         {switchState ?
           data.map((item, key) =>
             item.finalizada ?
@@ -160,6 +154,7 @@ export default function Activities(props) {
                   type={(loading) ? "loading..." : item.tipo_id}
                   startDate={(loading) ? "loading..." : item.fecha_inicio}
                   switchState={switchState}
+                  modoPaciente={modoPaciente}
                 />
               </Grid>
               : ""
@@ -178,6 +173,7 @@ export default function Activities(props) {
                   type={(loading) ? "loading..." : item.tipo_id}
                   startDate={(loading) ? "loading..." : item.fecha_inicio}
                   switchState={switchState}
+                  modoPaciente={modoPaciente}
                 />
               </Grid>
           )

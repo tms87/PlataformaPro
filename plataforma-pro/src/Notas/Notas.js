@@ -9,8 +9,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 
-const url = UrlInteligente.obtenerUrl('notas', '/notas/profesional/35');
-
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
@@ -19,17 +17,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Notas(props) {
+  const url = UrlInteligente.obtenerUrl('notas', '/notas/cliente/' + props.nroPaciente);
   const classes = useStyles();
   const [data, setData] = useState([]);
   const[modificable, setModificable] = useState(true);
+  // eslint-disable-next-line
   const [hasError, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     fetchApi();
     console.log("data" + data[0])
     setRefresh(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchApi() {
@@ -45,13 +47,7 @@ export default function Notas(props) {
     }
   }
 
-  function toString(json) {
-    if (json != null) {
-      return JSON.stringify(json).replace(/"/g, '')
-    }
-    return "";
-  }
-
+  // eslint-disable-next-line
   const [anchorEl, setAnchorEl] = useState(null);
 
 
@@ -89,6 +85,7 @@ export default function Notas(props) {
 
 
   const open = Boolean(anchorEl);
+  // eslint-disable-next-line
   const id = open ? 'simple-popper' : undefined;
 
 

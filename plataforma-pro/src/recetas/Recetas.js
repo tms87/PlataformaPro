@@ -95,6 +95,7 @@ export default function Resetas(props) {
               title={(loading) ? "loading..." : item.titulo}
               content={(loading) ? "loading..." : item.contenido}
               startDate={(loading) ? "loading..." : item.fecha_inicio}
+              modoPaciente={props.modoPaciente}
             />
           </Grid>
         )}

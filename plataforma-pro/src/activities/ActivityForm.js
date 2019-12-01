@@ -72,6 +72,7 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function ActivityForm(props) {
+  //console.log(props.templates)
   const [state, setState] = useState(props);
   const classes = useStyles();
 
@@ -124,16 +125,18 @@ export default function ActivityForm(props) {
   };
 
   const handleUseTemplate = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const te = props.templates.filter(temp => temp.id === value)
+  const name = event.target.name;
+    const valueId = event.target.value;
+    const loadedTemplates = props.templates;
+    // eslint-disable-next-line
+    const te = loadedTemplates.find(t => t.id == valueId);
     setState(oldState => ({
       ...oldState,
-      [name]: value,
-      title: te[0].titulo,
-      description: te[0].descripcion,
-      type: te[0].tipo_id,
-      content: te[0].contenido,
+      [name]: valueId,
+      title: te.titulo,
+      description: te.descripcion,
+      type: te.tipo_id,
+      content: te.contenido,
     }));
   }
 

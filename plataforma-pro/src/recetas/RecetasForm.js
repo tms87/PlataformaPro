@@ -71,7 +71,6 @@ const useStyles = makeStyles(theme => ({
 export default function ResetaForm(props) {
   const [state, setState] = useState(props);
   const classes = useStyles();
-  const [productos, setProductos] = useState([]);
 
   const handleAccept = () => {
     const today = new Date();
@@ -107,25 +106,13 @@ export default function ResetaForm(props) {
       [name]: value,
     }));
 
-    console.log(state.title + " " + event.target.name + " " + event.target.value)
+    //console.log(state.title + " " + event.target.name + " " + event.target.value)
   };
-
-  const handleAddChip = (chip) => {
-    productos.push(chip);
-    setProductos(productos);
-  }
-
-  const handleDeleteChip = (chip, index) => {
-    productos.splice(index, 1);
-    setProductos([...productos]);
-  }
-
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <form className={classes.container} noValidate autoComplete="off">
-          {console.log("Titule es " + state.title)}
           {state.isBoarding && (
             <Grid item xs={12}>
               <FormControl className={classes.formControl}>

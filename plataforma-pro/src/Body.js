@@ -30,7 +30,7 @@ export default function Body(props) {
         || (props.page === "templates" && <Templates page={props.page} setPage={props.setPage}/>)
         ||  (props.page === "recetas" && <Recetas page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
         || (props.page === "productos" && <Producto   page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
-        || (props.page === "notas" && <Notas   page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente}/>)
+        || (props.page === "notas" && <Notas   page={props.page} setPage={props.setPage} modoPaciente={props.modoPaciente} nroPaciente={nroPaciente}/>)
       }
    </Container>
   );

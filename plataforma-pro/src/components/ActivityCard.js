@@ -72,6 +72,7 @@ export default function ActivityCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [state, setState] = useState(props);
   const [loading, setLoading] = useState(false);
+  const { modoPaciente } = props;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -142,26 +143,28 @@ export default function ActivityCard(props) {
       <Card className={classes.card}>
         <CardHeader id={id}
           avatar={
-            (state.type === '1' && <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon /></Avatar>) ||
-            (state.type === '2' && <Avatar aria-label="recipe" className={classes.greenAvatar}><FastfoodIcon /></Avatar>) ||
-            (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon /></Avatar>)
+            // eslint-disable-next-line
+            (state.type == '1' && <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon /></Avatar>) ||
+            // eslint-disable-next-line
+            (state.type == '2' && <Avatar aria-label="recipe" className={classes.greenAvatar}><FastfoodIcon /></Avatar>) ||
+            // eslint-disable-next-line
+            (state.type == '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon /></Avatar>)
           }
           action={
-            /* <IconButton aria-label="settings"> */
-            <div>
-              <MoreVertIcon aria-describedby={id} variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick} />
-              <Menu
-                id="menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
-                <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
-              </Menu>
-            </div>
-            /* </IconButton> */
+            modoPaciente ? "" :
+              <div>
+                <MoreVertIcon aria-describedby={id} variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick} />
+                <Menu
+                  id="menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
+                  <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
+                </Menu>
+              </div>
           }
           title={state.title}
           subheader={state.startDate}
@@ -225,7 +228,9 @@ export default function ActivityCard(props) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>{state.content}</Typography>
+            {state.content.split("\n").map((i, key) =>
+              <Typography key={key} paragraph style={{ textAlign: 'left' }}>{i}</Typography>
+            )}
           </CardContent>
         </Collapse>
       </Card>

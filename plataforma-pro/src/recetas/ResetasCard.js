@@ -11,8 +11,6 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import FastfoodIcon from '@material-ui/icons/Fastfood';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red, green, blue } from '@material-ui/core/colors';
@@ -75,6 +73,7 @@ export default function ResetaCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [state, setState] = useState(props);
   const [chipData] = useState([]);
+  const {modoPaciente} = props;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -102,7 +101,7 @@ export default function ResetaCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch(UrlInteligente.obtenerUrl('recetaCard', 'recetas/') + +state.resetaId, {
+    fetch(UrlInteligente.obtenerUrl('recetaCard', '/recetas/') + +state.resetaId, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -120,11 +119,10 @@ export default function ResetaCard(props) {
       <Card className={classes.card}>
         <CardHeader id={id}
           avatar={
-            (state.type === '1' && <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon /></Avatar>) ||
-            (state.type === '2' && <Avatar aria-label="recipe" className={classes.greenAvatar}><FastfoodIcon /></Avatar>) ||
-            (state.type === '3' && <Avatar aria-label="recipe" className={classes.blueAvatar}><LocalHospitalIcon /></Avatar>)
+            <Avatar aria-label="recipe" className={classes.avatar}><AssignmentIcon /></Avatar>
           }
           action={
+            modoPaciente ? "" :
             <div>
               <MoreVertIcon aria-describedby={id} variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick} />
               <Menu
@@ -140,7 +138,7 @@ export default function ResetaCard(props) {
             </div>
           }
 
-          title={state.title !== "" ? state.title : "Sin titulo"}
+          title={state.title !== "" ? <h3>{state.title}</h3> : "Sin titulo"}
           subheader={state.startDate}
         />
         {console.log("Titule es " + state.title)}
@@ -189,7 +187,6 @@ export default function ResetaCard(props) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>{state.content}</Typography>
-            {console.log(chipData)}
             {(chipData.length === 0) ? "" : <Paper className={classes.paper}>
               {chipData.map(data =>
                 <Chip

@@ -83,6 +83,8 @@ export default function Producto(props) {
       try {
         setLoading(true);
         const res = await fetch(url);
+        console.log(loading);
+        console.log(refresh);
         await res.json()
           .then(json => { setData(json); console.log(json);});
       } catch (e) {
@@ -93,6 +95,7 @@ export default function Producto(props) {
     }
     fetchApi();
     setRefresh(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -111,8 +114,8 @@ export default function Producto(props) {
           <TabPanel value={value} index={i.key} key={i.key * 10}  style={{width:"100%", overFlow:'auto'}} >
               <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
               {data.filter(function(x) {
-                console.log(x.grupo_id + " " + i.categoria)
-                if (x.grupo_id == i.categoria || i.categoria == 0){
+                //console.log(x.grupo_id + " " + i.categoria)
+                if (x.grupo_id === i.categoria || i.categoria === 0){
                   return true;
                 }
                   return false;

@@ -91,7 +91,7 @@ export default function ActivityCard(props) {
   };
   const handleDelete = () => {
     setAnchorEl(null);
-    fetch(UrlInteligente.obtenerUrl + '/actividades/'+state.activityId,{
+    fetch(UrlInteligente.obtenerUrl('templates', '/actividades/'+ state.activityId),{
         method: 'DELETE',
         headers: {
         Accept: 'application/json',

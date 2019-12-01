@@ -3,7 +3,6 @@ import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import NoteIcon from '@material-ui/icons/Note';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ProfilePic from '../img/lopez.png';
 
 const miniProfileNutri = {picture: ProfilePic, name: "Lautaro Lopez", type: "Nutricionista"};
