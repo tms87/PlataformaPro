@@ -28,7 +28,7 @@ import Chip from '@material-ui/core/Chip';
 import UrlInteligente from '../url';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import recetaDetalle from'./recetaDetalle';
+import recetaDetalle from './recetaDetalle';
 import Detalle from './recetaDetalle';
 
 const useStyles = makeStyles(theme => ({
@@ -97,7 +97,7 @@ export default function ResetaCard(props) {
   const [anchorElDetalle, setAnchorElDetalle] = React.useState(null);
 
   const handleClickDetalle = event => {
-      console.log("gola");
+    console.log("gola");
     setAnchorElDetalle(anchorElDetalle ? null : event.currentTarget);
     setAnchorEl(null);
   };
@@ -140,78 +140,78 @@ export default function ResetaCard(props) {
   return (
     <Container>
       <CssBaseline />
-   
-        <Card className={classes.card}>
-         
-          <Popper id={id} open={open} anchorEl={anchorPoper} transition>
-            {({ TransitionProps }) => (
-              <Fade {...TransitionProps} timeout={350}>
-                <Paper className={classes.root}>
-                  <Typography className={classes.typography}>Complete los datos para crear una nueva receta</Typography>
-                    <ResetasForm
-                        handleAccept={handleEdit}
-                        handleCancel={handleClose}
-                        resetaId={state.resetaId}
-                        title={state.title}
-                        content={state.content}
-                        type={state.type}
-                        isBoarding={true}
-                        setState={setState} />
-                        
-                </Paper>
-              </Fade>
-            )}
-          </Popper>
-          <Popper id={idDetalle} open={openDetalle} anchorEl={anchorElDetalle} transition>
-            {({ TransitionProps }) => (
-              <Fade {...TransitionProps} timeout={350}>
-                <Paper className={classes.root}>
-                    <Detalle 
-                    handleCancel={handleCloseDetalle}
-                    content={state.content}
-                    recetaId={state.resetaId} />
-                </Paper>
-              </Fade>
-            )}
-          </Popper>
-          {state.media && (
-            <CardMedia
-              className={classes.media}
-              image="https://material-ui.com/static/images/cards/paella.jpg"
-              title="Paella"
-            />)
-          }
-    
-    <CardContent>
-    
-        
-        <Typography variant="h5" component="h2">
-                {state.title !== "" ? state.title  : "Sin titulo"}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-        {state.startDate}
-        </Typography>
-    
-      </CardContent>
-     
-            <div>  
-               <CardActions>
-          
-                     <Button size="small" onClick={handleClickDetalle} >Ver detalle</Button>
-                     <Button size="small"  onClick={handleClick}>mas opciones</Button>
-                </CardActions>
-               <Menu
-                 id="menu"
-                 anchorEl={anchorEl}
-                 keepMounted
-                 open={Boolean(anchorEl)}
-                 onClose={handleClose}
-               >
-                 <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
-                 <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
-               </Menu>
-             </div>
-        </Card>
+
+      <Card className={classes.card}>
+
+        <Popper id={id} open={open} anchorEl={anchorPoper} transition>
+          {({ TransitionProps }) => (
+            <Fade {...TransitionProps} timeout={350}>
+              <Paper className={classes.root}>
+                <Typography className={classes.typography}>Complete los datos para crear una nueva receta</Typography>
+                <ResetasForm
+                  handleAccept={handleEdit}
+                  handleCancel={handleClose}
+                  resetaId={state.resetaId}
+                  title={state.title}
+                  content={state.content}
+                  type={state.type}
+                  isBoarding={true}
+                  setState={setState} />
+
+              </Paper>
+            </Fade>
+          )}
+        </Popper>
+        <Popper id={idDetalle} open={openDetalle} anchorEl={anchorElDetalle} transition>
+          {({ TransitionProps }) => (
+            <Fade {...TransitionProps} timeout={350}>
+              <Paper className={classes.root}>
+                <Detalle
+                  handleCancel={handleCloseDetalle}
+                  content={state.content}
+                  recetaId={state.resetaId} />
+              </Paper>
+            </Fade>
+          )}
+        </Popper>
+        {state.media && (
+          <CardMedia
+            className={classes.media}
+            image="https://material-ui.com/static/images/cards/paella.jpg"
+            title="Paella"
+          />)
+        }
+
+        <CardContent>
+
+
+          <Typography variant="h5" component="h2">
+            {state.title !== "" ? state.title : "Sin titulo"}
+          </Typography>
+          <Typography className={classes.pos} color="textSecondary">
+            {state.startDate}
+          </Typography>
+
+        </CardContent>
+
+        <div>
+          <CardActions>
+
+            <Button size="small" onClick={handleClickDetalle} >Ver detalle</Button>
+            <Button size="small" onClick={handleClick}>mas opciones</Button>
+          </CardActions>
+          <Menu
+            id="menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
+            <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
+          </Menu>
+        </div>
+      </Card>
     </Container>
   );
 }

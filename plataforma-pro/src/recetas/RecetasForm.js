@@ -79,12 +79,17 @@ export default function ResetaForm(props) {
     const endpoint = (state.isBoarding) ? "" : state.resetaId;
     console.log("Este es el end point" + endpoint)
 
+    let productosId = [];
+    productos.map(p => productosId.push(p.key));
+    console.log(productosId);
+
     const form = {
       tipo_id: "49",
       profesional_id: "35",
       contenido: state.content,
       fecha_inicio: startDate,
       titulo: state.title,
+      productos: productosId,
     }
 
     console.log(form);
@@ -98,15 +103,6 @@ export default function ResetaForm(props) {
       body: JSON.stringify(form),
     })
     state.handleAccept();
-
-    fetch(UrlInteligente.obtenerUrl('recetaProducto', '/recetaproductos/'), {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(productos),
-    })
   }
   const handleChange = event => {
     const name = event.target.name;
