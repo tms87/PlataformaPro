@@ -11,7 +11,7 @@ import RecetasForm from './RecetasForm';
 import Grid from './../../node_modules/@material-ui/core/Grid';
 import UrlInteligente from '../url';
 import Button from '@material-ui/core/Button';
-import CardResetasDos from './ResetasCard2';
+import CardResetasDos from './ResetasCard';
 import Box from '@material-ui/core/Box';
 
 //const pr = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';

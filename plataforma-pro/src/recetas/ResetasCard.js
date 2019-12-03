@@ -76,7 +76,8 @@ export default function ResetaCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [state, setState] = useState(props);
   const [chipData] = useState([]);
-  const {modoPaciente} = props;
+  const { modoPaciente } = props;
+  const [productos, setProductos] = useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -126,19 +127,19 @@ export default function ResetaCard(props) {
           }
           action={
             modoPaciente ? "" :
-            <div>
-              <MoreVertIcon aria-describedby={id} variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick} />
-              <Menu
-                id="menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
-                <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
-              </Menu>
-            </div>
+              <div>
+                <MoreVertIcon aria-describedby={id} variant="contained" aria-controls="activity-menu" aria-haspopup="true" onClick={handleClick} />
+                <Menu
+                  id="menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem variant="contained" onClick={handleClickPoper}>Editar</MenuItem>
+                  <MenuItem variant="contained" onClick={handleDelete}>Borrar</MenuItem>
+                </Menu>
+              </div>
           }
 
           title={state.title !== "" ? <h3>{state.title}</h3> : "Sin titulo"}
@@ -190,11 +191,11 @@ export default function ResetaCard(props) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>{state.content}</Typography>
-            {(chipData.length === 0) ? "" : <Paper className={classes.paper}>
-              {chipData.map(data =>
+            {(productos.length === 0) ? "" : <Paper className={classes.paper} style={{ maxWidth: '450px' }}>
+              {productos.map(data =>
                 <Chip
-                  key={data.key}
-                  label={data.label}
+                  key={data.id}
+                  label={data.nombre}
                   className={classes.chip}
                 />
               )}

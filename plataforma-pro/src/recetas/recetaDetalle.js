@@ -98,7 +98,7 @@ export default function ResetaForm(props) {
             <ClearIcon />
           </IconButton>
         </Grid>
-        {(productos.length === 0) ? "" : <Paper className={classes.paper} style={{ maxWidth: '450px' }}>
+        {(productos.length !== 0) ? "" : <Paper className={classes.paper} style={{ maxWidth: '450px' }}>
           {productos.map(data =>
             <Chip
               key={data.id}

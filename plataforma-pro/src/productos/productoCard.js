@@ -23,31 +23,21 @@ export default function ImgMediaCard(props) {
 
   return (
     <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image={/*require('./img/' +*/ props.url /*)*/}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+      <CardMedia
+        component="img"
+        alt="Contemplative Reptile"
+        height="140"
+        image={/*require('./img/' +*/ props.url /*)*/}
+        title="Contemplative Reptile"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">
           {props.titulo}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
           {props.descripcion}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
+        </Typography>
+      </CardContent>
     </Card>
   );
 }
