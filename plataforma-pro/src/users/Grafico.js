@@ -64,8 +64,8 @@ export default class Grafico extends PureComponent {
        <YAxis />
        <Tooltip />
        <Legend verticalAlign="top" height={36}/>
-       <Line type="monotone" name="Masa muscular [%]" dataKey="masa_muscular" stroke="#82ca9d" />
-       <Line type="monotone" name="Masa grasa [%]" dataKey="masa_grasa" stroke="#f58742" />
+       <Line type="monotone" name="Masa muscular [kg]" dataKey="masa_muscular" stroke="#82ca9d" />
+       <Line type="monotone" name="Masa grasa [kg]" dataKey="masa_grasa" stroke="#f58742" />
      </LineChart>
      </Grid>
      </div>
