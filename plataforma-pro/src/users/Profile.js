@@ -17,7 +17,9 @@ import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MeasurementTable from './MeasurementTable';
 import UrlInteligente from '../url';
+import Grafico from './PreGrafico';
 
+import TodoData from './data';
 const useStyles = makeStyles(theme => ({
   container: {
       display: 'flex',
@@ -94,7 +96,7 @@ const useStyles = makeStyles(theme => ({
 export default function Profile(props) {
     let { nroPaciente, modoPaciente } = props;
     if (modoPaciente) {
-        nroPaciente = "4";
+        nroPaciente = "5";
     }
     const url = UrlInteligente.obtenerUrl('pacientes',`/clientes/${nroPaciente}`);
     const [state, setState] = useState(props);
@@ -440,6 +442,9 @@ export default function Profile(props) {
             <MeasurementTable nroPaciente={nroPaciente}/>
         </Grid>
       </Grid>
+        <Grid item xs={12}>
+            <Grafico nroPaciente={nroPaciente} />
+        </Grid>
     </Container>
   );
 }
