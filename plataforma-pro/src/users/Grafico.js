@@ -43,7 +43,7 @@ export default class Grafico extends PureComponent {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="fecha"  />
-        <YAxis />
+        <YAxis domain={[80, 'auto']} />
         <Tooltip />
         <Legend verticalAlign="top" height={36}/>
         <Line type="monotone" name="Peso [kg]" dataKey="peso" stroke="#8884d8" activeDot={{ r: 8 }} />
