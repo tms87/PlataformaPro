@@ -37,7 +37,10 @@ export default function MeasurementTable(props) {
     <MaterialTable
       options={{
         actionsColumnIndex: -1,
-        search: true
+        search: false,
+        paging: false,
+        minBodyHeight: '100vh',
+        maxBodyHeight: '100vh',
       }}
       localization={{
         header: {
