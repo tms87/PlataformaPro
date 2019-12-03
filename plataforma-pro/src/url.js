@@ -1,7 +1,7 @@
     
 export default  {
     backEndHabilitado : true,
-    UrlNgrok : 'http://c733d86c.ngrok.io/api',
+    UrlNgrok : 'http://06506655.ngrok.io/api',
 
     pacientes: 'http://www.mocky.io/v2/5de2eb0d3000006800e9c966', 
     //[{ "id" : "1","profesional_id" : "2",   "nombre": "Ernesto", "apellido": "Araujo", "lastTurn": "03-10-2019" ,   "nextTurn": "22-10-2019", "dni" : "37009167"}]

@@ -99,7 +99,7 @@ export default function Producto(props) {
   async function fetchApiPorId(id) {
     try {
       setLoading(true);
-      const res = await fetch(url+ id);
+      const res = await fetch(url+ (id === 0 ? "" : id ));
       await res.json()
         .then(json => { setData(json);});
     } catch (e) {
