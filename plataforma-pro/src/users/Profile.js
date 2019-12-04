@@ -96,7 +96,7 @@ const useStyles = makeStyles(theme => ({
 export default function Profile(props) {
     let { nroPaciente, modoPaciente } = props;
     if (modoPaciente) {
-        nroPaciente = "5";
+        nroPaciente = "4";
     }
     const url = UrlInteligente.obtenerUrl('pacientes',`/clientes/${nroPaciente}`);
     const [state, setState] = useState(props);

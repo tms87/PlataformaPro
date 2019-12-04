@@ -5,7 +5,7 @@ export default {
         { title: 'Masa Muscular', field: 'masa_muscular'},
         { title: 'Grasa', field: 'masa_grasa'},
         { title: 'Altura', field: 'altura'},
-        { title: 'Fecha', field: 'fecha'},
+        { title: 'Fecha', field: 'fecha', editable: "never" },
     ],
     data: [],
     /* data: [{ type: 'Peso', value: '80', date: '10-10-2019' },
