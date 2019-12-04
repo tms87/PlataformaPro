@@ -1,4 +1,4 @@
-import React, {useEffect} from './../../node_modules/react';
+import React, { useEffect } from './../../node_modules/react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import TabInfo from './TabInfo';
 import UrlInteligente from '../url';
 import Card from './productoCard';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
     height: '97vh',
-    
+
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -56,14 +57,15 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "initial",
     margin: "10px",
   },
-  tabsContenido:{
-   
+  tabsContenido: {
+
   }
 }));
 
 
 
-const url = UrlInteligente.obtenerUrl('productos',`/productos/grupo/`); 
+const url = UrlInteligente.obtenerUrl('productos', `/productos/grupo/`);
+const urlAll = UrlInteligente.obtenerUrl('productos', `/productos/`);
 export default function Producto(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -77,14 +79,14 @@ export default function Producto(props) {
   };
 
 
- 
+
   useEffect(() => {
     async function fetchApi() {
       try {
         setLoading(true);
-        const res = await fetch(url + tab);
+        const res = await fetch(urlAll);
         await res.json()
-          .then(json => { setData(json); console.log(json);});
+          .then(json => { setData(json); console.log(json); });
       } catch (e) {
         console.log(e);
       } finally {
@@ -99,9 +101,10 @@ export default function Producto(props) {
   async function fetchApiPorId(id) {
     try {
       setLoading(true);
-      const res = await fetch(url+ (id === 0 ? "" : id ));
+      console.log(url + (id === 0 ? "" : id))
+      const res = await fetch(id === 0 ? urlAll : url + id);
       await res.json()
-        .then(json => { setData(json);});
+        .then(json => { setData(json); });
     } catch (e) {
       console.log(e);
     } finally {
@@ -109,31 +112,32 @@ export default function Producto(props) {
     }
   }
 
-  const clickEvent= (index) => {
+  const clickEvent = (index) => {
     setTab(index);
     console.log("----" + tab + " vs " + index);
     fetchApiPorId(index);
   };
-  
+
   return (
     <div className={classes.root}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          className={classes.tabs}>
-          {TabInfo.map(i => <Tab label={i.label} icon={i.icon} onClick={() => clickEvent(i.key)} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
+      <Tabs
+        orientation="vertical"
+        variant="scrollable"
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        className={classes.tabs}>
+        {TabInfo.map(i => <Tab label={i.label} icon={i.icon} onClick={() => clickEvent(i.key)} classes={{ wrapper: classes.wrapper }} {...a11yProps(i.key)} />)}}
           </Tabs>
-          <TabPanel style={{width:"100%", overFlow:'auto'}}>
-            <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
-                  {data.map( x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion}  />)}
-            </Box>
-          </TabPanel>
-            
-          
-     
+      <TabPanel style={{ width: "100%", overFlow: 'auto' }}>
+        {loading && <CircularProgress />}
+        <Box display="flex" flexWrap="wrap" justifyContent="center" flexGrow={1}>
+          {data.map(x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion} />)}
+        </Box>
+      </TabPanel>
+
+
+
     </div>
   );
 }
@@ -146,7 +150,7 @@ export default function Producto(props) {
               <Box display="flex"   flexWrap="wrap" justifyContent="center" flexGrow={1}>
                 {data.map( x => <Card url={x.url} titulo={x.nombre} descripcion={x.descripcion}  />)}
               </Box>
-            
+
           </TabPanel>
         )}
 

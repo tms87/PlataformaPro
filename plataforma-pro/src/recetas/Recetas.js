@@ -13,6 +13,7 @@ import UrlInteligente from '../url';
 import Button from '@material-ui/core/Button';
 import CardResetasDos from './ResetasCard';
 import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //const pr = 'http://b95ec43e.ngrok.io/api/recetas/profesional/35';
 const url = UrlInteligente.obtenerUrl('recetas', '/recetas/profesional/35');
@@ -86,9 +87,9 @@ export default function Resetas(props) {
       )}
     </Popper>
     <Container >
-    <Box display="flex" p={1} bgcolor="background.paper">
+    <Box bgcolor="background.paper">
         
-        {(loading) ? "Loading..." :
+        {(loading) ? <CircularProgress /> :
         <div style={{flex:'1'}}>
           <Grid container spacing={3}   >
             {data.map((item, key) =>
