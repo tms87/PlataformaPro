@@ -190,7 +190,9 @@ export default function ResetaCard(props) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>{state.content}</Typography>
+            {state.content !== null ?
+              state.content.split("\n").map((i, key) =>
+                <Typography key={key} paragraph style={{ textAlign: 'left' }}>{i}</Typography>) : ""}
             {(productos.length === 0) ? "" : <Paper className={classes.paper} style={{ maxWidth: '450px' }}>
               {productos.map(data =>
                 <Chip
